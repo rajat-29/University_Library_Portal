@@ -12,7 +12,8 @@ var MongoClient = mongodb.MongoClient;
 var userdata = new Object();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'Views'));
+app.set('views', path.join(__dirname, 'Admin'));
+app.set('views', path.join(__dirname, 'User'));
 app.set('view engine', 'ejs');
 
 app.use(express.static(path.join(__dirname,'/public'))) /*folder path*/
