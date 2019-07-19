@@ -56,3 +56,4 @@ var userSchema = new mongoose.Schema({					/*define structure of database*/
 })
 
 var users = mongoose.model('blooddonation', userSchema);
+
