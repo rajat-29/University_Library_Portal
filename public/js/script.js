@@ -1,0 +1,68 @@
+// index page for login page //
+
+var user_name = document.getElementById('user_name');
+var pass = document.getElementById('pass');
+var submit = document.getElementById('submit');
+
+submit.addEventListener("click", function() {
+	//console.log(pass.value);
+	var request = new XMLHttpRequest();
+    request.open('POST',"/checkLogin");
+    request.setRequestHeader("Content-Type","application/json");
+    request.send(JSON.stringify({name : n.value,password: pass.value}));
+    request.addEventListener("load",function() {
+    	var data = request.responseText;
+    	if(data === 'true') {
+    		//console.log('hello user');
+            window.location = "/home";
+            //window.location.href = "h.html";
+        }
+        else if(data === 'false')
+        {
+            window.location = "/404";
+        }
+    	else {
+            document.getElementById("wrong_id").style.display = "block";
+            document.getElementById("forming").style.height = "340px";
+    		console.log('getout');
+            n.value = "";
+            pass.value = "";
+    	}
+      //  console.log(data);
+    });
+})
+
+
+pass.addEventListener("keyup", function() {
+
+     if (event.keyCode === 13) {
+    //console.log(pass.value);
+    var request = new XMLHttpRequest();
+    request.open('POST',"/checkLogin");
+    request.setRequestHeader("Content-Type","application/json");
+    request.send(JSON.stringify({name : n.value,password: pass.value}));
+    request.addEventListener("load",function() {
+        var data = request.responseText;
+        if(data === 'true') {
+            console.log('hello user');
+            window.location = "/home";
+            //window.location.href = "h.html";
+        }
+        else if(data === 'false')
+        {
+            window.location = "/404";
+        }
+        else {
+            document.getElementById("wrong_id").style.display = "block";
+            document.getElementById("forming").style.height = "340px";
+            console.log('getout');
+            n.value = "";
+            pass.value = "";
+        }
+      //  console.log(data);
+    });
+}
+})
+
+
+
