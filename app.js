@@ -111,5 +111,12 @@ app.get('/home' , function(req,res)
     }
 })
 
+// logout the user and admin //
+app.get('/logout_person', function(req,res) {
+    req.session.isLogin = 0;
+    req.session.destroy();
+    res.render('index');
+})
+
 console.log("Running on port 8000");
 app.listen(8000)
