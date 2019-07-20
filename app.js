@@ -5,19 +5,16 @@ var session = require('express-session');
 var ejs = require('ejs');
 var mongodb = require('mongodb');
 var MongoDataTable = require('mongo-datatable');
-app.use(passport.initialize());
-app.use(passport.session());
 ObjectId = require('mongodb').ObjectID;
 var MongoClient = mongodb.MongoClient;
 var userdata = new Object();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'Admin'));
-app.set('views', path.join(__dirname, 'User'));
+
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(express.static(path.join(__dirname,'/public'))) /*folder path*/
-app.use(express.static(path.join(__dirname,'public/uploads')));
 
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())									/*include express*/
@@ -28,7 +25,7 @@ app.use(session({
 }))
 
 var mongoose = require('mongoose');						/*include mongo*/
-var mongoDB = 'mongodb://localhost/blooddonation';
+var mongoDB = 'mongodb://localhost/libraryManagement';
 
 mongoose.set('useFindAndModify', false);
 mongoose.connect(mongoDB,{ useNewUrlParser: true});
@@ -55,5 +52,64 @@ var userSchema = new mongoose.Schema({					/*define structure of database*/
     flag: Number, 
 })
 
-var users = mongoose.model('blooddonation', userSchema);
+var users = mongoose.model('students', userSchema);
 
+// login checking //
+app.post('/checkLogin',function (req, res)         /*post data */
+{
+
+    req.session.isLogin = 0;
+    var username = req.body.name;
+    var pasword = req.body.password;
+    console.log(pasword)
+    users.findOne({email: username,password: pasword}, function(error,result)
+    {
+        if(error)
+        throw error;
+
+        if(!result) 
+        {
+            console.log('not exits');
+            res.send("false");
+        }
+        else
+        {
+            console.log(result)
+            if(result.flag == 0)
+            {
+                res.send("false");
+            }
+            else 
+            {
+                req.session.isLogin = 1;
+                req.session.email = req.body.name;
+                req.session.password = req.body.password;
+
+                userdata.name = result.name;
+                userdata.email = result.email;         
+                userdata.role = result.role;
+
+                res.send("true");
+            }
+        }
+    })     
+})
+
+// admin side //
+app.get('/home' , function(req,res)
+{        /*get data */
+    if(req.session.isLogin) 
+    {
+        if(userdata.role == 'Admin')
+        {
+            res.render('dashboard', {data: userdata});         
+        }
+    } 
+    else 
+    {
+        res.render('index');
+    }
+})
+
+console.log("Running on port 8000");
+app.listen(8000)

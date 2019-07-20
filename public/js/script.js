@@ -6,7 +6,7 @@ var submit = document.getElementById('submit');
 
 submit.addEventListener("click", function() {
 	var request = new XMLHttpRequest();
-    request.open('POST',"/checkLogin");
+    request.open('POST',"checkLogin");
     request.setRequestHeader("Content-Type","application/json");
     request.send(JSON.stringify({name : user_name.value,password: pass.value}));
     request.addEventListener("load",function() {
