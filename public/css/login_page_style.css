@@ -69,3 +69,7 @@ header {
     width: 100%;
   }
 }
+.buttons
+{
+	display:flex;
+}
