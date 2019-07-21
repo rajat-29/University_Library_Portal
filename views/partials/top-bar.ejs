@@ -2,7 +2,7 @@
 
     <div class="container">
         <div class="navbar-header"> 
-            <a class="navbar-brand">
+            <a class="navbar-brand" onclick="home_page()">
                  <img src="images/logo.png" />
             </a>
         </div>
@@ -24,12 +24,12 @@
 
                         <ul id="menu-top" class="nav navbar-nav navbar-right">
 
-                            <li><a href="" class="menu-top-active">DASHBOARD</a></li>
+                            <li><a onclick="home_page()" class="menu-top-active">DASHBOARD</a></li>
 
                             <li>
                                 <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Categories <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="">Add Category</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" onclick="addCategory()">Add Category</a></li>
                                      <li role="presentation"><a role="menuitem" tabindex="-1" href="">Manage Categories</a></li>
                                 </ul>
                             </li>

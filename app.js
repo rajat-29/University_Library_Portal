@@ -118,5 +118,28 @@ app.get('/logout_person', function(req,res) {
     res.render('index');
 })
 
+//add category page
+app.get('/add_category', function(req,res) {
+    if(req.session.isLogin)
+    {
+        res.render('add_category', {data: userdata});
+    }
+    else
+    {
+        res.render('index');
+    }
+})
+
+app.get('/add_book', function(req,res) {
+     if(req.session.isLogin)
+    {
+        res.render('add_book', {data: userdata});
+    }
+    else
+    {
+        res.render('index');
+    }
+})
+
 console.log("Running on port 8000");
 app.listen(8000)
