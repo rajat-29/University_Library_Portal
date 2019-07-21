@@ -13,7 +13,10 @@ function addBook()
 {
     window.location = "/add_book";
 }
-
+function changePassword()
+{
+    window.location="/changePassword";
+}
 
 // render home page
 function home_page()
