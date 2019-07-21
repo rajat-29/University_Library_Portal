@@ -206,6 +206,21 @@ app.post('/showcategories' , function(req, res) {
    });
 })
 
+//delete category
+app.delete('/category/:pro',function(req,res) {
+      var id = req.params.pro.toString();
+      category.deleteOne({ "_id": id },function(err,result)
+      {
+          if(err)
+          throw error
+          else
+          {
+            console.log(result);
+              res.send("data deleted SUCCESFULLY")
+          }
+      });
+ })
+
 // fetch select options of categories
 app.get('/categoryOptions',function (req, res)  {
     category.find({status: 'Active'}, function(error,result)
