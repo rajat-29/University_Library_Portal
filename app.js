@@ -57,8 +57,17 @@ var categorSchema = new mongoose.Schema({
     status: String,
 })
 
+var BookSchema = new mongoose.Schema({
+    name: String,
+    category: String,
+    author: String,
+    isbn: String,
+    price: String,
+})
+
 var users = mongoose.model('students', userSchema);
 var category = mongoose.model('categories', categorSchema);
+var books = mongoose.model('books', BookSchema);
 
 // login checking //
 app.post('/checkLogin',function (req, res)  {
@@ -161,13 +170,36 @@ app.post('/addnewCategory', function(req,res) {
 // render add book page
 app.get('/add_book', function(req,res) {
      if(req.session.isLogin)
-    {
+     {
         res.render('add_book', {data: userdata});
-    }
-    else
-    {
+     }
+     else
+     {
         res.render('index');
-    }
+     }
+})
+
+app.post('/addnewbook', function(req,res) {
+     books.create(req.body,function(error,result)
+      {
+        if(error)
+        throw error;
+        else
+        {
+          console.log(result);
+        }
+      })
+     res.send("data saved");
+})
+
+app.get('/categoryOptions',function (req, res)  {
+    category.find({status: 'Active'}, function(error,result)
+    {
+        if(error)
+        throw error;
+        else
+        res.send(JSON.stringify(result));
+    })
 })
 
 // logout the user and admin //
