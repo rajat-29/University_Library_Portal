@@ -257,7 +257,7 @@ app.post('/addnewbook', function(req,res) {
      res.send("data saved");
 })
 
-// change password
+// render change password page
 app.get('/changePassword', function(req,res) {
     if(req.session.isLogin) {
       res.render('changePassword', {data: userdata});
@@ -265,6 +265,27 @@ app.get('/changePassword', function(req,res) {
        } else {
       res.render('index');
      }
+})
+
+// change password to database //
+app.post('/changePasswordDatabase' , function(req,res){
+    password = req.body;
+    if(password.oldpass != req.session.password)
+    {
+      res.send("Incorrect Old Password");
+    } 
+    else
+    {
+      users.updateOne({"email" : req.session.email},{$set: { "password" : password.newpass}} ,
+        function(error,result)
+        {
+          if(error)
+            throw error;
+          else
+            req.session.password = password.newpass;
+        })
+      res.send("Password Changed Successfully")
+    }
 })
 
 // logout the user and admin //
