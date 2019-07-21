@@ -17,8 +17,6 @@ submitbtn.addEventListener("click",function() {
 	obj.phone = phone.value;
 	obj.role = "User"
 
-	console.log(obj)
-
 	var request = new XMLHttpRequest();
     request.open('POST',"/addnewuser");
     request.setRequestHeader("Content-Type","application/json");

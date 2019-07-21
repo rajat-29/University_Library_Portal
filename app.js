@@ -52,7 +52,13 @@ var userSchema = new mongoose.Schema({					/*define structure of database*/
     flag: Number, 
 })
 
+var categorSchema = new mongoose.Schema({
+    name: String,
+    status: String,
+})
+
 var users = mongoose.model('students', userSchema);
+var category = mongoose.model('categories', categorSchema);
 
 // login checking //
 app.post('/checkLogin',function (req, res)  {
@@ -137,6 +143,19 @@ app.get('/add_category', function(req,res) {
     {
         res.render('index');
     }
+})
+
+app.post('/addnewCategory', function(req,res) {
+     category.create(req.body,function(error,result)
+      {
+        if(error)
+        throw error;
+        else
+        {
+          console.log(result);
+        }
+      })
+     res.send("data saved");
 })
 
 // render add book page
