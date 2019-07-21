@@ -5,6 +5,26 @@ submitbtn.addEventListener("click", function() {
 
 	var obj = new Object();
 	obj.name = catname.value;
+
+	//date
+	    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1;
+    var yyyy = today.getFullYear();
+    var hrs = today.getHours();
+    var mins = today.getMinutes();
+    var format = "AM";
+    if(hrs>12)
+    {
+        hrs=hrs-12;
+        format="PM";
+    }
+    today = + dd + '-' + getMonths(mm) + '-' + yyyy;
+    today = today + " ";
+    today = today + "(" + hrs + ':' + mins + '' + format + ")";
+
+    obj.createDate = today;
+
 	if(document.getElementById('activestatus').checked)
 	{
 		obj.status = "Active";
@@ -25,4 +45,7 @@ submitbtn.addEventListener("click", function() {
     window.location = "/add_category";
 })
 
-
+function getMonths(mno) {
+    var month = ["Jan","Feb","March","April","May","June","July","Aug","Sep","Oct","Nov","Dec"];
+    return month[mno-1];
+}

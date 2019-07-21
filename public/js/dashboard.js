@@ -3,6 +3,12 @@ function addCategory()
 {
     window.location = "/add_category";
 }
+
+function manageCategory()
+{
+    window.location = '/manage_category'
+}
+
 function addBook()
 {
     window.location = "/add_book";

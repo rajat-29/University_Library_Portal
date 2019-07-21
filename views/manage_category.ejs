@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html >
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Online Library Management System</title>
+    <!-- BOOTSTRAP CORE STYLE  -->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <!-- FONT AWESOME STYLE  -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" >
+    <!-- CUSTOM STYLE  -->
+    <link href="css/style.css" rel="stylesheet" />
+    <!-- GOOGLE FONT -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <!--jquery confirm -->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+       <script src="js/dashboard.js"></script>
+
+       <!-- datatable css -->
+        <link rel="stylesheet" type="text/css" href="css/datatables.css">
+        <link type="text/css" href="css/datatables.min.css">
+
+       
+
+</head>
+<body class="body">
+        <% include partials/top-bar.ejs %>
+        <div class="content-wrapper">
+         <div class="container">
+        <div class="row pad-botm">
+            <div class="col-md-12">
+                <h4 class="header-line">Add category</h4>
+                
+                            </div>
+                            </div>
+             <div class="row">
+                <div class="col-md-12">
+                <div class="panel panel-default">
+                <div class="panel-heading">
+                    Category Listing
+                </div>
+
+                     <div class="panel-body">
+                        <div class="table-responsive">
+
+                            <table class="table table-bordered" id="categories">
+                                <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Status</th>
+                                        <th>Create Date</th>
+                                        <th>Actions</th>
+                                     </tr>
+                                </thead>
+                                <tbody id="listing">
+                        
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+            
+                </div>
+                </div>
+
+            </div>
+   
+    </div>
+    </div>   
+    <div class="footer-section">   
+        <p>Library Management © 2019</p>
+    </div>
+            
+      <script type="text/javascript" src="js/manageCategory.js"></script>
+      <script src="js/bootstrap.js"></script> 
+
+        <script type="text/javascript" src="js/datatables.js"></script>
+        <script type="text/javascript" src="js/datatables.min.js"></script>
+</body>
+</html>

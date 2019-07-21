@@ -55,6 +55,7 @@ var userSchema = new mongoose.Schema({					/*define structure of database*/
 var categorSchema = new mongoose.Schema({
     name: String,
     status: String,
+    createDate: String,
 })
 
 var BookSchema = new mongoose.Schema({
@@ -154,6 +155,18 @@ app.get('/add_category', function(req,res) {
     }
 })
 
+// render manage category page
+app.get('/manage_category', function(req,res) {
+    if(req.session.isLogin)
+    {
+        res.render('manage_category', {data: userdata});
+    }
+    else
+    {
+        res.render('index');
+    }
+})
+
 app.post('/addnewCategory', function(req,res) {
      category.create(req.body,function(error,result)
       {
@@ -165,6 +178,43 @@ app.post('/addnewCategory', function(req,res) {
         }
       })
      res.send("data saved");
+})
+
+//datatables on categories
+app.post('/showcategories' , function(req, res) {
+    var flag;
+          category.countDocuments(function(e,count){
+      var start=parseInt(req.body.start);
+      var len=parseInt(req.body.length);
+      category.find({
+      }).skip(start).limit(len)
+    .then(data=> {
+       if (req.body.search.value)
+                    {
+                        data = data.filter((value) => {
+                            flag = value.name.includes(req.body.search.value) || value.createDate.includes(req.body.search.value)
+             || value.status.includes(req.body.search.value);
+            return flag;
+                        })
+                    } 
+ 
+      res.send({"recordsTotal": count, "recordsFiltered" : count, data})
+     })
+     .catch(err => {
+      res.send(err)
+     })
+   });
+})
+
+// fetch select options of categories
+app.get('/categoryOptions',function (req, res)  {
+    category.find({status: 'Active'}, function(error,result)
+    {
+        if(error)
+        throw error;
+        else
+        res.send(JSON.stringify(result));
+    })
 })
 
 // render add book page
@@ -192,15 +242,7 @@ app.post('/addnewbook', function(req,res) {
      res.send("data saved");
 })
 
-app.get('/categoryOptions',function (req, res)  {
-    category.find({status: 'Active'}, function(error,result)
-    {
-        if(error)
-        throw error;
-        else
-        res.send(JSON.stringify(result));
-    })
-})
+
 
 // logout the user and admin //
 app.get('/logout_person', function(req,res) {
