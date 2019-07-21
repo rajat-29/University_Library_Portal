@@ -3,6 +3,7 @@
 var user_name = document.getElementById('user_name');
 var pass = document.getElementById('pass');
 var submit = document.getElementById('submit');
+var signup = document.getElementById('signup');
 
 submit.addEventListener("click", function() {
 	var request = new XMLHttpRequest();
@@ -26,6 +27,10 @@ submit.addEventListener("click", function() {
             pass.value = "";
     	}
     });
+})
+
+signup.addEventListener("click", function() {
+    window.location = "/signup_page";
 })
 
 

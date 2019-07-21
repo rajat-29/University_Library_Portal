@@ -111,14 +111,12 @@ app.get('/home' , function(req,res)
     }
 })
 
-// logout the user and admin //
-app.get('/logout_person', function(req,res) {
-    req.session.isLogin = 0;
-    req.session.destroy();
-    res.render('index');
+// render signup page
+app.get('/signup_page', function(req,res) {
+        res.render('signup_users', {data: userdata});
 })
 
-//add category page
+// render add category page
 app.get('/add_category', function(req,res) {
     if(req.session.isLogin)
     {
@@ -130,6 +128,7 @@ app.get('/add_category', function(req,res) {
     }
 })
 
+// render add book page
 app.get('/add_book', function(req,res) {
      if(req.session.isLogin)
     {
@@ -139,6 +138,13 @@ app.get('/add_book', function(req,res) {
     {
         res.render('index');
     }
+})
+
+// logout the user and admin //
+app.get('/logout_person', function(req,res) {
+    req.session.isLogin = 0;
+    req.session.destroy();
+    res.render('index');
 })
 
 console.log("Running on port 8000");
