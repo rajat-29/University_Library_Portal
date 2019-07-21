@@ -55,8 +55,7 @@ var userSchema = new mongoose.Schema({					/*define structure of database*/
 var users = mongoose.model('students', userSchema);
 
 // login checking //
-app.post('/checkLogin',function (req, res)         /*post data */
-{
+app.post('/checkLogin',function (req, res)  {
 
     req.session.isLogin = 0;
     var username = req.body.name;
@@ -96,8 +95,7 @@ app.post('/checkLogin',function (req, res)         /*post data */
 })
 
 // admin side //
-app.get('/home' , function(req,res)
-{        /*get data */
+app.get('/home' , function(req,res) {        /*get data */
     if(req.session.isLogin) 
     {
         if(userdata.role == 'Admin')
@@ -114,6 +112,19 @@ app.get('/home' , function(req,res)
 // render signup page
 app.get('/signup_page', function(req,res) {
         res.render('signup_users', {data: userdata});
+})
+
+app.post('/addnewuser', function(req,res) {
+     users.create(req.body,function(error,result)
+      {
+        if(error)
+        throw error;
+        else
+        {
+          console.log(result);
+        }
+      })
+     res.send("data saved");
 })
 
 // render add category page
