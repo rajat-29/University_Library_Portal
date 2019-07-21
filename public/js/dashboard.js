@@ -3,6 +3,11 @@ function addCategory()
 {
     window.location = "/add_category";
 }
+function addBook()
+{
+    window.location = "/add_book";
+}
+
 
 // render home page
 function home_page()
