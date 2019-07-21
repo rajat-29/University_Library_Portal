@@ -257,7 +257,15 @@ app.post('/addnewbook', function(req,res) {
      res.send("data saved");
 })
 
-
+// change password
+app.get('/changePassword', function(req,res) {
+    if(req.session.isLogin) {
+      res.render('changePassword', {data: userdata});
+    
+       } else {
+      res.render('index');
+     }
+})
 
 // logout the user and admin //
 app.get('/logout_person', function(req,res) {
