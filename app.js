@@ -296,6 +296,30 @@ app.post('/showBooks' , function(req, res) {
    });
 })
 
+// render add author page //
+app.get('/add_author', function(req,res) {
+     if(req.session.isLogin)
+     {
+        res.render('add_author', {data: userdata});
+     }
+     else
+     {
+        res.render('index');
+     }
+})
+
+// render book issue page //
+app.get('/book_issue', function(req,res) {
+     if(req.session.isLogin)
+     {
+        res.render('book_issue', {data: userdata});
+     }
+     else
+     {
+        res.render('index');
+     }
+})
+
 // render change password page
 app.get('/changePassword', function(req,res) {
     if(req.session.isLogin) {
