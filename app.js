@@ -295,5 +295,26 @@ app.get('/logout_person', function(req,res) {
     res.render('index');
 })
 
+// find total number of users
+app.get('/totalNoofUsers' , function(req, res) {
+          users.countDocuments(function(e,count){
+                res.send(JSON.stringify(count));
+   });
+})
+
+// find total number of books
+app.get('/totalNoofBooks' , function(req, res) {
+          books.countDocuments(function(e,count){
+                res.send(JSON.stringify(count));
+   });
+})
+
+// find total number of category
+app.get('/totalNoofCat' , function(req, res) {
+          category.countDocuments(function(e,count){
+                res.send(JSON.stringify(count));
+   });
+})
+
 console.log("Running on port 8000");
 app.listen(8000)

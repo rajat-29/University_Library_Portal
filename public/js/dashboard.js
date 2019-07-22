@@ -10,16 +10,56 @@ function manageCategory()
 }
 function valid()
 {
-if(document.chngpwd.newpassword.value!= document.chngpwd.confirmpassword.value)
+    if(document.chngpwd.newpassword.value!= document.chngpwd.confirmpassword.value)
+    {
+        alert("New Password and Confirm Password Field do not match  !!");
+        document.chngpwd.confirmpassword.focus();
+        return false;
+    }
+    return true;
+}
+
+function fetchNumbers()
 {
-alert("New Password and Confirm Password Field do not match  !!");
-document.chngpwd.confirmpassword.focus();
-return false;
-}
-return true;
-}
+    var totalNoofUser = document.getElementById('totalNoofUser');
+    var totalNoOfBook = document.getElementById('totalNoOfBook'); 
+    var totalNoofCat = document.getElementById('totalNoofCat');
 
 
+    //for total number of users
+    var countdata;
+    var request = new XMLHttpRequest();
+    request.open('GET','/totalNoofUsers');
+    request.send();
+    request.onload = function()
+    {
+        countdata = JSON.parse(request.responseText);
+        totalNoofUser.innerHTML = countdata;
+    }
+
+    //for total number of books
+    var countbook;
+    var request1 = new XMLHttpRequest();
+    request1.open('GET','/totalNoofBooks');
+    request1.send();
+    request1.onload = function()
+    {
+        countbook = JSON.parse(request.responseText);
+        totalNoOfBook.innerHTML = countbook;
+    }
+
+    //for total number of categories
+    var countcat;
+    var request2 = new XMLHttpRequest();
+    request2.open('GET','/totalNoofCat');
+    request2.send();
+    request2.onload = function()
+    {
+        countcat = JSON.parse(request.responseText);
+        totalNoofCat.innerHTML = countbook;
+    }
+
+}
 
 function addBook()
 {
@@ -35,7 +75,6 @@ function home_page()
 {
     window.location = "/home";
 }
-
 
 // logout user
 function openlogoutpage()
