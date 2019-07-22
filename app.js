@@ -232,7 +232,7 @@ app.get('/categoryOptions',function (req, res)  {
     })
 })
 
-// render add book page
+// render add book page //
 app.get('/add_book', function(req,res) {
      if(req.session.isLogin)
      {
@@ -244,6 +244,7 @@ app.get('/add_book', function(req,res) {
      }
 })
 
+// add book to database //
 app.post('/addnewbook', function(req,res) {
      books.create(req.body,function(error,result)
       {
@@ -255,6 +256,44 @@ app.post('/addnewbook', function(req,res) {
         }
       })
      res.send("data saved");
+})
+
+// render manage book page //
+app.get('/manageBook', function(req,res) {
+     if(req.session.isLogin)
+     {
+        res.render('manage_books', {data: userdata});
+     }
+     else
+     {
+        res.render('index');
+     }
+})
+
+//datatables on categories
+app.post('/showBooks' , function(req, res) {
+    var flag;
+          books.countDocuments(function(e,count){
+      var start=parseInt(req.body.start);
+      var len=parseInt(req.body.length);
+      books.find({
+      }).skip(start).limit(len)
+    .then(data=> {
+       if (req.body.search.value)
+                    {
+                        data = data.filter((value) => {
+                            flag = value.name.includes(req.body.search.value) || value.category.includes(req.body.search.value)
+             || value.author.includes(req.body.search.value) || value.isbn.includes(req.body.search.value) || value.price.includes(req.body.search.value);
+            return flag;
+                        })
+                    } 
+ 
+      res.send({"recordsTotal": count, "recordsFiltered" : count, data})
+     })
+     .catch(err => {
+      res.send(err)
+     })
+   });
 })
 
 // render change password page

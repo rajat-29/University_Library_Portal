@@ -8,6 +8,7 @@ function manageCategory()
 {
     window.location = '/manage_category'
 }
+
 function valid()
 {
     if(document.chngpwd.newpassword.value!= document.chngpwd.confirmpassword.value)
@@ -44,7 +45,7 @@ function fetchNumbers()
     request1.send();
     request1.onload = function()
     {
-        countbook = JSON.parse(request.responseText);
+        countbook = JSON.parse(request1.responseText);
         totalNoOfBook.innerHTML = countbook;
     }
 
@@ -55,8 +56,8 @@ function fetchNumbers()
     request2.send();
     request2.onload = function()
     {
-        countcat = JSON.parse(request.responseText);
-        totalNoofCat.innerHTML = countbook;
+        countcat = JSON.parse(request2.responseText);
+        totalNoofCat.innerHTML = countcat;
     }
 
 }
@@ -65,6 +66,12 @@ function addBook()
 {
     window.location = "/add_book";
 }
+
+function manageBook()
+{
+    window.location = '/manageBook'
+}
+
 function changePassword()
 {
     window.location="/changePassword";
