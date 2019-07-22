@@ -200,5 +200,15 @@ height: 60px;
     .footer-section a, .footer-section a:hover {
         color:#000;
     }
+    .footer-section1
+    {
+         padding:25px 5px 25px 25px;
+    color:#000;
+    font-size:13px;
+      background-color: #f7f7f7;
+      text-align:right;
+       border-top:5px solid #9170E4;
+
+    }
 
 

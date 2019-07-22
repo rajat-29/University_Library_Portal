@@ -6,7 +6,11 @@ function addCategory()
 
 function manageCategory()
 {
-    window.location = '/manage_category'
+    window.location = '/manage_category';
+}
+function addAuthor()
+{
+    window.location='/add_author';
 }
 
 function valid()
