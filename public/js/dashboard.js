@@ -13,6 +13,12 @@ function addAuthor()
     window.location='/add_author';
 }
 
+function issueBook()
+{
+    window.location='/book_issue';
+}
+
+
 function valid()
 {
     if(document.chngpwd.newpassword.value!= document.chngpwd.confirmpassword.value)
