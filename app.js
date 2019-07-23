@@ -296,6 +296,21 @@ app.post('/showBooks' , function(req, res) {
    });
 })
 
+//delete category
+app.delete('/book/:pro',function(req,res) {
+      var id = req.params.pro.toString();
+      books.deleteOne({ "_id": id },function(err,result)
+      {
+          if(err)
+          throw error
+          else
+          {
+            console.log(result);
+              res.send("data deleted SUCCESFULLY")
+          }
+      });
+ })
+
 // render add author page //
 app.get('/add_author', function(req,res) {
      if(req.session.isLogin)
