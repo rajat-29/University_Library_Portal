@@ -383,6 +383,17 @@ app.post('/showauthor' , function(req, res) {
    });
 })
 
+// fetch select options of author
+app.get('/authorOptions',function (req, res)  {
+    authors.find( function(error,result)
+    {
+        if(error)
+        throw error;
+        else
+        res.send(JSON.stringify(result));
+    })
+})
+
 //delete author
 app.delete('/author/:pro',function(req,res) {
       var id = req.params.pro.toString();

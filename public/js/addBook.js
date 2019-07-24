@@ -1,4 +1,6 @@
 var categoryList = document.getElementById('categoryList');
+var authorList = document.getElementById('authorList');
+
 
 var bookname = document.getElementById('bookname');
 var author = document.getElementById('author');
@@ -19,6 +21,20 @@ function fetchselectoptions()
        for(i in commArr)
        {
        	categoryList.options[categoryList.options.length] = new Option(commArr[i].name,commArr[i].name);
+       }
+    }
+
+    // to fetch author select options
+    var authorArr;
+    var request1 = new XMLHttpRequest();
+    request1.open('GET','/authorOptions');
+    request1.send();
+    request1.onload = function()
+    {
+        authorArr = JSON.parse(request1.responseText);
+       for(j in authorArr)
+       {
+        authorList.options[authorList.options.length] = new Option(authorArr[j].name,authorArr[j].name);
        }
     }
 }
