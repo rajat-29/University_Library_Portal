@@ -52,12 +52,14 @@ var userSchema = new mongoose.Schema({					/*define structure of database*/
     flag: Number, 
 })
 
+// category data base schema //
 var categorSchema = new mongoose.Schema({
     name: String,
     status: String,
     createDate: String,
 })
 
+// book data base schema //
 var BookSchema = new mongoose.Schema({
     name: String,
     category: String,
@@ -66,9 +68,16 @@ var BookSchema = new mongoose.Schema({
     price: String,
 })
 
+// author data base schema //
+var authorSchema = new mongoose.Schema({
+    name: String,
+    createDate: String,
+})
+
 var users = mongoose.model('students', userSchema);
 var category = mongoose.model('categories', categorSchema);
 var books = mongoose.model('books', BookSchema);
+var authors = mongoose.model('authors', authorSchema);
 
 // login checking //
 app.post('/checkLogin',function (req, res)  {
@@ -321,6 +330,20 @@ app.get('/add_author', function(req,res) {
      {
         res.render('index');
      }
+})
+
+// add author to the database
+app.post('/addnewAuthor', function(req,res) {
+     authors.create(req.body,function(error,result)
+      {
+        if(error)
+        throw error;
+        else
+        {
+          console.log(result);
+        }
+      })
+     res.send("data saved");
 })
 
 // render book issue page //
