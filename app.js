@@ -332,6 +332,18 @@ app.get('/add_author', function(req,res) {
      }
 })
 
+// render manage author page //
+app.get('/manage_author', function(req,res) {
+     if(req.session.isLogin)
+     {
+        res.render('manage_author', {data: userdata});
+     }
+     else
+     {
+        res.render('index');
+     }
+})
+
 // add author to the database
 app.post('/addnewAuthor', function(req,res) {
      authors.create(req.body,function(error,result)
@@ -345,6 +357,46 @@ app.post('/addnewAuthor', function(req,res) {
       })
      res.send("data saved");
 })
+
+//datatables on authors
+app.post('/showauthor' , function(req, res) {
+    var flag;
+          authors.countDocuments(function(e,count){
+      var start=parseInt(req.body.start);
+      var len=parseInt(req.body.length);
+      authors.find({
+      }).skip(start).limit(len)
+    .then(data=> {
+       if (req.body.search.value)
+                    {
+                        data = data.filter((value) => {
+                            flag = value.name.includes(req.body.search.value) || value.createDate.includes(req.body.search.value);
+            return flag;
+                        })
+                    } 
+ 
+      res.send({"recordsTotal": count, "recordsFiltered" : count, data})
+     })
+     .catch(err => {
+      res.send(err)
+     })
+   });
+})
+
+//delete author
+app.delete('/author/:pro',function(req,res) {
+      var id = req.params.pro.toString();
+      authors.deleteOne({ "_id": id },function(err,result)
+      {
+          if(err)
+          throw error
+          else
+          {
+            console.log(result);
+              res.send("data deleted SUCCESFULLY")
+          }
+      });
+ })
 
 // render book issue page //
 app.get('/book_issue', function(req,res) {

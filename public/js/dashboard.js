@@ -8,6 +8,12 @@ function manageCategory()
 {
     window.location = '/manage_category';
 }
+
+function manageAuthor()
+{
+    window.location = '/manage_author';
+}
+
 function addAuthor()
 {
     window.location='/add_author';
