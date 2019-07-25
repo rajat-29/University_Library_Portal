@@ -41,6 +41,7 @@ mongoose.connection.on('connected',(err) => {
 // user data base scehema //
 var userSchema = new mongoose.Schema({					/*define structure of database*/
     name: String,
+    uniId: String,
     email: String,
     password: String,
     phone: String,
@@ -74,10 +75,19 @@ var authorSchema = new mongoose.Schema({
     createDate: String,
 })
 
+var issueBookSchema = new mongoose.Schema({
+    isbn: String,
+    uniId: String,
+    ReturnDate: String,
+    studentName: String,
+    bookName: String,
+})
+
 var users = mongoose.model('students', userSchema);
 var category = mongoose.model('categories', categorSchema);
 var books = mongoose.model('books', BookSchema);
 var authors = mongoose.model('authors', authorSchema);
+var issueBookes = mongoose.model('issueBookes', issueBookSchema);
 
 // login checking //
 app.post('/checkLogin',function (req, res)  {
@@ -470,7 +480,7 @@ app.get('/totalNoofUsers' , function(req, res) {
 app.get('/totalNoofBooks' , function(req, res) {
           books.countDocuments(function(e,count){
                 res.send(JSON.stringify(count));
-   });
+     });
 })
 
 // find total number of category
@@ -478,6 +488,48 @@ app.get('/totalNoofCat' , function(req, res) {
           category.countDocuments(function(e,count){
                 res.send(JSON.stringify(count));
    });
+})
+
+// issue new book
+app.post('/issueNewBook' , function(req,res) {
+
+  var details = new Object();
+
+  details.isbn = req.body.isbn;
+  details.uniId = req.body.uniId;
+  details.ReturnDate = req.body.ReturnDate;
+
+  users.find({uniId: req.body.uniId}, function(error,result)
+    {
+        if(error)
+        throw error;
+        else
+        {
+          details.studentName = result[0].name;
+
+             books.find({isbn: req.body.isbn}, function(error,result)
+             {
+                  if(error)
+                    throw error;
+                  else
+                  {
+                     details.bookName = result[0].name; 
+
+                     issueBookes.create(details,function(error,result)
+                      {
+                        if(error)
+                        throw error;
+                        else
+                        {
+                          console.log(result);
+                        }
+                      })
+                  }
+              })
+        }
+    })
+
+   res.send("data");
 })
 
 console.log("Running on port 8000");

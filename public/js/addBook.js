@@ -44,7 +44,7 @@ function addNewBook()
 	var obj = new Object();
 	obj.name = bookname.value;
 	obj.category = categoryList.value;
-	obj.author = author.value;
+	obj.author = authorList.value;
 	obj.isbn = isbn.value;
 	obj.price = price.value;
 

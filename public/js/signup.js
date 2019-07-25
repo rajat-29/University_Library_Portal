@@ -29,5 +29,5 @@ submitbtn.addEventListener("click",function() {
 })
 
 cancelbtn.addEventListener("click", function() {
-	 window.location = "/signup_page";
+	 window.location = "/home";
 })
