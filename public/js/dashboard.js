@@ -16,12 +16,17 @@ function manageAuthor()
 
 function addAuthor()
 {
-    window.location='/add_author';
+    window.location = '/add_author';
 }
 
 function issueBook()
 {
-    window.location='/book_issue';
+    window.location = '/book_issue';
+}
+
+function manage_issue_books()
+{
+    window.location = '/manage_issue_books'
 }
 
 

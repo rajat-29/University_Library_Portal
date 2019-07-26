@@ -15,7 +15,7 @@ function issueBook()
 
     if(dd>=30)
     {
-        dd = 6;
+        dd = dd-30;
         mm++;
     }
     if(mm>12)

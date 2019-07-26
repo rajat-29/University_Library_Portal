@@ -532,5 +532,58 @@ app.post('/issueNewBook' , function(req,res) {
    res.send("data");
 })
 
+// render book issue manage page //
+app.get('/manage_issue_books', function(req,res) {
+     if(req.session.isLogin)
+     {
+        res.render('manage_issue_books', {data: userdata});
+     }
+     else
+     {
+        res.render('index');
+     }
+})
+
+//datatables on issued books
+app.post('/showIssuedBooks' , function(req, res) {
+    var flag;
+          issueBookes.countDocuments(function(e,count){
+      var start=parseInt(req.body.start);
+      var len=parseInt(req.body.length);
+      issueBookes.find({
+      }).skip(start).limit(len)
+    .then(data=> {
+       if (req.body.search.value)
+                    {
+                        data = data.filter((value) => {
+                            flag = value.studentName.includes(req.body.search.value) || value.bookName.includes(req.body.search.value)
+             || value.isbn.includes(req.body.search.value) || value.uniId.includes(req.body.search.value);
+            return flag;
+                        })
+                    } 
+ 
+      res.send({"recordsTotal": count, "recordsFiltered" : count, data})
+     })
+     .catch(err => {
+      res.send(err)
+     })
+   });
+})
+
+//delete issued book //
+app.delete('/issuedBook/:pro',function(req,res) {
+      var id = req.params.pro.toString();
+      issueBookes.deleteOne({ "_id": id },function(err,result)
+      {
+          if(err)
+          throw error
+          else
+          {
+            console.log(result);
+              res.send("data deleted SUCCESFULLY")
+          }
+      });
+ })
+
 console.log("Running on port 8000");
 app.listen(8000)
