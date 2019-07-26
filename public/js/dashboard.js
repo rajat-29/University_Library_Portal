@@ -26,7 +26,13 @@ function issueBook()
 
 function manage_issue_books()
 {
-    window.location = '/manage_issue_books'
+    window.location = '/manage_issue_books';
+}
+
+function manageStudents()
+{
+    console.log('dd')
+    window.location = '/manage_students';
 }
 
 

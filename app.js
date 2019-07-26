@@ -585,5 +585,58 @@ app.delete('/issuedBook/:pro',function(req,res) {
       });
  })
 
+// render student manage page //
+app.get('/manage_students', function(req,res) {
+     if(req.session.isLogin)
+     {
+        res.render('manage_students', {data: userdata});
+     }
+     else
+     {
+        res.render('index');
+     }
+})
+
+//datatables on students
+app.post('/showStudents' , function(req, res) {
+    var flag;
+          users.countDocuments(function(e,count){
+      var start=parseInt(req.body.start);
+      var len=parseInt(req.body.length);
+      users.find({
+      }).skip(start).limit(len)
+    .then(data=> {
+       if (req.body.search.value)
+                    {
+                        data = data.filter((value) => {
+                            flag = value.uniId.includes(req.body.search.value) || value.name.includes(req.body.search.value)
+             || value.email.includes(req.body.search.value);
+            return flag;
+                        })
+                    } 
+ 
+      res.send({"recordsTotal": count, "recordsFiltered" : count, data})
+     })
+     .catch(err => {
+      res.send(err)
+     })
+   });
+})
+
+//delete students //
+app.delete('/students/:pro',function(req,res) {
+      var id = req.params.pro.toString();
+      users.deleteOne({ "_id": id },function(err,result)
+      {
+          if(err)
+          throw error
+          else
+          {
+            console.log(result);
+              res.send("data deleted SUCCESFULLY")
+          }
+      });
+ })
+
 console.log("Running on port 8000");
 app.listen(8000)
