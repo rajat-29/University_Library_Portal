@@ -28,6 +28,10 @@ function manage_issue_books()
 {
     window.location = '/manage_issue_books';
 }
+function addNewUser()
+{
+    window.location='/add_students';
+}
 
 function manageStudents()
 {
