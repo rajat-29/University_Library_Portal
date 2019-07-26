@@ -638,5 +638,17 @@ app.delete('/students/:pro',function(req,res) {
       });
  })
 
+// render add student page //
+app.get('/add_students', function(req,res) {
+     if(req.session.isLogin)
+     {
+        res.render('add_students', {data: userdata});
+     }
+     else
+     {
+        res.render('index');
+     }
+})
+
 console.log("Running on port 8000");
 app.listen(8000)
