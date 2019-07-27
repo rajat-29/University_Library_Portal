@@ -37,3 +37,29 @@ submitbtn.addEventListener("click",function() {
 cancelbtn.addEventListener("click", function() {
 	 window.location = "/home";
 })
+
+
+function email_avail()
+{
+	document.getElementById("email_info").style.display = 'visible';
+	document.getElementById("email_info").style.display = 'block';
+	document.getElementById("email_info").style.marginTop = '10px';
+	document.getElementById("email_info").style.marginBottom = '10px';
+	
+	var obj1 = new Object();
+	obj1.email = email2.value;
+	
+	var request = new XMLHttpRequest();
+    request.open('POST',"/checkemail");
+    request.setRequestHeader("Content-Type","application/json");
+    request.send(JSON.stringify({email: email2.value}));
+    request.addEventListener("load",function() {
+    	var data = request.responseText;
+    	if(data === 'true') {
+    		display_email.innerHTML= "User " + obj1.email + " is already exist";
+    	}
+    	else {
+            display_email.innerHTML= obj1.email + " is available";
+    	}
+    });  
+}

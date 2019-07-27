@@ -664,5 +664,26 @@ app.get('/add_students', function(req,res) {
      }
 })
 
+// check wheater email exits or not //
+app.post('/checkemail',function (req, res) {
+
+     var emailes = req.body.email;
+
+     users.findOne({email: emailes}, function(error,result)
+      {
+        if(error)
+        throw error;
+
+      if(!result) {
+        console.log(emailes);
+        res.send("false");
+      }
+        else
+        {
+           res.send("true");
+        }
+      })
+})
+
 console.log("Running on port 8000");
 app.listen(8000)
