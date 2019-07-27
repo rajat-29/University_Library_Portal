@@ -8,7 +8,8 @@ var phone = document.getElementById('phone');
 
 submitStudent.addEventListener("click", function() {
 
-	if(uniId.value == '' || stuname.value || email2.value || password2.value || phone.value)
+	if(uniId.value == '' || stuname.value == '' || email2.value == '' || 
+		password2.value == '' || phone.value == '')
 	{
 		alert("Field is Empty");
 		return;

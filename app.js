@@ -490,6 +490,20 @@ app.get('/totalNoofCat' , function(req, res) {
    });
 })
 
+// find total number of issued Books
+app.get('/totalissuedBooks' , function(req, res) {
+          issueBookes.countDocuments(function(e,count){
+                res.send(JSON.stringify(count));
+   });
+})
+
+// find total number of Authors
+app.get('/totalNoofAuthors' , function(req, res) {
+          authors.countDocuments(function(e,count){
+                res.send(JSON.stringify(count));
+   });
+})
+
 // issue new book
 app.post('/issueNewBook' , function(req,res) {
 

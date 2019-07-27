@@ -56,6 +56,8 @@ function fetchNumbers()
     var totalNoofUser = document.getElementById('totalNoofUser');
     var totalNoOfBook = document.getElementById('totalNoOfBook'); 
     var totalNoofCat = document.getElementById('totalNoofCat');
+    var totalissuedBooks = document.getElementById('totalissuedBooks');
+    var totalNoofAuthors = document.getElementById('totalNoofAuthors');
 
 
     //for total number of users
@@ -90,6 +92,30 @@ function fetchNumbers()
         countcat = JSON.parse(request2.responseText);
         totalNoofCat.innerHTML = countcat;
     }
+
+    //for total number of books issued
+    var countIssuedBooks;
+    var request3 = new XMLHttpRequest();
+    request3.open('GET','/totalissuedBooks');
+    request3.send();
+    request3.onload = function()
+    {
+        countIssuedBooks = JSON.parse(request3.responseText);
+        totalissuedBooks.innerHTML = countIssuedBooks;
+    }
+
+    //for total number of authors
+    var countAuthors;
+    var request4 = new XMLHttpRequest();
+    request4.open('GET','/totalNoofAuthors');
+    request4.send();
+    request4.onload = function()
+    {
+        countAuthors = JSON.parse(request4.responseText);
+        totalNoofAuthors.innerHTML = countAuthors;
+    }
+
+
 
 }
 
