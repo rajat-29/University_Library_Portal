@@ -3,6 +3,12 @@ var submitAuth = document.getElementById('submitAuth');
 
 submitAuth.addEventListener("click", function(){
 
+    if(authName.value == '')
+    {
+        alert("Author is Empty");
+        return ;
+    }
+
 	var obj = new Object();
 	obj.name = authName.value;
 

@@ -6,6 +6,13 @@ var submit = document.getElementById('submit');
 var signup = document.getElementById('signup');
 
 submit.addEventListener("click", function() {
+
+    if(user_name.value == '' || pass.value == '')
+    {
+        alert("Field is Empty");
+        return;
+    }
+
 	var request = new XMLHttpRequest();
     request.open('POST',"checkLogin");
     request.setRequestHeader("Content-Type","application/json");

@@ -41,6 +41,14 @@ function fetchselectoptions()
 
 function addNewBook()
 {
+
+  if(bookname.value == '' || categoryList.value == '' || authorList.value == '' 
+    || isbn.value == '' || price.value == '')
+  {
+    alert("Fields can't be Empty");
+    return;
+  }
+
 	var obj = new Object();
 	obj.name = bookname.value;
 	obj.category = categoryList.value;

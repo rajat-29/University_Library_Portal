@@ -6,7 +6,13 @@ submitbtn.addEventListener("click", function() {
 	var newPass = document.getElementById('newPass');
 	var confPass = document.getElementById('confPass');
 
-	if(newPass.value != oldPass.value)
+	if(oldPass.value == '' || newPass.value == '' || confPass.value == '')
+	{
+		alert("Field is Empty");
+		return;
+	}
+
+	if(newPass.value != confPass.value)
 	{
 		alert("Confirm Password should Match");
 	}

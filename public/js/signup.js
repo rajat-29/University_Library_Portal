@@ -9,6 +9,12 @@ var cancelbtn = document.getElementById('cancelbtn');
 
 submitbtn.addEventListener("click",function() {
 
+	if(uniId.value == '' || stuname.value || email2.value || password2.value || phone.value)
+	{
+		alert("Field is Empty");
+		return;
+	}
+
 	var obj = new Object();
 	obj.uniId = uniId.value;
 	obj.name = stuname.value;

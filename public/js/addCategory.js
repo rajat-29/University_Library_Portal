@@ -3,6 +3,12 @@ var submitbtn = document.getElementById('submitbtn');
 
 submitbtn.addEventListener("click", function() {
 
+    if(catname.value == '')
+    {
+        alert("Category is Empty");
+        return;
+    }
+
 	var obj = new Object();
 	obj.name = catname.value;
 

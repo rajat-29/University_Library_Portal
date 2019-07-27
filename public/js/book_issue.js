@@ -5,7 +5,13 @@ var bookid = document.getElementById('bookid');
 function issueBook()
 {
 
-     var today = new Date();
+    if(studentid.value == '' || bookid.value == '')
+    {
+        alert("Fields can't be Empty");
+        return;
+    }
+
+    var today = new Date();
     var dd = today.getDate()+7;
     var mm = today.getMonth()+1;
     var yyyy = today.getFullYear();
