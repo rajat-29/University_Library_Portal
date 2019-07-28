@@ -723,7 +723,7 @@ app.post('/checknameusingUniId',function (req, res) {
       }
         else
         {
-           res.send(result.name);
+           res.send(JSON.stringify(result));
         }
       })
 })

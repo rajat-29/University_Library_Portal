@@ -1,6 +1,10 @@
 var studentid = document.getElementById('studentid');
 var bookid = document.getElementById('bookid');
-
+var submitIssue = document.getElementById('submitIssue');
+var studentName;
+var BookName;
+var today;
+var email2;
 
 function issueBook()
 {
@@ -11,7 +15,7 @@ function issueBook()
         return;
     }
 
-    var today = new Date();
+    today = new Date();
     var dd = today.getDate()+7;
     var mm = today.getMonth()+1;
     var yyyy = today.getFullYear();
@@ -59,6 +63,29 @@ function getMonths(mno) {
     return month[mno-1];
 }
 
+submitIssue.addEventListener("click", function() {
+
+    console.log("ramj")
+
+    var data = new Object()
+            data.to=email2;
+            data.from="codemailler12@gmail.com";
+            data.subject="Book Issued";
+            data.text= "Hi " + "\n" + studentName + " having University Id = " + studentid.value + " has Issued" +
+             " a book name : " + BookName + " having ISBN no : " + bookid.value + " and your return date is " + 
+             today;
+        
+        console.log(data);
+        var request = new XMLHttpRequest();
+            request.open('POST', '/sendMail');
+            request.setRequestHeader("Content-Type","application/json");
+            request.send(JSON.stringify(data))
+            request.addEventListener("load",function()
+            {
+                 console.log(request.responseText);
+            });
+})
+
 function get_student_name()
 {
     var get_student_name = document.getElementById('get_student_name');
@@ -68,8 +95,16 @@ function get_student_name()
     request.setRequestHeader("Content-Type","application/json");
     request.send(JSON.stringify({uniId: studentid.value}));
     request.addEventListener("load",function() {
+
+        var obj1;
+        obj1 = JSON.parse(request.responseText);
+
+        console.log(obj1.name)
         
-    get_student_name.innerHTML= request.responseText;
+    studentName = obj1.name;
+    email2 = obj1.email;
+
+    get_student_name.innerHTML= obj1.name;
         
     });  
 }
@@ -83,6 +118,9 @@ function get_book_name()
     request.setRequestHeader("Content-Type","application/json");
     request.send(JSON.stringify({isbn: bookid.value}));
     request.addEventListener("load",function() {
+
+        BookName = request.responseText;
+
         
     get_book_name.innerHTML= request.responseText;
         
