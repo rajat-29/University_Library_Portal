@@ -708,5 +708,45 @@ app.post('/sendMail', function(request,response) {
       })
 })
 
+// check student name using uniId //
+app.post('/checknameusingUniId',function (req, res) {
+
+     var uniId = req.body.uniId;
+
+     users.findOne({uniId: uniId}, function(error,result)
+      {
+        if(error)
+        throw error;
+
+      if(!result) {
+        res.send("false");
+      }
+        else
+        {
+           res.send(result.name);
+        }
+      })
+})
+
+// check book name using isbn //
+app.post('/checkbookusingIsbn',function (req, res) {
+
+     var isbn = req.body.isbn;
+
+     books.findOne({isbn: isbn}, function(error,result)
+      {
+        if(error)
+        throw error;
+
+      if(!result) {
+        res.send("false");
+      }
+        else
+        {
+           res.send(result.name);
+        }
+      })
+})
+
 console.log("Running on port 8000");
 app.listen(8000)

@@ -58,3 +58,33 @@ function getMonths(mno) {
     var month = ["Jan","Feb","March","April","May","June","July","Aug","Sep","Oct","Nov","Dec"];
     return month[mno-1];
 }
+
+function get_student_name()
+{
+    var get_student_name = document.getElementById('get_student_name');
+    
+    var request = new XMLHttpRequest();
+    request.open('POST',"/checknameusingUniId");
+    request.setRequestHeader("Content-Type","application/json");
+    request.send(JSON.stringify({uniId: studentid.value}));
+    request.addEventListener("load",function() {
+        
+    get_student_name.innerHTML= request.responseText;
+        
+    });  
+}
+
+function get_book_name()
+{
+    var get_book_name = document.getElementById('get_book_name');
+    
+    var request = new XMLHttpRequest();
+    request.open('POST',"/checkbookusingIsbn");
+    request.setRequestHeader("Content-Type","application/json");
+    request.send(JSON.stringify({isbn: bookid.value}));
+    request.addEventListener("load",function() {
+        
+    get_book_name.innerHTML= request.responseText;
+        
+    });  
+}
