@@ -4,6 +4,7 @@ var app = express()
 var session = require('express-session');
 var ejs = require('ejs');
 var mongodb = require('mongodb');
+var mailer = require('nodemailer');
 var MongoDataTable = require('mongo-datatable');
 ObjectId = require('mongodb').ObjectID;
 var MongoClient = mongodb.MongoClient;
@@ -37,6 +38,16 @@ mongoose.connection.on('error',(err) => {					/*database connect*/
 mongoose.connection.on('connected',(err) => {
     console.log('DB connected');
 })
+
+// node mailler //
+// add your email and password here for email //
+let transporter = mailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: '',
+      pass: ''
+    },
+});
 
 // user data base scehema //
 var userSchema = new mongoose.Schema({					/*define structure of database*/
@@ -681,6 +692,18 @@ app.post('/checkemail',function (req, res) {
         else
         {
            res.send("true");
+        }
+      })
+})
+
+// send mail to users node mailler //
+app.post('/sendMail', function(request,response) {
+    console.log(request.body)
+      transporter.sendMail(request.body, (error, info) => {
+        if(error) {
+          console.log(error)
+        } else {
+          console.log("Mail Sent" + info.response);
         }
       })
 })

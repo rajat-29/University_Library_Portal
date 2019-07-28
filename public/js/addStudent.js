@@ -60,3 +60,23 @@ function email_avail()
     	}
     });  
 }
+
+function sendmail()
+{
+				var data = new Object()
+			data.to=email2.value;
+			data.from="codemailler12@gmail.com";
+			data.subject="Confirmation Mail";
+			data.text= "Hi " + stuname.value + " Please Confirm your Email-Id! and kindly enter this password to login = " + password2.value;
+		
+		console.log(data);
+		var request = new XMLHttpRequest();
+			request.open('POST', '/sendMail');
+			request.setRequestHeader("Content-Type","application/json");
+			request.send(JSON.stringify(data))
+			request.addEventListener("load",function()
+        	{
+         		 console.log(request.responseText);
+        	});
+
+}
