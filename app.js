@@ -92,6 +92,7 @@ var issueBookSchema = new mongoose.Schema({
     ReturnDate: String,
     studentName: String,
     bookName: String,
+    fine: String,
 })
 
 var users = mongoose.model('students', userSchema);
@@ -523,6 +524,7 @@ app.post('/issueNewBook' , function(req,res) {
   details.isbn = req.body.isbn;
   details.uniId = req.body.uniId;
   details.ReturnDate = req.body.ReturnDate;
+  details.fine = 0;
 
   users.find({uniId: req.body.uniId}, function(error,result)
     {
@@ -747,6 +749,21 @@ app.post('/checkbookusingIsbn',function (req, res) {
         }
       })
 })
+
+// page to update user details //
+app.post('/updateuserdetails', function(req,res) {
+  //console.log(req.body);
+        issueBookes.updateOne( { "isbh" : req.body.isbn}, {$set : req.body } , function(err,result)
+        {
+          if(err)
+          throw err
+          else
+          {
+            res.send("DATA UPDATED SUCCESFULLY")
+          }
+        })
+})
+
 
 console.log("Running on port 8000");
 app.listen(8000)

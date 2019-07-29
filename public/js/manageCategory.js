@@ -24,17 +24,19 @@
                 "targets": -1,
 
                 "render": function (data, type, row, meta) {
-                   return '<center><span class="btn btn-danger btn-sm emailbtn actionbtns" onclick=deleteTag("'+row._id+'","'+row.name+'")><i class="fas fa-trash"></i></span></center>';    
+                   return '<span class="btn btn-danger btn-sm emailbtn actionbtns" id="delete" onclick=deleteTag("'+row._id+'")><i class="fas fa-trash"></i></span>';    
           }
             }],
     });
   });
 
- function deleteTag(ides,catnames)
+ function deleteTag(ides)
 {
+  $(document).on("click", "#delete", function() {
+    d = $(this).parent().parent()[0].children;
   $.confirm({
       title: 'Delete Category!',
-      content: "Are you sure you want to delete " + catnames,
+      content: "Are you sure you want to delete " + d[0].innerHTML,
       draggable: true,
       buttons: {
         Yes: {
@@ -60,4 +62,5 @@
       },
       }
     });
+})
 }

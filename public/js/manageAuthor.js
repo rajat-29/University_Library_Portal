@@ -21,17 +21,19 @@
                 "targets": -1,
 
                 "render": function (data, type, row, meta) {
-                   return '<center><span class="btn btn-danger btn-sm emailbtn actionbtns" onclick=deleteAuthor("'+row._id+'","'+row.name+'")><i class="fas fa-trash"></i></span></center>';    
+                   return '<span class="btn btn-danger btn-sm emailbtn actionbtns" id="delete" onclick=deleteAuthor("'+row._id+'")><i class="fas fa-trash"></i></span>';    
           }
             }],
     });
   });
 
-  function deleteAuthor(ides,authnames)
+  function deleteAuthor(ides)
 {
+  $(document).on("click", "#delete", function() {
+    d = $(this).parent().parent()[0].children;
   $.confirm({
       title: 'Delete Author!',
-      content: "Are you sure you want to delete " + authnames,
+      content: "Are you sure you want to delete " + d[0].innerHTML,
       draggable: true,
       buttons: {
         Yes: {
@@ -57,4 +59,5 @@
       },
       }
     });
+})
 }
