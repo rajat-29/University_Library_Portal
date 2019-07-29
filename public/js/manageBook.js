@@ -30,7 +30,7 @@
                 "targets": -1,
 
                 "render": function (data, type, row, meta) {
-                     data = '<span class="btn btn-danger btn-sm emailbtn actionbtns" id="delete" onclick=deleteTag("'+row._id+'")><i class="fas fa-trash"></i></span>';    
+                     data = '<span class="btn btn-primary btn-sm emailbtn actionbtns" id="updateBooks" data-toggle="modal" data-target="#updateModal"><i class="fas fa-edit"></i></span><span class="btn btn-danger btn-sm emailbtn actionbtns" id="delete" onclick=deleteTag("'+row._id+'")><i class="fas fa-trash"></i></span>';    
                       return data;
           }
             }],
@@ -73,4 +73,45 @@
           });
 
       })
+}
+
+$(document).on("click", "#updateBooks", function() {
+    d = $(this).parent().parent()[0].children;
+    console.log(d);
+    checkName = d[3].innerHTML;
+    $('#username').val(d[0].innerHTML);
+    $('#cateoryName').val(d[1].innerHTML);
+    $('#authorName').val(d[2].innerHTML);
+    $('#isbn').val(d[3].innerHTML);
+    $('#pricing').val(d[4].innerHTML);
+    
+    
+})
+
+
+function updateuserdetails()
+{
+  var username = document.getElementById("username");
+  var cateoryName = document.getElementById("cateoryName");
+    var authorName = document.getElementById("authorName");
+      var pricing = document.getElementById("pricing");
+
+
+
+    var obj1 = Object()
+    
+      obj1.name = username.value;
+      obj1.category = cateoryName.value;
+      obj1.author = authorName.value;
+      obj1.price = pricing.value;
+      obj1.isbn = checkName
+      var request = new XMLHttpRequest();
+      request.open('POST', '/updateBookDetails');
+      request.setRequestHeader("Content-Type","application/json");
+      request.send(JSON.stringify(obj1))
+      request.addEventListener("load",function()
+          {
+             console.log(request.responseText);
+          });
+          location.reload();
 }

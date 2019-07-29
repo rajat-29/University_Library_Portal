@@ -789,6 +789,23 @@ app.post('/updateAuthorDetails', function(req,res) {
         })
 })
 
+// to update book details //
+app.post('/updateBookDetails', function(req,res) {
+ 
+ // obj.status = req.body.status;
+console.log(req.body.isbn)
+        books.updateOne( { "isbn" : req.body.isbn}, {$set : req.body } , function(err,result)
+        {
+          if(err)
+          throw err
+          else
+          {
+            console.log('hello')
+            res.send("DATA UPDATED SUCCESFULLY")
+          }
+        })
+})
+
 // to update book issued details //
 app.post('/updateuserdetails', function(req,res) {
   //console.log(req.body);

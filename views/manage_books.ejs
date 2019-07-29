@@ -24,9 +24,17 @@
         <link rel="stylesheet" type="text/css" href="css/datatables.css">
         <link type="text/css" href="css/datatables.min.css">
 
-       
-
 </head>
+
+<style>
+    
+#updateBooks
+{
+    margin-right: 10px;
+}
+
+</style>
+
 <body class="body">
         <% include partials/top-bar.ejs %>
         <div class="content-wrapper">
@@ -76,6 +84,82 @@
     <div class="footer-section">   
         <p>Library Management © 2019</p>
     </div>
+
+
+
+
+<!-- update modal -->
+
+
+<div id="updateModal" class="modal fade" role="dialog" style="z-index:9999;">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                     <h3 id="eheading" style="text-align:left;" class="modal-title">Update <span id="nameses"></span></h3>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                        <div class="form-horizontal">
+                                                        <div class="form-group">
+                                                            <div class="col-lg-5 col-lg-offset-3" style="width:50%;">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-2">Name :</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control" id="username" placeholder="Username">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-2">Category :</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control" id="cateoryName" placeholder="Username">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-2">Author :</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control" id="authorName" placeholder="Username">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-2">Isbn:</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control" id="isbn" placeholder="City" readonly>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-2">Price :</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control" id="pricing" placeholder="Username">
+                                                            </div>
+                                                        </div>
+
+                                                          <div class="form-group">
+                                                            <div class="col-sm-offset-2 col-sm-10" style="text-align:left;">
+                                                                <button class = "btn btn-default" id="editsubmit" data-dismiss="modal" onclick="updateuserdetails()">Update</button>
+                                                            </div>
+                                                        </div>
+
+                                                        
+
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
             
       <script type="text/javascript" src="js/manageBook.js"></script>
       <script src="js/bootstrap.js"></script> 
