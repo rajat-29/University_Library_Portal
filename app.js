@@ -107,7 +107,6 @@ app.post('/checkLogin',function (req, res)  {
     req.session.isLogin = 0;
     var username = req.body.name;
     var pasword = req.body.password;
-    console.log(pasword)
     users.findOne({email: username,password: pasword}, function(error,result)
     {
         if(error)
@@ -120,16 +119,18 @@ app.post('/checkLogin',function (req, res)  {
         }
         else
         {
-            console.log(result)
+            //console.log(result)
             if(result.flag == 0)
             {
                 res.send("false");
             }
             else 
             {
+              //console.log(req.body)
                 req.session.isLogin = 1;
                 req.session.email = req.body.name;
                 req.session.password = req.body.password;
+                req.session.uniId = result.uniId;
 
                 userdata.name = result.name;
                 userdata.email = result.email;         
@@ -145,10 +146,9 @@ app.post('/checkLogin',function (req, res)  {
 app.get('/home' , function(req,res) {        /*get data */
     if(req.session.isLogin) 
     {
-        if(userdata.role == 'Admin')
-        {
+        
             res.render('dashboard', {data: userdata});         
-        }
+        
     } 
     else 
     {
@@ -512,6 +512,14 @@ app.get('/totalissuedBooks' , function(req, res) {
 // find total number of Authors
 app.get('/totalNoofAuthors' , function(req, res) {
           authors.countDocuments(function(e,count){
+                res.send(JSON.stringify(count));
+   });
+})
+
+// find total number of books issued to specific user
+app.get('/totalissuedBooksToUser' , function(req, res) {
+  
+          issueBookes.countDocuments({uniId: req.session.uniId}, function(e,count){
                 res.send(JSON.stringify(count));
    });
 })

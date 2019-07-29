@@ -76,6 +76,15 @@
                                 </ul>
                             </li>
                             <%  } %>
+
+                            <% if(data.role == "User"){ %> 
+                            <li><a>Issued Books</a></li>
+                            <%  } %>
+
+                            <% if(data.role == "User"){ %> 
+                            <li><a>Update Profile</a></li>
+                            <%  } %>
+
                     
                             <li><a onclick="changePassword()">Change Password</a></li>
 
