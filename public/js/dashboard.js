@@ -35,8 +35,12 @@ function addNewUser()
 
 function manageStudents()
 {
-    console.log('dd')
     window.location = '/manage_students';
+}
+
+function openissuedBookSpecificUser()
+{
+    window.location = '/openissuedBookSpecificUser'
 }
 
 
