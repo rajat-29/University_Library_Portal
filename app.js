@@ -750,7 +750,26 @@ app.post('/checkbookusingIsbn',function (req, res) {
       })
 })
 
-// page to update user details //
+// to update categories details //
+app.post('/updateCategoryDetails', function(req,res) {
+  
+  var obj = new Object();
+  obj.name = req.body.name;
+ // obj.status = req.body.status;
+  console.log(obj);
+        category.updateOne( { "createDate" : req.body.createDate}, {$set : req.body } , function(err,result)
+        {
+          if(err)
+          throw err
+          else
+          {
+            console.log('hello')
+            res.send("DATA UPDATED SUCCESFULLY")
+          }
+        })
+})
+
+// to update book issued details //
 app.post('/updateuserdetails', function(req,res) {
   //console.log(req.body);
         issueBookes.updateOne( { "isbh" : req.body.isbn}, {$set : req.body } , function(err,result)
@@ -763,6 +782,8 @@ app.post('/updateuserdetails', function(req,res) {
           }
         })
 })
+
+
 
 
 console.log("Running on port 8000");

@@ -26,6 +26,7 @@
 
                             <li><a onclick="home_page()" class="menu-top-active">DASHBOARD</a></li>
 
+                        <% if(data.role == "Admin"){ %>  
                             <li>
                                 <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Categories <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
@@ -33,10 +34,9 @@
                                      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="manageCategory()">Manage Categories</a></li>
                                 </ul>
                             </li>
+                            <%  } %>
                             
-
-                        if(data.role == 'User')
-                        {
+                        <% if(data.role == "Admin"){ %>  
                              <li>
                                 <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Authors <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
@@ -44,8 +44,9 @@
                                      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="manageAuthor()">Manage Authors</a></li>
                                 </ul>
                             </li>
-                        }
+                        <%  } %>
 
+                        <% if(data.role == "Admin"){ %>  
                              <li>
                                 <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Books <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
@@ -53,7 +54,10 @@
                                      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="manageBook()">Manage Books</a></li>
                                 </ul>
                             </li>
+                            <%  } %>
 
+
+                    <% if(data.role == "Admin"){ %>  
                            <li>
                                 <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Issue Books <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
@@ -61,7 +65,9 @@
                                      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="manage_issue_books()">Manage Issued Books</a></li>
                                 </ul>
                             </li>
+                            <%  } %>
 
+                        <% if(data.role == "Admin"){ %>  
                             <li>
                                 <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Reg Students <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
@@ -69,6 +75,7 @@
                                      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="manageStudents()">Manage Students</a></li>
                                 </ul>
                             </li>
+                            <%  } %>
                     
                             <li><a onclick="changePassword()">Change Password</a></li>
 
