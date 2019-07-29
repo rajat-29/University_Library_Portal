@@ -769,6 +769,26 @@ app.post('/updateCategoryDetails', function(req,res) {
         })
 })
 
+
+// to update author details //
+app.post('/updateAuthorDetails', function(req,res) {
+  
+  var obj = new Object();
+  obj.name = req.body.name;
+ // obj.status = req.body.status;
+  console.log(obj);
+        authors.updateOne( { "createDate" : req.body.createDate}, {$set : req.body } , function(err,result)
+        {
+          if(err)
+          throw err
+          else
+          {
+            console.log('hello')
+            res.send("DATA UPDATED SUCCESFULLY")
+          }
+        })
+})
+
 // to update book issued details //
 app.post('/updateuserdetails', function(req,res) {
   //console.log(req.body);
