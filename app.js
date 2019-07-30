@@ -135,6 +135,8 @@ app.post('/checkLogin',function (req, res)  {
                 userdata.name = result.name;
                 userdata.email = result.email;         
                 userdata.role = result.role;
+                userdata.uniId = result.uniId;
+                userdata.phone = result.phone;
 
                 res.send("true");
             }
@@ -865,6 +867,39 @@ app.post('/showIssuedBookSpecificUser' , function(req, res) {
    });
 })
 
+
+// render specific user update profile page
+app.get('/updateUserProfile', function(req,res) {
+    if(req.session.isLogin)
+    {
+        res.render('updateUserProfile', {data: userdata});
+    }
+    else
+    {
+        res.render('index');
+    }
+})
+
+// to update author details //
+app.post('/updateUserProfileDetails', function(req,res) {
+
+  console.log(req.body)
+
+  userdata.name = req.body.name;
+  userdata.email = req.body.email;
+  userdata.phone = req.body.phone;
+  
+        users.updateOne( { "uniId" : req.session.uniId}, {$set : req.body } , function(err,result)
+        {
+          if(err)
+          throw err
+          else
+          {
+            console.log('hello')
+            res.send("DATA UPDATED SUCCESFULLY")
+          }
+        })
+})
 
 console.log("Running on port 8000");
 app.listen(8000)

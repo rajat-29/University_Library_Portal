@@ -40,7 +40,12 @@ function manageStudents()
 
 function openissuedBookSpecificUser()
 {
-    window.location = '/openissuedBookSpecificUser'
+    window.location = '/openissuedBookSpecificUser';
+}
+
+function updateUserProfile()
+{
+    window.location = '/updateUserProfile';
 }
 
 
