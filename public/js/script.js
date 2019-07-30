@@ -1,7 +1,19 @@
 // index page for login page //
+var rajat;
+
+function verifCode()
+{
+    var verificationcode = document.getElementById('verificationcode');
+
+    rajat = Math.floor(Math.random() * 1000000) + 100000;
+
+    verificationcode.innerHTML = rajat;
+
+}
 
 var user_name = document.getElementById('user_name');
 var pass = document.getElementById('pass');
+var vercode = document.getElementById('vercode');
 var submit = document.getElementById('submit');
 var signup = document.getElementById('signup');
 
@@ -10,6 +22,15 @@ submit.addEventListener("click", function() {
     if(user_name.value == '' || pass.value == '')
     {
         alert("Field is Empty");
+        return;
+    }
+
+    console.log(vercode.value)
+    console.log(rajat)
+
+    if(vercode.value != rajat)
+    {
+        alert("Verification code doesn't match");
         return;
     }
 
@@ -71,6 +92,5 @@ pass.addEventListener("keyup", function() {
     });
 }
 })
-
 
 
