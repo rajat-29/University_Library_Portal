@@ -16,6 +16,15 @@ submitbtn.addEventListener("click",function() {
 		return;
 	}
 
+	var valPhone = phone.value;
+	console.log(valPhone)
+
+	if(valPhone.length < 10 || valPhone.length > 10)
+	{
+		alert("Phone No is not correct");
+		return;
+	}
+
 	var obj = new Object();
 	obj.uniId = uniId.value;
 	obj.name = stuname.value;

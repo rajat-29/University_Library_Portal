@@ -62,20 +62,33 @@ signup.addEventListener("click", function() {
 })
 
 
-pass.addEventListener("keyup", function() {
+vercode.addEventListener("keyup", function() {
 
      if (event.keyCode === 13) {
     //console.log(pass.value);
+    if(user_name.value == '' || pass.value == '')
+    {
+        alert("Field is Empty");
+        return;
+    }
+
+    console.log(vercode.value)
+    console.log(rajat)
+
+    if(vercode.value != rajat)
+    {
+        alert("Verification code doesn't match");
+        return;
+    }
+
     var request = new XMLHttpRequest();
-    request.open('POST',"/checkLogin");
+    request.open('POST',"checkLogin");
     request.setRequestHeader("Content-Type","application/json");
-    request.send(JSON.stringify({name : n.value,password: pass.value}));
+    request.send(JSON.stringify({name : user_name.value,password: pass.value}));
     request.addEventListener("load",function() {
         var data = request.responseText;
         if(data === 'true') {
-            console.log('hello user');
             window.location = "/home";
-            //window.location.href = "h.html";
         }
         else if(data === 'false')
         {
@@ -88,7 +101,6 @@ pass.addEventListener("keyup", function() {
             n.value = "";
             pass.value = "";
         }
-      //  console.log(data);
     });
 }
 })

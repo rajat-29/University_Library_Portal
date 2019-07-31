@@ -120,12 +120,6 @@ app.post('/checkLogin',function (req, res)  {
         else
         {
             //console.log(result)
-            if(result.flag == 0)
-            {
-                res.send("false");
-            }
-            else 
-            {
               //console.log(req.body)
                 req.session.isLogin = 1;
                 req.session.email = req.body.name;
@@ -139,7 +133,7 @@ app.post('/checkLogin',function (req, res)  {
                 userdata.phone = result.phone;
 
                 res.send("true");
-            }
+            
         }
     })     
 })
@@ -899,6 +893,11 @@ app.post('/updateUserProfileDetails', function(req,res) {
             res.send("DATA UPDATED SUCCESFULLY")
           }
         })
+})
+
+// user deactivated //
+app.get("/404" ,function(req,res) {
+   res.render("404");
 })
 
 console.log("Running on port 8000");
