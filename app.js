@@ -209,28 +209,47 @@ app.post('/addnewCategory', function(req,res) {
 
 //datatables on categories
 app.post('/showcategories' , function(req, res) {
-    var flag;
-          category.countDocuments(function(e,count){
-      var start=parseInt(req.body.start);
-      var len=parseInt(req.body.length);
-      category.find({
-      }).skip(start).limit(len)
-    .then(data=> {
-       if (req.body.search.value)
+      let query = {};
+    let params = {};
+
+    if(req.body.search.value)
+    {
+        query.name = {"$regex" : req.body.search.value , "$options" : "i"};
+    }
+
+    let sortingType;
+    if(req.body.order[0].dir === 'asc')
+        sortingType = 1;
+    else
+        sortingType = -1;
+
+    if(req.body.order[0].column === '0')
+        params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length), sort : {name : sortingType}};
+
+    category.find(query , {} , params , function (err , data)
+        {
+            if(err)
+                console.log(err);
+            else
+            {
+                category.countDocuments(query, function(err , filteredCount)
+                {
+                    if(err)
+                        console.log(err);
+                    else
                     {
-                        data = data.filter((value) => {
-                            flag = value.name.includes(req.body.search.value) || value.createDate.includes(req.body.search.value)
-             || value.status.includes(req.body.search.value);
-            return flag;
+                        category.countDocuments(function (err, totalCount)
+                        {
+                            if(err)
+                                console.log(err);
+                            else
+                                res.send({"recordsTotal": totalCount,
+                                    "recordsFiltered": filteredCount, data});
                         })
-                    } 
- 
-      res.send({"recordsTotal": count, "recordsFiltered" : count, data})
-     })
-     .catch(err => {
-      res.send(err)
-     })
-   });
+                    }
+                });
+            }
+        })
 })
 
 //delete category
@@ -299,28 +318,48 @@ app.get('/manageBook', function(req,res) {
 
 //datatables on categories
 app.post('/showBooks' , function(req, res) {
-    var flag;
-          books.countDocuments(function(e,count){
-      var start=parseInt(req.body.start);
-      var len=parseInt(req.body.length);
-      books.find({
-      }).skip(start).limit(len)
-    .then(data=> {
-       if (req.body.search.value)
+  let query = {};
+    let params = {};
+    
+    if(req.body.search.value)
+    {
+        query.name = {"$regex" : req.body.search.value , "$options" : "i"};
+    }
+
+    let sortingType;
+    if(req.body.order[0].dir === 'asc')
+        sortingType = 1;
+    else
+        sortingType = -1;
+
+    if(req.body.order[0].column === '0')
+        params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length), sort : {name : sortingType}};
+   
+    books.find(query , {} , params , function (err , data)
+        {
+            if(err)
+                console.log(err);
+            else
+            {
+                books.countDocuments(query, function(err , filteredCount)
+                {
+                    if(err)
+                        console.log(err);
+                    else
                     {
-                        data = data.filter((value) => {
-                            flag = value.name.includes(req.body.search.value) || value.category.includes(req.body.search.value)
-             || value.author.includes(req.body.search.value) || value.isbn.includes(req.body.search.value) || value.price.includes(req.body.search.value);
-            return flag;
+                        books.countDocuments(function (err, totalCount)
+                        {
+                            if(err)
+                                console.log(err);
+                            else
+                                res.send({"recordsTotal": totalCount,
+                                    "recordsFiltered": filteredCount, data});
                         })
-                    } 
- 
-      res.send({"recordsTotal": count, "recordsFiltered" : count, data})
-     })
-     .catch(err => {
-      res.send(err)
-     })
-   });
+                    }
+                });
+            }
+        })
+   
 })
 
 //delete category
@@ -378,27 +417,47 @@ app.post('/addnewAuthor', function(req,res) {
 
 //datatables on authors
 app.post('/showauthor' , function(req, res) {
-    var flag;
-          authors.countDocuments(function(e,count){
-      var start=parseInt(req.body.start);
-      var len=parseInt(req.body.length);
-      authors.find({
-      }).skip(start).limit(len)
-    .then(data=> {
-       if (req.body.search.value)
+      let query = {};
+    let params = {};
+
+    if(req.body.search.value)
+    {
+        query.name = {"$regex" : req.body.search.value , "$options" : "i"};
+    }
+
+    let sortingType;
+    if(req.body.order[0].dir === 'asc')
+        sortingType = 1;
+    else
+        sortingType = -1;
+
+    if(req.body.order[0].column === '0')
+        params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length), sort : {name : sortingType}};
+   
+    authors.find(query , {} , params , function (err , data)
+        {
+            if(err)
+                console.log(err);
+            else
+            {
+                authors.countDocuments(query, function(err , filteredCount)
+                {
+                    if(err)
+                        console.log(err);
+                    else
                     {
-                        data = data.filter((value) => {
-                            flag = value.name.includes(req.body.search.value) || value.createDate.includes(req.body.search.value);
-            return flag;
+                        authors.countDocuments(function (err, totalCount)
+                        {
+                            if(err)
+                                console.log(err);
+                            else
+                                res.send({"recordsTotal": totalCount,
+                                    "recordsFiltered": filteredCount, data});
                         })
-                    } 
- 
-      res.send({"recordsTotal": count, "recordsFiltered" : count, data})
-     })
-     .catch(err => {
-      res.send(err)
-     })
-   });
+                    }
+                });
+            }
+        })
 })
 
 // fetch select options of author
@@ -577,28 +636,48 @@ app.get('/manage_issue_books', function(req,res) {
 
 //datatables on issued books
 app.post('/showIssuedBooks' , function(req, res) {
-    var flag;
-          issueBookes.countDocuments(function(e,count){
-      var start=parseInt(req.body.start);
-      var len=parseInt(req.body.length);
-      issueBookes.find({
-      }).skip(start).limit(len)
-    .then(data=> {
-       if (req.body.search.value)
+
+  let query = {};
+  let params = {};
+
+if(req.body.search.value)
+    {
+        query.uniId = {"$regex" : req.body.search.value , "$options" : "i"};
+    }
+
+   let sortingType;
+    if(req.body.order[0].dir === 'asc')
+        sortingType = 1;
+    else
+        sortingType = -1;
+
+        if(req.body.order[0].column === '0')
+        params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length), sort : {uniId : sortingType}};
+   
+issueBookes.find(query , {} , params , function (err , data)
+        {
+            if(err)
+                console.log(err);
+            else
+            {
+                issueBookes.countDocuments(query, function(err , filteredCount)
+                {
+                    if(err)
+                        console.log(err);
+                    else
                     {
-                        data = data.filter((value) => {
-                            flag = value.studentName.includes(req.body.search.value) || value.bookName.includes(req.body.search.value)
-             || value.isbn.includes(req.body.search.value) || value.uniId.includes(req.body.search.value);
-            return flag;
+                        issueBookes.countDocuments(function (err, totalCount)
+                        {
+                            if(err)
+                                console.log(err);
+                            else
+                                res.send({"recordsTotal": totalCount,
+                                    "recordsFiltered": filteredCount, data});
                         })
-                    } 
- 
-      res.send({"recordsTotal": count, "recordsFiltered" : count, data})
-     })
-     .catch(err => {
-      res.send(err)
-     })
-   });
+                    }
+                });
+            }
+        })
 })
 
 //delete issued book //
@@ -630,28 +709,50 @@ app.get('/manage_students', function(req,res) {
 
 //datatables on students
 app.post('/showStudents' , function(req, res) {
-    var flag;
-          users.countDocuments(function(e,count){
-      var start=parseInt(req.body.start);
-      var len=parseInt(req.body.length);
-      users.find({
-      }).skip(start).limit(len)
-    .then(data=> {
-       if (req.body.search.value)
+  let query = {};
+  let params = {};
+
+  if(req.body.search.value)
+  {
+    query.name = {"$regex" : req.body.search.value , "$options" : "i"};
+  }
+
+  let sortingType;
+  if(req.body.order[0].dir === 'asc')
+    sortingType = 1;
+  else
+    sortingType = -1;
+
+
+    if(req.body.order[0].column === '0')
+        params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length), sort : {uniId : sortingType}};
+    else if(req.body.order[0].column === '1')
+        params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length), sort : {name : sortingType}};
+
+        users.find(query , {} , params , function (err , data)
+        {
+            if(err)
+                console.log(err);
+            else
+            {
+                users.countDocuments(query, function(err , filteredCount)
+                {
+                    if(err)
+                        console.log(err);
+                    else
                     {
-                        data = data.filter((value) => {
-                            flag = value.uniId.includes(req.body.search.value) || value.name.includes(req.body.search.value)
-             || value.email.includes(req.body.search.value);
-            return flag;
+                        users.countDocuments(function (err, totalCount)
+                        {
+                            if(err)
+                                console.log(err);
+                            else
+                                res.send({"recordsTotal": totalCount,
+                                    "recordsFiltered": filteredCount, data});
                         })
-                    } 
- 
-      res.send({"recordsTotal": count, "recordsFiltered" : count, data})
-     })
-     .catch(err => {
-      res.send(err)
-     })
-   });
+                    }
+                });
+            }
+        })
 })
 
 //delete students //

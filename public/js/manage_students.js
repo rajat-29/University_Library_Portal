@@ -2,6 +2,7 @@
      let table = $('#studentListing').DataTable({
       "processing": true,
       "serverSide": true,
+      "dataSrc":"",
       "ajax": {
         "url": "/showStudents",
         "type": "POST",
@@ -14,10 +15,10 @@
         "data" : "name"
       },
       {
-        "data" : "phone"
+        "data" : "phone", "orderable": false
       },
       {
-        "data" : "role"
+        "data" : "role", "orderable": false
       },
       {
         "data" : null

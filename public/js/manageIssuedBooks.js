@@ -10,22 +10,22 @@
       },
       "columns": [
       {
-        "data" : "studentName"
+        "data" : "studentName", "orderable": false
       },
       {
         "data" : "uniId"
       },
       {
-        "data" : "bookName"
+        "data" : "bookName", "orderable": false
       },
       {
-        "data" : "isbn"
+        "data" : "isbn", "orderable": false
       },
       {
-        "data" : "ReturnDate"
+        "data" : "ReturnDate", "orderable": false
       },
       {
-        "data" : "fine"
+        "data" : "fine", "orderable": false
       },
       {
         "data" : null

@@ -11,16 +11,16 @@
         "data" : "name"
       },
       {
-        "data" : "category"
+        "data" : "category", "orderable": false
       },
       {
-        "data" : "author"
+        "data" : "author", "orderable": false
       },
       {
-        "data" : "isbn"
+        "data" : "isbn", "orderable": false
       },
       {
-        "data" : "price"
+        "data" : "price", "orderable": false
       },
       {
         "data" : null

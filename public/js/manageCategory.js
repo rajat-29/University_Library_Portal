@@ -13,10 +13,10 @@ var checkName;
         "data" : "name"
       },
       {
-        "data" : "status"
+        "data" : "status", "orderable": false
       },
       {
-        "data" : "createDate"
+        "data" : "createDate", "orderable": false
       },
       {
         "data" : null
