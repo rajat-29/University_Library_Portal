@@ -4,6 +4,7 @@ var app = express()
 var session = require('express-session');
 var ejs = require('ejs');
 var mongodb = require('mongodb');
+var mongoStore = require('connect-mongo')(session);
 var mailer = require('nodemailer');
 var MongoDataTable = require('mongo-datatable');
 ObjectId = require('mongodb').ObjectID;
@@ -17,19 +18,25 @@ app.set('view engine', 'ejs');
 
 app.use(express.static(path.join(__dirname,'/public'))) /*folder path*/
 
-app.use(express.urlencoded({extended: true}))
-app.use(express.json())									/*include express*/
-app.use(session({
-    secret: "xYzUCAchitkara",
-    resave: false,
-    saveUninitialized: true,
-}))
-
 var mongoose = require('mongoose');						/*include mongo*/
 var mongoDB = 'mongodb://localhost/libraryManagement';
 
 mongoose.set('useFindAndModify', false);
 mongoose.connect(mongoDB,{ useNewUrlParser: true});
+
+var db = mongoose.connection;
+
+app.use(express.urlencoded({extended: true}))
+app.use(express.json())                 /*include express*/
+app.use(session({
+    secret: "xYzUCAchitkara",
+    resave: false,
+    saveUninitialized: false,
+    clear_interval: 900,
+    store : new mongoStore({mongooseConnection:db}),
+    autoRemove: 'native',
+    cookie: {maxAge: 3000000}
+}))
 
 mongoose.connection.on('error',(err) => {					/*database connect*/
     console.log('DB connection Error');
@@ -49,57 +56,12 @@ let transporter = mailer.createTransport({
     },
 });
 
-// user data base scehema //
-var userSchema = new mongoose.Schema({					/*define structure of database*/
-    name: String,
-    uniId: String,
-    email: String,
-    password: String,
-    phone: String,
-    city: String,
-    gender: String,
-    dob: String,
-    role: String,   
-    status: String,
-    flag: Number, 
-})
-
-// category data base schema //
-var categorSchema = new mongoose.Schema({
-    name: String,
-    status: String,
-    createDate: String,
-})
-
-// book data base schema //
-var BookSchema = new mongoose.Schema({
-    name: String,
-    category: String,
-    author: String,
-    isbn: String,
-    price: String,
-})
-
-// author data base schema //
-var authorSchema = new mongoose.Schema({
-    name: String,
-    createDate: String,
-})
-
-var issueBookSchema = new mongoose.Schema({
-    isbn: String,
-    uniId: String,
-    ReturnDate: String,
-    studentName: String,
-    bookName: String,
-    fine: String,
-})
-
-var users = mongoose.model('students', userSchema);
-var category = mongoose.model('categories', categorSchema);
-var books = mongoose.model('books', BookSchema);
-var authors = mongoose.model('authors', authorSchema);
-var issueBookes = mongoose.model('issueBookes', issueBookSchema);
+// Models //
+var users = require('./Models/userSchema');
+var category = require('./Models/categorySchema');
+var books = require('./Models/BookSchema');
+var authors = require('./Models/authorSchema');
+var issueBookes = require('./Models/issueBookSchema');
 
 // login checking //
 app.post('/checkLogin',function (req, res)  {
@@ -119,21 +81,12 @@ app.post('/checkLogin',function (req, res)  {
         }
         else
         {
-            //console.log(result)
-              //console.log(req.body)
                 req.session.isLogin = 1;
                 req.session.email = req.body.name;
-                req.session.password = req.body.password;
                 req.session.uniId = result.uniId;
-
-                userdata.name = result.name;
-                userdata.email = result.email;         
-                userdata.role = result.role;
-                userdata.uniId = result.uniId;
-                userdata.phone = result.phone;
-
-                res.send("true");
-            
+                req.session.name = result.name;       
+                req.session.role = result.role;
+                res.send(req.session);     
         }
     })     
 })
@@ -143,7 +96,7 @@ app.get('/home' , function(req,res) {        /*get data */
     if(req.session.isLogin) 
     {
         
-            res.render('dashboard', {data: userdata});         
+            res.render('dashboard', {data: req.session});         
         
     } 
     else 
@@ -154,7 +107,7 @@ app.get('/home' , function(req,res) {        /*get data */
 
 // render signup page
 app.get('/signup_page', function(req,res) {
-        res.render('signup_users', {data: userdata});
+        res.render('signup_users', {data: req.session});
 })
 
 app.post('/addnewuser', function(req,res) {
@@ -174,7 +127,7 @@ app.post('/addnewuser', function(req,res) {
 app.get('/add_category', function(req,res) {
     if(req.session.isLogin)
     {
-        res.render('add_category', {data: userdata});
+        res.render('add_category', {data: req.session});
     }
     else
     {
@@ -186,7 +139,7 @@ app.get('/add_category', function(req,res) {
 app.get('/manage_category', function(req,res) {
     if(req.session.isLogin)
     {
-        res.render('manage_category', {data: userdata});
+        res.render('manage_category', {data: req.session});
     }
     else
     {
@@ -282,7 +235,7 @@ app.get('/categoryOptions',function (req, res)  {
 app.get('/add_book', function(req,res) {
      if(req.session.isLogin)
      {
-        res.render('add_book', {data: userdata});
+        res.render('add_book', {data: req.session});
      }
      else
      {
@@ -308,7 +261,7 @@ app.post('/addnewbook', function(req,res) {
 app.get('/manageBook', function(req,res) {
      if(req.session.isLogin)
      {
-        res.render('manage_books', {data: userdata});
+        res.render('manage_books', {data: req.session});
      }
      else
      {
@@ -381,7 +334,7 @@ app.delete('/book/:pro',function(req,res) {
 app.get('/add_author', function(req,res) {
      if(req.session.isLogin)
      {
-        res.render('add_author', {data: userdata});
+        res.render('add_author', {data: req.session});
      }
      else
      {
@@ -393,7 +346,7 @@ app.get('/add_author', function(req,res) {
 app.get('/manage_author', function(req,res) {
      if(req.session.isLogin)
      {
-        res.render('manage_author', {data: userdata});
+        res.render('manage_author', {data: req.session});
      }
      else
      {
@@ -490,7 +443,7 @@ app.delete('/author/:pro',function(req,res) {
 app.get('/book_issue', function(req,res) {
      if(req.session.isLogin)
      {
-        res.render('book_issue', {data: userdata});
+        res.render('book_issue', {data: req.session});
      }
      else
      {
@@ -501,7 +454,7 @@ app.get('/book_issue', function(req,res) {
 // render change password page
 app.get('/changePassword', function(req,res) {
     if(req.session.isLogin) {
-      res.render('changePassword', {data: userdata});
+      res.render('changePassword', {data: req.session});
     
        } else {
       res.render('index');
@@ -626,7 +579,7 @@ app.post('/issueNewBook' , function(req,res) {
 app.get('/manage_issue_books', function(req,res) {
      if(req.session.isLogin)
      {
-        res.render('manage_issue_books', {data: userdata});
+        res.render('manage_issue_books', {data: req.session});
      }
      else
      {
@@ -699,7 +652,7 @@ app.delete('/issuedBook/:pro',function(req,res) {
 app.get('/manage_students', function(req,res) {
      if(req.session.isLogin)
      {
-        res.render('manage_students', {data: userdata});
+        res.render('manage_students', {data: req.session});
      }
      else
      {
@@ -774,7 +727,7 @@ app.delete('/students/:pro',function(req,res) {
 app.get('/add_students', function(req,res) {
      if(req.session.isLogin)
      {
-        res.render('add_students', {data: userdata});
+        res.render('add_students', {data: req.session});
      }
      else
      {
@@ -929,7 +882,7 @@ app.post('/updateuserdetails', function(req,res) {
 app.get('/openissuedBookSpecificUser', function(req,res) {
     if(req.session.isLogin)
     {
-        res.render('issuedBookSpecificUser', {data: userdata});
+        res.render('issuedBookSpecificUser', {data: req.session});
     }
     else
     {
@@ -967,7 +920,7 @@ app.post('/showIssuedBookSpecificUser' , function(req, res) {
 app.get('/updateUserProfile', function(req,res) {
     if(req.session.isLogin)
     {
-        res.render('updateUserProfile', {data: userdata});
+        res.render('updateUserProfile', {data: req.session});
     }
     else
     {

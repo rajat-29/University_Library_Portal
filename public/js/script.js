@@ -28,22 +28,26 @@ submit.addEventListener("click", function() {
     console.log(vercode.value)
     console.log(rajat)
 
-    if(vercode.value != rajat)
-    {
-        alert("Verification code doesn't match");
-        return;
-    }
+    // if(vercode.value != rajat)
+    // {
+    //     alert("Verification code doesn't match");
+    //     return;
+    // }
 
 	var request = new XMLHttpRequest();
     request.open('POST',"checkLogin");
     request.setRequestHeader("Content-Type","application/json");
     request.send(JSON.stringify({name : user_name.value,password: pass.value}));
     request.addEventListener("load",function() {
-    	var data = request.responseText;
-    	if(data === 'true') {
+    	var data = JSON.parse(request.responseText);
+    	if(data.isLogin === 1) {
+            window.sessionStorage.setItem('email' , data.email);
+            window.sessionStorage.setItem('uniId' , data.uniId);
+            window.sessionStorage.setItem('name' , data.name);
+            window.sessionStorage.setItem('role' , data.role);
             window.location = "/home";
         }
-        else if(data === 'false')
+        else if(data.isLogin === 0)
         {
             window.location = "/404";
         }
