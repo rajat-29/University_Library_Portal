@@ -1,6 +1,8 @@
 let express = require('express');
 var app = require('express').Router();
 let path = require('path');
+const bcrypt = require('bcrypt');
+let saltRounds = 10
 
 app.use(express.static(path.join(__dirname,'../public')));
 
@@ -10,11 +12,8 @@ var users = require('../Models/userSchema');
 var auth=require('../MiddleWares/auth');
 
 app.post('/checkLogin',function (req, res)  {
-
     req.session.isLogin = 0;
-    var username = req.body.name;
-    var pasword = req.body.password;
-    users.findOne({email: username,password: pasword}, function(error,result)
+    users.findOne({email: req.body.name}, function(error,result)
     {
         if(error)
         throw error;
@@ -22,12 +21,20 @@ app.post('/checkLogin',function (req, res)  {
         if(!result) 
             res.send("false");
         else {
-                req.session.isLogin = 1;
-                req.session.email = req.body.name;
-                req.session.uniId = result.uniId;
-                req.session.name = result.name;       
-                req.session.role = result.role;
-                res.send(req.session);     
+            bcrypt.compare(req.body.password,result.password,function(err,resi) {
+                if(resi == true) {
+                    req.session.isLogin = 1;
+                    req.session.email = req.body.name;
+                    req.session.uniId = result.uniId;
+                    req.session.name = result.name;       
+                    req.session.role = result.role;
+                    req.session.password = result.password;
+                    res.send(req.session);  
+                }
+                else {
+                  res.send("false")
+                }
+           })    
         }
     })     
 })

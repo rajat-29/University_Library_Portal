@@ -15,6 +15,11 @@ submitbtn.addEventListener("click", function() {
 	if(newPass.value != confPass.value)
 	{
 		alert("Confirm Password should Match");
+		return;
+	}
+	else if(newPass.value.length < 6)
+	{
+		alert("Password Length is Short");
 	}
 	else
 	{
@@ -28,8 +33,14 @@ submitbtn.addEventListener("click", function() {
 	    request.send(JSON.stringify(obj))
 	    request.onload = function ()
 	    {
-	    	alert(request.responseText);
+	    	if(request.responseText == "true")
+	    	{
+	    		alert("Password Changed Successfully");
+	    		 window.location = "/admin/changePassword";
+	    	}
+	    	else
+	    		alert(request.responseText)
 	    }  
 	}
-    window.location = "/admin/changePassword";
+   
 })

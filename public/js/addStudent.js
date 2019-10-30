@@ -16,7 +16,6 @@ submitStudent.addEventListener("click", function() {
 	}
 
 	var obj = new Object();
-
 	obj.uniId = uniId.value;
 	obj.name = stuname.value;
 	obj.email = email2.value;
@@ -34,6 +33,29 @@ submitStudent.addEventListener("click", function() {
     });  
     window.location = "/admin/add_students";
 
+
+  //   var n = ["Reena","Ajay","Anshul","Abhinav","Symayra","Manu"];
+  //   var ui = [119,120,121,122,123,124];
+  //   var em = ["reena@cq.com","ajay@cq.com","anshul@cq.com","abhinav@cq.com","symayra@cq.com","manu@cq.com"]
+
+  //   for(var i=0;i<6;i++)
+  //   {
+  //   	var obj = new Object();
+		// obj.uniId = ui[i];
+		// obj.name = n[i];
+		// obj.email = em[i];
+		// obj.password = "admincq";
+		// obj.phone = 1234567890;
+		// obj.role = "User"
+
+		// var request = new XMLHttpRequest();
+		//     request.open('POST',"/admin/addnewuser");
+		//     request.setRequestHeader("Content-Type","application/json");
+		//     request.send(JSON.stringify(obj))
+		//     request.addEventListener("load",function() {
+		//         console.log("Data Posted Successfully");
+		//     });
+  //   }
 })
 
 function email_avail()
@@ -61,6 +83,28 @@ function email_avail()
     });  
 }
 
+function id_avial()
+{
+	document.getElementById("email_info").style.display = 'visible';
+	document.getElementById("email_info").style.display = 'block';
+	document.getElementById("email_info").style.marginTop = '10px';
+	document.getElementById("email_info").style.marginBottom = '10px';
+	
+	var request = new XMLHttpRequest();
+    request.open('POST',"/admin/checkid");
+    request.setRequestHeader("Content-Type","application/json");
+    request.send(JSON.stringify({uniId: uniId.value}));
+    request.addEventListener("load",function() {
+    	var data = request.responseText;
+    	if(data === 'true') {
+    		display_email.innerHTML= "User " + uniId.value + " is already exist";
+    	}
+    	else {
+            display_email.innerHTML= uniId.value + " is available";
+    	}
+    });  
+}
+
 function sendmail()
 {
 		   var data = new Object()
@@ -69,7 +113,7 @@ function sendmail()
 			data.subject="Confirmation Mail";
 			data.text= "Hi " + stuname.value + " Please Confirm your Email-Id! and kindly enter this password to login = " + password2.value;
 		
-		var request = new XMLHttpRequest();
+			var request = new XMLHttpRequest();
 			request.open('POST', '/admin/sendMail');
 			request.setRequestHeader("Content-Type","application/json");
 			request.send(JSON.stringify(data))

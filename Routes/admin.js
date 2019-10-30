@@ -1,6 +1,8 @@
 let express = require('express');
 var app = require('express').Router();
 let path = require('path');
+const bcrypt = require('bcrypt');
+let saltRounds = 10
 
 app.use(express.static(path.join(__dirname,'../public')));
 
@@ -16,13 +18,19 @@ var auth = require('../MiddleWares/auth');
 var mail = require('../MiddleWares/nodemailer');
 
 app.post('/addnewuser',auth, function(req,res) {
-     users.create(req.body,function(error,result)
+  bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
+    if(!err) {
+      req.body.password = hash;
+      users.create(req.body,function(error,result)
       {
         if(error)
         throw error;
         else{}
-      })
-     res.send("data saved");
+      })         
+    }
+    else {}
+  }) 
+  res.send("data saved");
 })
 
 app.get('/add_category',auth, function(req,res) {
@@ -177,6 +185,19 @@ app.post('/checkemail',auth,function (req, res) {
       })
 })
 
+app.post('/checkid',auth,function (req, res) {
+     users.findOne({uniId: req.body.uniId}, function(error,result)
+      {
+        if(error)
+        throw error;
+
+      if(!result)
+        res.send("false");
+      else 
+          res.send("true");
+      })
+})
+
 app.post('/sendMail',auth, function(request,response) {
     var mailOptions={
     from: req.body.from,
@@ -255,20 +276,23 @@ app.post('/checkbookusingIsbn',auth,function (req, res) {
 })
 
 app.post('/changePasswordDatabase' ,auth, function(req,res){
-    password = req.body;
-
-    if(password.oldpass != req.session.password)
+    if(req.body.oldpass != req.session.password)
       res.send("Incorrect Old Password");
     else {
-      users.updateOne({"email" : req.session.email},{$set: { "password" : password.newpass}} ,
-        function(error,result)
-        {
-          if(error)
-            throw error;
-          else
-            req.session.password = password.newpass;
-        })
-      res.send("Password Changed Successfully")
+      bcrypt.hash(req.body.newpass, saltRounds, (err, hash) => {
+              if(!err) {
+                users.updateOne({"email" : req.session.email},{$set: { "password" : hash}} ,
+                  function(error,result)
+                  {
+                    if(error)
+                      throw error;
+                    else
+                      req.session.password = req.body.newpass;
+                  })   
+              }
+              else {}
+          }) 
+          res.send("true")
     }
 })
 
