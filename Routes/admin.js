@@ -13,6 +13,7 @@ var authors = require('../Models/authorSchema');
 var issueBookes = require('../Models/issueBookSchema');
 
 var auth = require('../MiddleWares/auth');
+var mail = require('../MiddleWares/nodemailer');
 
 app.post('/addnewuser',auth, function(req,res) {
      users.create(req.body,function(error,result)
@@ -177,10 +178,18 @@ app.post('/checkemail',auth,function (req, res) {
 })
 
 app.post('/sendMail',auth, function(request,response) {
-      transporter.sendMail(request.body, (error, info) => {
-        if(error) {
-        } else {}
-      })
+    var mailOptions={
+    from: req.body.from,
+    to: req.body.to,
+    subject: req.body.subject,
+    html: req.body.text
+  };
+
+  mail.sendMail(mailOptions,(error, info)=>{
+    if (error)
+      res.send(error);
+    res.send("success");
+  });
 })
 
 app.get('/book_issue',auth, function(req,res) {

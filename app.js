@@ -43,16 +43,6 @@ mongoose.connection.on('connected',(err) => {
     console.log('DB connected');
 })
 
-// node mailler //
-// add your email and password here for email //
-let transporter = mailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: '',
-      pass: ''
-    },
-});
-
 // Routing the routes //
 app.use('/login',require('./Routes/login'));
 app.use('/admin',require('./Routes/admin'));
