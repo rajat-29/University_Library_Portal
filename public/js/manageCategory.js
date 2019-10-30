@@ -1,11 +1,12 @@
 var checkName;
+var table;
 
  $(document).ready(function() {
-     let table = $('#categories').DataTable({
+     table = $('#categories').DataTable({
       "processing": true,
       "serverSide": true,
       "ajax": {
-        "url": "/showcategories",
+        "url": "/admin/showcategories",
         "type": "POST",
       },
       "columns": [
@@ -32,7 +33,7 @@ var checkName;
     });
   });
 
- function deleteTag(ides)
+function deleteTag(ides)
 {
   $(document).on("click", "#delete", function() {
     d = $(this).parent().parent()[0].children;
@@ -45,15 +46,14 @@ var checkName;
              btnClass: 'btn-success any-other-class',
               action: function () {
                btnClass: 'btn-red any-other-class'
-               var filename = '/category/' + ides;
+               var filename = '/admin/category/' + ides;
             
                var request = new XMLHttpRequest();
                request.open('DELETE',filename);
                request.send()
                request.addEventListener("load",function(event)
               {
-                  location.reload();
-                 console.log(request.responseText);
+                 table.ajax.reload(null, false);
               });  
           }
       },
@@ -74,7 +74,6 @@ $(document).on("click", "#editCategory", function() {
     $('#username').val(d[0].innerHTML);
     $('#statusName').val(d[1].innerHTML);
     $('#dateDone').val(d[2].innerHTML);
-    
 })
 
 
@@ -83,19 +82,16 @@ function updateuserdetails()
   var username = document.getElementById("username");
   var statusName = document.getElementById("statusName");
 
-
-    var obj1 = Object()
-    
+      var obj1 = Object()
       obj1.name = username.value;
       obj1.status = statusName.value;
       obj1.createDate = checkName
       var request = new XMLHttpRequest();
-      request.open('POST', '/updateCategoryDetails');
+      request.open('POST', '/admin/updateCategoryDetails');
       request.setRequestHeader("Content-Type","application/json");
       request.send(JSON.stringify(obj1))
       request.addEventListener("load",function()
           {
-             console.log(request.responseText);
+             table.ajax.reload(null, false);
           });
-          location.reload();
 }

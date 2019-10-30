@@ -23,14 +23,13 @@ submitbtn.addEventListener("click", function() {
 		obj.newpass = newPass.value;
 
 		var request = new XMLHttpRequest();
-		request.open('POST', '/changePasswordDatabase');
+		request.open('POST', '/admin/changePasswordDatabase');
 	    request.setRequestHeader("Content-Type","application/json");
 	    request.send(JSON.stringify(obj))
 	    request.onload = function ()
 	    {
-	    	console.log("Password changed Successfully");
 	    	alert(request.responseText);
 	    }  
 	}
-    window.location = "/changePassword";
+    window.location = "/admin/changePassword";
 })

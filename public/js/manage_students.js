@@ -1,10 +1,12 @@
+ var table;
+
  $(document).ready(function() {
-     let table = $('#studentListing').DataTable({
+      table = $('#studentListing').DataTable({
       "processing": true,
       "serverSide": true,
       "dataSrc":"",
       "ajax": {
-        "url": "/showStudents",
+        "url": "/admin/showStudents",
         "type": "POST",
       },
       "columns": [
@@ -35,7 +37,7 @@
   });
 
   function deleteTag(ides)
-{
+  {
    $(document).on("click", "#delete", function() {
     d = $(this).parent().parent()[0].children;
   $.confirm({
@@ -47,15 +49,14 @@
              btnClass: 'btn-success any-other-class',
               action: function () {
                btnClass: 'btn-red any-other-class'
-               var filename = '/students/' + ides;
+               var filename = '/admin/students/' + ides;
             
                var request = new XMLHttpRequest();
                request.open('DELETE',filename);
                request.send()
                request.addEventListener("load",function(event)
               {
-                  location.reload();
-                 console.log(request.responseText);
+                  table.ajax.reload(null, false);
               });  
           }
       },

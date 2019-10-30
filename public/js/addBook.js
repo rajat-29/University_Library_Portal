@@ -13,7 +13,7 @@ function fetchselectoptions()
 	// to fetch categories select options
 	var commArr;
 	var request = new XMLHttpRequest();
-    request.open('GET','/categoryOptions');
+    request.open('GET','/admin/categoryOptions');
     request.send();
     request.onload = function()
     {
@@ -27,7 +27,7 @@ function fetchselectoptions()
     // to fetch author select options
     var authorArr;
     var request1 = new XMLHttpRequest();
-    request1.open('GET','/authorOptions');
+    request1.open('GET','/admin/authorOptions');
     request1.send();
     request1.onload = function()
     {
@@ -58,12 +58,12 @@ function addNewBook()
 
 
 	var request = new XMLHttpRequest();
-    request.open('POST',"/addnewbook");
+    request.open('POST',"/admin/addnewbook");
     request.setRequestHeader("Content-Type","application/json");
     request.send(JSON.stringify(obj))
     request.addEventListener("load",function() {
         console.log("Data Posted Successfully");
         alert("New Book Is Registred");
     });  
-    window.location = "/add_book";
+    window.location = "/admin/add_book";
 }

@@ -8,7 +8,6 @@ var submitbtn = document.getElementById('submitbtn');
 var cancelbtn = document.getElementById('cancelbtn');
 
 submitbtn.addEventListener("click",function() {
-
 	if(uniId.value == '' || stuname.value == '' || email2.value == '' 
 		|| password2.value == '' || phone.value == '')
 	{
@@ -17,10 +16,7 @@ submitbtn.addEventListener("click",function() {
 	}
 
 	var valPhone = phone.value;
-	console.log(valPhone)
-
-	if(valPhone.length < 10 || valPhone.length > 10)
-	{
+	if(valPhone.length < 10 || valPhone.length > 10) {
 		alert("Phone No is not correct");
 		return;
 	}
@@ -34,18 +30,18 @@ submitbtn.addEventListener("click",function() {
 	obj.role = "User"
 
 	var request = new XMLHttpRequest();
-    request.open('POST',"/addnewuser");
+    request.open('POST',"/admin/addnewuser");
     request.setRequestHeader("Content-Type","application/json");
     request.send(JSON.stringify(obj))
     request.addEventListener("load",function() {
         console.log("Data Posted Successfully");
         alert("New User Is Registred");
     });  
-    window.location = "/signup_page";
+    window.location = "/login/signup_page";
 })
 
 cancelbtn.addEventListener("click", function() {
-	 window.location = "/home";
+	 window.location = "/login/home";
 })
 
 
@@ -60,7 +56,7 @@ function email_avail()
 	obj1.email = email2.value;
 	
 	var request = new XMLHttpRequest();
-    request.open('POST',"/checkemail");
+    request.open('POST',"/admin/checkemail");
     request.setRequestHeader("Content-Type","application/json");
     request.send(JSON.stringify({email: email2.value}));
     request.addEventListener("load",function() {
@@ -77,8 +73,7 @@ function email_avail()
 
 function sendmail()
 {
-		console.log('m');
-				var data = new Object()
+			var data = new Object()
 			data.to=email2.value;
 			data.from="codemailler12@gmail.com";
 			data.subject="Confirmation Mail";
@@ -86,12 +81,10 @@ function sendmail()
 		
 		console.log(data);
 		var request = new XMLHttpRequest();
-			request.open('POST', '/sendMail');
+			request.open('POST', '/admin/sendMail');
 			request.setRequestHeader("Content-Type","application/json");
 			request.send(JSON.stringify(data))
 			request.addEventListener("load",function()
         	{
-         		 console.log(request.responseText);
         	});
-
 }

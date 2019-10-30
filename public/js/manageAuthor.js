@@ -1,9 +1,11 @@
+ var table;
+
  $(document).ready(function() {
-     let table = $('#authors').DataTable({
+    table = $('#authors').DataTable({
       "processing": true,
       "serverSide": true,
       "ajax": {
-        "url": "/showauthor",
+        "url": "/admin/showauthor",
         "type": "POST",
       },
       "columns": [
@@ -28,7 +30,7 @@
   });
 
   function deleteAuthor(ides)
-{
+  {
   $(document).on("click", "#delete", function() {
     d = $(this).parent().parent()[0].children;
   $.confirm({
@@ -40,15 +42,14 @@
              btnClass: 'btn-success any-other-class',
               action: function () {
                btnClass: 'btn-red any-other-class'
-               var filename = '/author/' + ides;
+               var filename = '/admin/author/' + ides;
             
                var request = new XMLHttpRequest();
                request.open('DELETE',filename);
                request.send()
                request.addEventListener("load",function(event)
               {
-                  location.reload();
-                 console.log(request.responseText);
+                  table.ajax.reload(null, false);
               });  
           }
       },
@@ -83,12 +84,11 @@ function updateuserdetails()
       obj1.name = username.value;
       obj1.createDate = checkName
       var request = new XMLHttpRequest();
-      request.open('POST', '/updateAuthorDetails');
+      request.open('POST', '/admin/updateAuthorDetails');
       request.setRequestHeader("Content-Type","application/json");
       request.send(JSON.stringify(obj1))
       request.addEventListener("load",function()
           {
-             console.log(request.responseText);
           });
-          location.reload();
+          table.ajax.reload(null, false);
 }

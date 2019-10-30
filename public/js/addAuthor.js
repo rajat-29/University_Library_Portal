@@ -32,14 +32,14 @@ submitAuth.addEventListener("click", function(){
     obj.createDate = today;
 
     var request = new XMLHttpRequest();
-    request.open('POST',"/addnewAuthor");
+    request.open('POST',"/admin/addnewAuthor");
     request.setRequestHeader("Content-Type","application/json");
     request.send(JSON.stringify(obj))
     request.addEventListener("load",function() {
         console.log("Data Posted Successfully");
         alert("New Author Is Registred");
     });  
-    window.location = "/add_author";
+    window.location = "/admin/add_author";
 })
 
 function getMonths(mno) {

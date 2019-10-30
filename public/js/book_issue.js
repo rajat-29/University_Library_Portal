@@ -48,14 +48,13 @@ function issueBook()
     obj.ReturnDate = today;
 
      var request = new XMLHttpRequest();
-    request.open('POST',"/issueNewBook");
+    request.open('POST',"/admin/issueNewBook");
     request.setRequestHeader("Content-Type","application/json");
     request.send(JSON.stringify(obj))
     request.addEventListener("load",function() {
-        console.log("Data Posted Successfully");
         alert("New Book Is Issued");
     });  
-    window.location = "/book_issue";
+    window.location = "/admin/book_issue";
 }
 
 function getMonths(mno) {
@@ -65,8 +64,6 @@ function getMonths(mno) {
 
 submitIssue.addEventListener("click", function() {
 
-    console.log("ramj")
-
     var data = new Object()
             data.to=email2;
             data.from="codemailler12@gmail.com";
@@ -75,14 +72,12 @@ submitIssue.addEventListener("click", function() {
              " a book name : " + BookName + " having ISBN no : " + bookid.value + " and your return date is " + 
              today;
         
-        console.log(data);
         var request = new XMLHttpRequest();
-            request.open('POST', '/sendMail');
+            request.open('POST', '/admin/sendMail');
             request.setRequestHeader("Content-Type","application/json");
             request.send(JSON.stringify(data))
             request.addEventListener("load",function()
             {
-                 console.log(request.responseText);
             });
 })
 
@@ -91,21 +86,16 @@ function get_student_name()
     var get_student_name = document.getElementById('get_student_name');
     
     var request = new XMLHttpRequest();
-    request.open('POST',"/checknameusingUniId");
+    request.open('POST',"/admin/checknameusingUniId");
     request.setRequestHeader("Content-Type","application/json");
     request.send(JSON.stringify({uniId: studentid.value}));
     request.addEventListener("load",function() {
 
         var obj1;
-        obj1 = JSON.parse(request.responseText);
-
-        console.log(obj1.name)
-        
-    studentName = obj1.name;
-    email2 = obj1.email;
-
-    get_student_name.innerHTML= obj1.name;
-        
+        obj1 = JSON.parse(request.responseText); 
+        studentName = obj1.name;
+        email2 = obj1.email;
+        get_student_name.innerHTML= obj1.name;
     });  
 }
 
@@ -114,15 +104,11 @@ function get_book_name()
     var get_book_name = document.getElementById('get_book_name');
     
     var request = new XMLHttpRequest();
-    request.open('POST',"/checkbookusingIsbn");
+    request.open('POST',"/admin/checkbookusingIsbn");
     request.setRequestHeader("Content-Type","application/json");
     request.send(JSON.stringify({isbn: bookid.value}));
     request.addEventListener("load",function() {
-
-        BookName = request.responseText;
-
-        
-    get_book_name.innerHTML= request.responseText;
-        
+        BookName = request.responseText;  
+        get_book_name.innerHTML= request.responseText;    
     });  
 }

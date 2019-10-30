@@ -1,11 +1,12 @@
  var globalNAME;
+ var table;
 
  $(document).ready(function() {
-     let table = $('#issuedBooks').DataTable({
+     table = $('#issuedBooks').DataTable({
       "processing": true,
       "serverSide": true,
       "ajax": {
-        "url": "/showIssuedBooks",
+        "url": "/admin/showIssuedBooks",
         "type": "POST",
       },
       "columns": [
@@ -36,7 +37,7 @@
 
                 "render": function (data, type, row, meta) {
                    return '<span class="btn btn-primary btn-sm emailbtn actionbtns" id="editDetails" data-toggle="modal" data-target="#updateModal"><i class="fas fa-edit"></i></span><span class="btn btn-danger btn-sm emailbtn actionbtns" id="delete" onclick=deleteTag("'+row._id+'")><i class="fas fa-trash"></i></span>';    
-          
+
           }
             }],
     });
@@ -57,15 +58,14 @@
              btnClass: 'btn-success any-other-class',
               action: function () {
                btnClass: 'btn-red any-other-class'
-               var filename = '/issuedBook/' + ides;
+               var filename = '/admin/issuedBook/' + ides;
             
                var request = new XMLHttpRequest();
                request.open('DELETE',filename);
                request.send()
                request.addEventListener("load",function(event)
-              {
-                  location.reload();
-                 console.log(request.responseText);
+               {
+                   table.ajax.reload(null, false);
               });  
           }
       },
@@ -86,26 +86,22 @@ $(document).on("click", "#editDetails", function() {
     $('#username').val(d[0].innerHTML);
     $('#bookName').val(d[2].innerHTML);
     $('#isbn').val(d[3].innerHTML);
-    $('#return').val(d[4].innerHTML);
-    
+    $('#return').val(d[4].innerHTML);  
 })
 
 function updateuserdetails()
 {
-  var Fines = document.getElementById("Fines");
-  console.log(Fines.value);
-
+    var Fines = document.getElementById("Fines");
 
     var obj1 = Object()
       obj1.isbn = globalNAME;
       obj1.fine = Fines.value;
       var request = new XMLHttpRequest();
-      request.open('POST', '/updateuserdetails');
+      request.open('POST', '/admin/updateuserdetails');
       request.setRequestHeader("Content-Type","application/json");
       request.send(JSON.stringify(obj1))
       request.addEventListener("load",function()
           {
-             console.log(request.responseText);
+              table.ajax.reload(null, false);
           });
-          location.reload();
 }

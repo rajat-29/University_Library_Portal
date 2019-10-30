@@ -25,14 +25,14 @@ submitStudent.addEventListener("click", function() {
 	obj.role = "User"
 
 	var request = new XMLHttpRequest();
-    request.open('POST',"/addnewuser");
+    request.open('POST',"/admin/addnewuser");
     request.setRequestHeader("Content-Type","application/json");
     request.send(JSON.stringify(obj))
     request.addEventListener("load",function() {
         console.log("Data Posted Successfully");
         alert("New User Is Registred");
     });  
-    window.location = "/add_students";
+    window.location = "/admin/add_students";
 
 })
 
@@ -47,7 +47,7 @@ function email_avail()
 	obj1.email = email2.value;
 	
 	var request = new XMLHttpRequest();
-    request.open('POST',"/checkemail");
+    request.open('POST',"/admin/checkemail");
     request.setRequestHeader("Content-Type","application/json");
     request.send(JSON.stringify({email: email2.value}));
     request.addEventListener("load",function() {
@@ -63,20 +63,17 @@ function email_avail()
 
 function sendmail()
 {
-				var data = new Object()
+		   var data = new Object()
 			data.to=email2.value;
 			data.from="codemailler12@gmail.com";
 			data.subject="Confirmation Mail";
 			data.text= "Hi " + stuname.value + " Please Confirm your Email-Id! and kindly enter this password to login = " + password2.value;
 		
-		console.log(data);
 		var request = new XMLHttpRequest();
-			request.open('POST', '/sendMail');
+			request.open('POST', '/admin/sendMail');
 			request.setRequestHeader("Content-Type","application/json");
 			request.send(JSON.stringify(data))
 			request.addEventListener("load",function()
         	{
-         		 console.log(request.responseText);
         	});
-
 }

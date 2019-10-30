@@ -1,51 +1,50 @@
-// add new categories
 function addCategory()
 {
-    window.location = "/add_category";
+    window.location = "/admin/add_category";
 }
 
 function manageCategory()
 {
-    window.location = '/manage_category';
+    window.location = '/admin/manage_category';
 }
 
 function manageAuthor()
 {
-    window.location = '/manage_author';
+    window.location = '/admin/manage_author';
 }
 
 function addAuthor()
 {
-    window.location = '/add_author';
+    window.location = '/admin/add_author';
 }
 
 function issueBook()
 {
-    window.location = '/book_issue';
+    window.location = '/admin/book_issue';
 }
 
 function manage_issue_books()
 {
-    window.location = '/manage_issue_books';
+    window.location = '/admin/manage_issue_books';
 }
 function addNewUser()
 {
-    window.location='/add_students';
+    window.location='/admin/add_students';
 }
 
 function manageStudents()
 {
-    window.location = '/manage_students';
+    window.location = '/admin/manage_students';
 }
 
 function openissuedBookSpecificUser()
 {
-    window.location = '/openissuedBookSpecificUser';
+    window.location = '/user/openissuedBookSpecificUser';
 }
 
 function updateUserProfile()
 {
-    window.location = '/updateUserProfile';
+    window.location = '/user/updateUserProfile';
 }
 
 
@@ -69,11 +68,10 @@ function fetchNumbers()
     var totalNoofAuthors = document.getElementById('totalNoofAuthors');
     var totalissuedBooksToUser = document.getElementById('totalissuedBooksToUser');
 
-
     //for total number of users
     var countdata;
     var request = new XMLHttpRequest();
-    request.open('GET','/totalNoofUsers');
+    request.open('GET','/admin/totalNoofUsers');
     request.send();
     request.onload = function()
     {
@@ -84,7 +82,7 @@ function fetchNumbers()
     //for total number of books
     var countbook;
     var request1 = new XMLHttpRequest();
-    request1.open('GET','/totalNoofBooks');
+    request1.open('GET','/admin/totalNoofBooks');
     request1.send();
     request1.onload = function()
     {
@@ -95,7 +93,7 @@ function fetchNumbers()
     //for total number of categories
     var countcat;
     var request2 = new XMLHttpRequest();
-    request2.open('GET','/totalNoofCat');
+    request2.open('GET','/admin/totalNoofCat');
     request2.send();
     request2.onload = function()
     {
@@ -106,7 +104,7 @@ function fetchNumbers()
     //for total number of books issued
     var countIssuedBooks;
     var request3 = new XMLHttpRequest();
-    request3.open('GET','/totalissuedBooks');
+    request3.open('GET','/admin/totalissuedBooks');
     request3.send();
     request3.onload = function()
     {
@@ -117,7 +115,7 @@ function fetchNumbers()
     //for total number of authors
     var countAuthors;
     var request4 = new XMLHttpRequest();
-    request4.open('GET','/totalNoofAuthors');
+    request4.open('GET','/admin/totalNoofAuthors');
     request4.send();
     request4.onload = function()
     {
@@ -128,37 +126,34 @@ function fetchNumbers()
     // total books issued to user
      var countBookstoUser;
     var request5 = new XMLHttpRequest();
-    request5.open('GET','/totalissuedBooksToUser');
+    request5.open('GET','/admin/totalissuedBooksToUser');
     request5.send();
     request5.onload = function()
     {
         countBookstoUser = JSON.parse(request5.responseText);
         totalissuedBooksToUser.innerHTML = countBookstoUser;
     }
-
-
-
 }
 
 function addBook()
 {
-    window.location = "/add_book";
+    window.location = "/admin/add_book";
 }
 
 function manageBook()
 {
-    window.location = '/manageBook'
+    window.location = '/admin/manageBook'
 }
 
 function changePassword()
 {
-    window.location="/changePassword";
+    window.location="/admin/changePassword";
 }
 
 // render home page
 function home_page()
 {
-    window.location = "/home";
+    window.location = "/login/home";
 }
 
 // logout user
@@ -172,7 +167,7 @@ function openlogoutpage()
     buttons: {
         Yes: {
             action: function () {
-             window.location = "/logout_person";
+             window.location = "/admin/logout_person";
         }
     },
         No: {

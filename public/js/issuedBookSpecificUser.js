@@ -3,7 +3,7 @@
       "processing": true,
       "serverSide": true,
       "ajax": {
-        "url": "/showIssuedBookSpecificUser",
+        "url": "/user/showIssuedBookSpecificUser",
         "type": "POST",
       },
       "columns": [
@@ -22,10 +22,6 @@
       {
         "data" : "fine"
       },
-      
-     
       ],
-      
-      
     });
   });

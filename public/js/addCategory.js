@@ -41,14 +41,14 @@ submitbtn.addEventListener("click", function() {
 	}
 	
 	var request = new XMLHttpRequest();
-    request.open('POST',"/addnewCategory");
+    request.open('POST',"/admin/addnewCategory");
     request.setRequestHeader("Content-Type","application/json");
     request.send(JSON.stringify(obj))
     request.addEventListener("load",function() {
         console.log("Data Posted Successfully");
         alert("New Category Is Registred");
     });  
-    window.location = "/add_category";
+    window.location = "/admin/add_category";
 })
 
 function getMonths(mno) {
