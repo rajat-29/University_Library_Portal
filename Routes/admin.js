@@ -26,11 +26,11 @@ app.post('/addnewuser',auth, function(req,res) {
 })
 
 app.get('/add_category',auth, function(req,res) {
-        res.render('add_category', {data: req.session});
+        res.render('add_category');
 })
 
 app.get('/manage_category',auth, function(req,res) {
-        res.render('manage_category', {data: req.session});
+        res.render('manage_category');
 })
 
 app.post('/addnewCategory',auth, function(req,res) {
@@ -105,7 +105,7 @@ app.post('/updateCategoryDetails',auth, function(req,res) {
 })
 
 app.get('/add_book',auth, function(req,res) {
-        res.render('add_book', {data: req.session});
+        res.render('add_book');
 })
 
 app.post('/addnewbook',auth, function(req,res) {
@@ -119,7 +119,7 @@ app.post('/addnewbook',auth, function(req,res) {
 })
 
 app.get('/manageBook',auth, function(req,res) {
-        res.render('manage_books', {data: req.session});
+        res.render('manage_books');
 })
 
 app.get('/categoryOptions',auth,function (req, res)  {
@@ -143,11 +143,11 @@ app.get('/authorOptions',auth,function (req, res)  {
 })
 
 app.get('/add_author',auth, function(req,res) {
-        res.render('add_author', {data: req.session});
+        res.render('add_author');
 })
 
 app.get('/manage_author',auth, function(req,res) {
-        res.render('manage_author', {data: req.session});
+        res.render('manage_author');
 })
 
 app.post('/addnewAuthor',auth, function(req,res) {
@@ -161,7 +161,7 @@ app.post('/addnewAuthor',auth, function(req,res) {
 })
 
 app.get('/add_students',auth, function(req,res) {
-        res.render('add_students', {data: req.session});
+        res.render('add_students');
 })
 
 app.post('/checkemail',auth,function (req, res) {
@@ -193,7 +193,7 @@ app.post('/sendMail',auth, function(request,response) {
 })
 
 app.get('/book_issue',auth, function(req,res) {
-        res.render('book_issue', {data: req.session});
+        res.render('book_issue');
 })
 
 app.post('/issueNewBook' ,auth, function(req,res) {
@@ -207,8 +207,7 @@ app.post('/issueNewBook' ,auth, function(req,res) {
     {
         if(error)
         throw error;
-        else
-        {
+        else {
           details.studentName = result[0].name;
              books.find({isbn: req.body.isbn}, function(error,result)
              {
@@ -220,8 +219,7 @@ app.post('/issueNewBook' ,auth, function(req,res) {
                       {
                         if(error)
                         throw error;
-                        else
-                        {}
+                        else{}
                       })
                   }
               })
@@ -231,8 +229,7 @@ app.post('/issueNewBook' ,auth, function(req,res) {
 })
 
 app.post('/checknameusingUniId',auth,function (req, res) {
-     var uniId = req.body.uniId;
-     users.findOne({uniId: uniId}, function(error,result)
+     users.findOne({uniId: req.body.uniId}, function(error,result)
       {
         if(error)
         throw error;
@@ -240,7 +237,7 @@ app.post('/checknameusingUniId',auth,function (req, res) {
       if(!result) 
         res.send("false");
       else
-           res.send(JSON.stringify(result));
+        res.send(JSON.stringify(result));
       })
 })
 
@@ -276,7 +273,7 @@ app.post('/changePasswordDatabase' ,auth, function(req,res){
 })
 
 app.get('/changePassword',auth, function(req,res) {
-      res.render('changePassword', {data: req.session});
+      res.render('changePassword');
 })
 
 app.post('/showStudents' ,auth, function(req, res) {
@@ -302,14 +299,12 @@ app.post('/showStudents' ,auth, function(req, res) {
         {
             if(err)
                 console.log(err);
-            else
-            {
+            else {
                 users.countDocuments(query, function(err , filteredCount)
                 {
                     if(err)
                         console.log(err);
-                    else
-                    {
+                    else {
                         users.countDocuments(function (err, totalCount)
                         {
                             if(err)
@@ -356,14 +351,12 @@ app.delete('/students/:pro',auth,function(req,res) {
         {
             if(err)
                 console.log(err);
-            else
-            {
+            else {
                 authors.countDocuments(query, function(err , filteredCount)
                 {
                     if(err)
                         console.log(err);
-                    else
-                    {
+                    else {
                         authors.countDocuments(function (err, totalCount)
                         {
                             if(err)
@@ -417,7 +410,7 @@ app.post('/showBooks' ,auth, function(req, res) {
         params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length), sort : {name : sortingType}};
    
     books.find(query , {} , params , function (err , data)
-        {
+    {
             if(err)
                 console.log(err);
             else {
@@ -441,7 +434,7 @@ app.post('/showBooks' ,auth, function(req, res) {
 })
 
 app.get('/manage_students',auth,function(req,res) {
-        res.render('manage_students', {data: req.session});
+        res.render('manage_students');
 })
 
 app.delete('/book/:pro',auth,function(req,res) {
@@ -465,8 +458,6 @@ app.post('/updateBookDetails',auth, function(req,res) {
   })
 })
 
-
-
 app.delete('/issuedBook/:pro',auth,function(req,res) {
       var id = req.params.pro.toString();
       issueBookes.deleteOne({ "_id": id },function(err,result)
@@ -479,7 +470,6 @@ app.delete('/issuedBook/:pro',auth,function(req,res) {
  })
 
 app.post('/showIssuedBooks' ,auth, function(req, res) {
-
   let query = {};
   let params = {};
 
@@ -500,14 +490,12 @@ app.post('/showIssuedBooks' ,auth, function(req, res) {
         {
             if(err)
                 console.log(err);
-            else
-            {
+            else {
                 issueBookes.countDocuments(query, function(err , filteredCount)
                 {
                     if(err)
                         console.log(err);
-                    else
-                    {
+                    else {
                         issueBookes.countDocuments(function (err, totalCount)
                         {
                             if(err)
@@ -523,7 +511,7 @@ app.post('/showIssuedBooks' ,auth, function(req, res) {
 })
 
 app.get('/manage_issue_books',auth, function(req,res) {
-        res.render('manage_issue_books', {data: req.session});
+        res.render('manage_issue_books');
 })
 
 app.post('/updateuserdetails',auth, function(req,res) {

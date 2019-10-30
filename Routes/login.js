@@ -41,7 +41,7 @@ app.get("/404", function(req,res) {
 })
 
 app.get('/signup_page', function(req,res) {
-        res.render('signup_users', {data: req.session});
+        res.render('signup_users');
 })
 
 module.exports = app;

@@ -8,7 +8,7 @@
         </div>
 
         <div class="right-div">
-                <a href="" id="dispayName" class="btn btn-danger pull-right">Welcome <%=data.name%></a>
+                <a href="" id="dispayName" class="btn btn-danger pull-right"></a>
         </div>
 
     </div>
@@ -26,69 +26,61 @@
 
                             <li><a onclick="home_page()" class="menu-top-active">DASHBOARD</a></li>
 
-                        <% if(data.role == "Admin"){ %>  
-                            <li>
+                            <li id="manageCat">
                                 <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Categories <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
                                     <li role="presentation"><a role="menuitem" tabindex="-1" onclick="addCategory()">Add Category</a></li>
                                      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="manageCategory()">Manage Categories</a></li>
                                 </ul>
                             </li>
-                            <%  } %>
-                            
-                        <% if(data.role == "Admin"){ %>  
-                             <li>
+                              
+                             <li id="manageauth">
                                 <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Authors <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
                                     <li role="presentation"><a role="menuitem" tabindex="-1" onclick="addAuthor()">Add Author</a></li>
                                      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="manageAuthor()">Manage Authors</a></li>
                                 </ul>
                             </li>
-                        <%  } %>
 
-                        <% if(data.role == "Admin"){ %>  
-                             <li>
+                            <li id="managebookes">
                                 <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Books <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
                                     <li role="presentation"><a role="menuitem" tabindex="-1" onclick="addBook()">Add Book</a></li>
                                      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="manageBook()">Manage Books</a></li>
                                 </ul>
                             </li>
-                            <%  } %>
-
-
-                    <% if(data.role == "Admin"){ %>  
-                           <li>
+ 
+                           <li id="manageIssue">
                                 <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Issue Books <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
                                     <li role="presentation"><a role="menuitem" tabindex="-1" onclick="issueBook()">Issue New Book</a></li>
                                      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="manage_issue_books()">Manage Issued Books</a></li>
                                 </ul>
                             </li>
-                            <%  } %>
-
-                        <% if(data.role == "Admin"){ %>  
-                            <li>
+ 
+                            <li id="manageStud">
                                 <a href="#" class="dropdown-toggle" id="ddlmenuItem" data-toggle="dropdown"> Reg Students <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
                                     <li role="presentation"><a role="menuitem" tabindex="-1" onclick="addNewUser()"> New Student</a></li>
                                      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="manageStudents()">Manage Students</a></li>
                                 </ul>
                             </li>
-                            <%  } %>
 
-                            <% if(data.role == "User"){ %> 
-                            <li><a onclick="openissuedBookSpecificUser()">Issued Books</a></li>
-                            <%  } %>
+                            <li id="specifecissuebook">
+                                <a onclick="openissuedBookSpecificUser()">Issued Books</a>
+                            </li>
 
-                            <% if(data.role == "User"){ %> 
-                            <li><a onclick="updateUserProfile()">Update Profile</a></li>
-                            <%  } %>
+                            <li id="updateUserProfile">
+                                <a onclick="updateUserProfile()">Update Profile</a>
+                            </li>
+             
+                            <li>
+                                <a onclick="changePassword()">Change Password</a>
+                            </li>
 
-                    
-                            <li><a onclick="changePassword()">Change Password</a></li>
-
-                            <li><a onclick="openlogoutpage()">Logout</a></li>
+                            <li>
+                                <a onclick="openlogoutpage()">Logout</a>
+                            </li>
 
                        </ul>
 
@@ -98,6 +90,23 @@
     </div>
 
 </section>
+
+<script>
+    document.getElementById('dispayName').innerHTML = "Welcome " + window.sessionStorage.getItem('name');
+    if(window.sessionStorage.getItem('role') == 'Admin')
+    {
+        document.getElementById('specifecissuebook').style.display = "none";
+        document.getElementById('updateUserProfile').style.display = "none";
+    }
+     if(window.sessionStorage.getItem('role') == 'User')
+    {
+        document.getElementById('manageStud').style.display = "none";
+        document.getElementById('manageIssue').style.display = "none";
+        document.getElementById('managebookes').style.display = "none";
+        document.getElementById('manageauth').style.display = "none";
+        document.getElementById('manageCat').style.display = "none";
+    }
+</script>
 
 
 

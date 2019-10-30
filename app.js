@@ -5,13 +5,11 @@ var session = require('express-session');
 var ejs = require('ejs');
 var mongodb = require('mongodb');
 var mongoStore = require('connect-mongo')(session);
-var mailer = require('nodemailer');
-var MongoDataTable = require('mongo-datatable');
 ObjectId = require('mongodb').ObjectID;
 var MongoClient = mongodb.MongoClient;
+var port=8000;
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));  // view engine setup
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname,'/public'))) /*folder path*/
 
@@ -43,10 +41,8 @@ mongoose.connection.on('connected',(err) => {
     console.log('DB connected');
 })
 
-// Routing the routes //
-app.use('/login',require('./Routes/login'));
+app.use('/login',require('./Routes/login'));   // Routing the routes //
 app.use('/admin',require('./Routes/admin'));
 app.use('/user',require('./Routes/user'));
 
-console.log("Running on port 8000");
-app.listen(8000)
+app.listen(port,()=>{console.log("Running on port "+port);});

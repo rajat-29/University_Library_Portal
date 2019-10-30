@@ -33,6 +33,11 @@ submit.addEventListener("click", function() {
     request.addEventListener("load",function() {
     	var data = JSON.parse(request.responseText);
     	if(data.isLogin === 1) {
+            window.sessionStorage.setItem('email' , data.email);
+            window.sessionStorage.setItem('uniId' , data.uniId);
+            window.sessionStorage.setItem('name' , data.name);
+            window.sessionStorage.setItem('role' , data.role);
+
             window.location = "/login/home";
         }
         else if(data.isLogin === 0)

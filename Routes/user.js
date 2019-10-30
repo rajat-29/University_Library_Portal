@@ -45,7 +45,7 @@ app.post('/updateUserProfileDetails',auth, function(req,res) {
 })
 
 app.get('/updateUserProfile',auth, function(req,res) {
-        res.render('updateUserProfile', {data: req.session});
+        res.render('updateUserProfile');
 })
 
 app.get('/openissuedBookSpecificUser',auth, function(req,res) {
