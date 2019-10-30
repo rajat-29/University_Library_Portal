@@ -12,7 +12,9 @@ var books = require('../Models/BookSchema');
 var authors = require('../Models/authorSchema');
 var issueBookes = require('../Models/issueBookSchema');
 
-app.post('/addnewuser', function(req,res) {
+var auth = require('../MiddleWares/auth');
+
+app.post('/addnewuser',auth, function(req,res) {
      users.create(req.body,function(error,result)
       {
         if(error)
@@ -22,29 +24,15 @@ app.post('/addnewuser', function(req,res) {
      res.send("data saved");
 })
 
-app.get('/add_category', function(req,res) {
-    if(req.session.isLogin)
-    {
+app.get('/add_category',auth, function(req,res) {
         res.render('add_category', {data: req.session});
-    }
-    else
-    {
-        res.render('index');
-    }
 })
 
-app.get('/manage_category', function(req,res) {
-    if(req.session.isLogin)
-    {
+app.get('/manage_category',auth, function(req,res) {
         res.render('manage_category', {data: req.session});
-    }
-    else
-    {
-        res.render('index');
-    }
 })
 
-app.post('/addnewCategory', function(req,res) {
+app.post('/addnewCategory',auth, function(req,res) {
      category.create(req.body,function(error,result)
       {
         if(error)
@@ -54,7 +42,7 @@ app.post('/addnewCategory', function(req,res) {
      res.send("data saved");
 })
 
-app.post('/showcategories' , function(req, res) {
+app.post('/showcategories' ,auth, function(req, res) {
     let query = {};
     let params = {};
 
@@ -94,41 +82,32 @@ app.post('/showcategories' , function(req, res) {
         })
 })
 
-app.delete('/category/:pro',function(req,res) {
+app.delete('/category/:pro',auth,function(req,res) {
       var id = req.params.pro.toString();
       category.deleteOne({ "_id": id },function(err,result)
       {
           if(err)
           throw error
-          else {
-              res.send("data deleted SUCCESFULLY")
-          }
+          else 
+            res.send("data deleted SUCCESFULLY")
       });
  })
 
-app.post('/updateCategoryDetails', function(req,res) {  
+app.post('/updateCategoryDetails',auth, function(req,res) {  
         category.updateOne( { "createDate" : req.body.createDate}, {$set : req.body } , function(err,result)
         {
           if(err)
           throw err
-          else {
+          else 
             res.send("DATA UPDATED SUCCESFULLY")
-          }
         })
 })
 
-app.get('/add_book', function(req,res) {
-     if(req.session.isLogin)
-     {
+app.get('/add_book',auth, function(req,res) {
         res.render('add_book', {data: req.session});
-     }
-     else
-     {
-        res.render('index');
-     }
 })
 
-app.post('/addnewbook', function(req,res) {
+app.post('/addnewbook',auth, function(req,res) {
      books.create(req.body,function(error,result)
       {
         if(error)
@@ -138,60 +117,39 @@ app.post('/addnewbook', function(req,res) {
      res.send("data saved");
 })
 
-app.get('/manageBook', function(req,res) {
-     if(req.session.isLogin)
-     {
+app.get('/manageBook',auth, function(req,res) {
         res.render('manage_books', {data: req.session});
-     }
-     else
-     {
-        res.render('index');
-     }
 })
 
-app.get('/categoryOptions',function (req, res)  {
+app.get('/categoryOptions',auth,function (req, res)  {
     category.find({status: 'Active'}, function(error,result)
     {
         if(error)
         throw error;
         else
-        res.send(JSON.stringify(result));
+          res.send(JSON.stringify(result));
     })
 })
 
-app.get('/authorOptions',function (req, res)  {
+app.get('/authorOptions',auth,function (req, res)  {
     authors.find( function(error,result)
     {
         if(error)
         throw error;
         else
-        res.send(JSON.stringify(result));
+          res.send(JSON.stringify(result));
     })
 })
 
-app.get('/add_author', function(req,res) {
-     if(req.session.isLogin)
-     {
+app.get('/add_author',auth, function(req,res) {
         res.render('add_author', {data: req.session});
-     }
-     else
-     {
-        res.render('index');
-     }
 })
 
-app.get('/manage_author', function(req,res) {
-     if(req.session.isLogin)
-     {
+app.get('/manage_author',auth, function(req,res) {
         res.render('manage_author', {data: req.session});
-     }
-     else
-     {
-        res.render('index');
-     }
 })
 
-app.post('/addnewAuthor', function(req,res) {
+app.post('/addnewAuthor',auth, function(req,res) {
      authors.create(req.body,function(error,result)
       {
         if(error)
@@ -201,52 +159,35 @@ app.post('/addnewAuthor', function(req,res) {
      res.send("data saved");
 })
 
-app.get('/add_students', function(req,res) {
-     if(req.session.isLogin)
-     {
+app.get('/add_students',auth, function(req,res) {
         res.render('add_students', {data: req.session});
-     }
-     else
-     {
-        res.render('index');
-     }
 })
 
-app.post('/checkemail',function (req, res) {
+app.post('/checkemail',auth,function (req, res) {
      users.findOne({email: req.body.email}, function(error,result)
       {
         if(error)
         throw error;
 
-      if(!result) {
+      if(!result)
         res.send("false");
-      }
-      else {
+      else 
           res.send("true");
-      }
       })
 })
 
-app.post('/sendMail', function(request,response) {
-    console.log(request.body)
+app.post('/sendMail',auth, function(request,response) {
       transporter.sendMail(request.body, (error, info) => {
         if(error) {
         } else {}
       })
 })
 
-app.get('/book_issue', function(req,res) {
-     if(req.session.isLogin)
-     {
+app.get('/book_issue',auth, function(req,res) {
         res.render('book_issue', {data: req.session});
-     }
-     else
-     {
-        res.render('index');
-     }
 })
 
-app.post('/issueNewBook' , function(req,res) {
+app.post('/issueNewBook' ,auth, function(req,res) {
   var details = new Object();
   details.isbn = req.body.isbn;
   details.uniId = req.body.uniId;
@@ -264,8 +205,7 @@ app.post('/issueNewBook' , function(req,res) {
              {
                   if(error)
                     throw error;
-                  else
-                  {
+                  else {
                      details.bookName = result[0].name; 
                      issueBookes.create(details,function(error,result)
                       {
@@ -281,48 +221,39 @@ app.post('/issueNewBook' , function(req,res) {
    res.send("data");
 })
 
-app.post('/checknameusingUniId',function (req, res) {
+app.post('/checknameusingUniId',auth,function (req, res) {
      var uniId = req.body.uniId;
      users.findOne({uniId: uniId}, function(error,result)
       {
         if(error)
         throw error;
 
-      if(!result) {
+      if(!result) 
         res.send("false");
-      }
-      else{
+      else
            res.send(JSON.stringify(result));
-        }
       })
 })
 
-app.post('/checkbookusingIsbn',function (req, res) {
-
-     var isbn = req.body.isbn;
-
-     books.findOne({isbn: isbn}, function(error,result)
+app.post('/checkbookusingIsbn',auth,function (req, res) {
+     books.findOne({isbn: req.body.isbn}, function(error,result)
       {
         if(error)
         throw error;
 
-      if(!result) {
+      if(!result) 
         res.send("false");
-      }
-      else {
+      else 
            res.send(result.name);
-       }
       })
 })
 
-app.post('/changePasswordDatabase' , function(req,res){
+app.post('/changePasswordDatabase' ,auth, function(req,res){
     password = req.body;
+
     if(password.oldpass != req.session.password)
-    {
       res.send("Incorrect Old Password");
-    } 
-    else
-    {
+    else {
       users.updateOne({"email" : req.session.email},{$set: { "password" : password.newpass}} ,
         function(error,result)
         {
@@ -335,21 +266,15 @@ app.post('/changePasswordDatabase' , function(req,res){
     }
 })
 
-app.get('/changePassword', function(req,res) {
-    if(req.session.isLogin) {
+app.get('/changePassword',auth, function(req,res) {
       res.render('changePassword', {data: req.session});
-    
-       } else {
-      res.render('index');
-     }
 })
 
-app.post('/showStudents' , function(req, res) {
+app.post('/showStudents' ,auth, function(req, res) {
   let query = {};
   let params = {};
 
-  if(req.body.search.value)
-  {
+  if(req.body.search.value) {
     query.name = {"$regex" : req.body.search.value , "$options" : "i"};
   }
 
@@ -358,7 +283,6 @@ app.post('/showStudents' , function(req, res) {
     sortingType = 1;
   else
     sortingType = -1;
-
 
     if(req.body.order[0].column === '0')
         params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length), sort : {uniId : sortingType}};
@@ -391,24 +315,22 @@ app.post('/showStudents' , function(req, res) {
         })
 })
 
-app.delete('/students/:pro',function(req,res) {
+app.delete('/students/:pro',auth,function(req,res) {
       var id = req.params.pro.toString();
       users.deleteOne({ "_id": id },function(err,result)
       {
           if(err)
           throw error
-          else{
+          else
               res.send("data deleted SUCCESFULLY")
-          }
       });
  })
 
- app.post('/showauthor' , function(req, res) {
-      let query = {};
+ app.post('/showauthor' ,auth, function(req, res) {
+    let query = {};
     let params = {};
 
-    if(req.body.search.value)
-    {
+    if(req.body.search.value){
         query.name = {"$regex" : req.body.search.value , "$options" : "i"};
     }
 
@@ -447,35 +369,32 @@ app.delete('/students/:pro',function(req,res) {
         })
 })
 
-app.delete('/author/:pro',function(req,res) {
+app.delete('/author/:pro',auth,function(req,res) {
       var id = req.params.pro.toString();
       authors.deleteOne({ "_id": id },function(err,result)
       {
           if(err)
           throw error
-          else {
+          else 
               res.send("data deleted SUCCESFULLY")
-          }
       });
  })
 
-app.post('/updateAuthorDetails', function(req,res) {
+app.post('/updateAuthorDetails',auth, function(req,res) {
         authors.updateOne( { "createDate" : req.body.createDate}, {$set : req.body } , function(err,result)
         {
           if(err)
           throw err
-          else  {
+          else  
             res.send("DATA UPDATED SUCCESFULLY")
-          }
         })
 })
 
-app.post('/showBooks' , function(req, res) {
+app.post('/showBooks' ,auth, function(req, res) {
   let query = {};
   let params = {};
     
-    if(req.body.search.value)
-    {
+    if(req.body.search.value) {
         query.name = {"$regex" : req.body.search.value , "$options" : "i"};
     }
 
@@ -512,30 +431,22 @@ app.post('/showBooks' , function(req, res) {
         })
 })
 
-app.get('/manage_students', function(req,res) {
-     if(req.session.isLogin)
-     {
+app.get('/manage_students',auth,function(req,res) {
         res.render('manage_students', {data: req.session});
-     }
-     else
-     {
-        res.render('index');
-     }
 })
 
-app.delete('/book/:pro',function(req,res) {
+app.delete('/book/:pro',auth,function(req,res) {
       var id = req.params.pro.toString();
       books.deleteOne({ "_id": id },function(err,result)
       {
           if(err)
           throw error
-          else {
+          else 
               res.send("data deleted SUCCESFULLY")
-          }
       });
 })
 
-app.post('/updateBookDetails', function(req,res) {
+app.post('/updateBookDetails',auth, function(req,res) {
   books.updateOne( { "isbn" : req.body.isbn}, {$set : req.body } , function(err,result)
   {
     if(err)
@@ -547,26 +458,23 @@ app.post('/updateBookDetails', function(req,res) {
 
 
 
-app.delete('/issuedBook/:pro',function(req,res) {
+app.delete('/issuedBook/:pro',auth,function(req,res) {
       var id = req.params.pro.toString();
       issueBookes.deleteOne({ "_id": id },function(err,result)
       {
           if(err)
           throw error
           else
-          {
               res.send("data deleted SUCCESFULLY")
-          }
       });
  })
 
-app.post('/showIssuedBooks' , function(req, res) {
+app.post('/showIssuedBooks' ,auth, function(req, res) {
 
   let query = {};
   let params = {};
 
-if(req.body.search.value)
-    {
+    if(req.body.search.value){
         query.uniId = {"$regex" : req.body.search.value , "$options" : "i"};
     }
 
@@ -579,7 +487,7 @@ if(req.body.search.value)
         if(req.body.order[0].column === '0')
         params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length), sort : {uniId : sortingType}};
    
-issueBookes.find(query , {} , params , function (err , data)
+        issueBookes.find(query , {} , params , function (err , data)
         {
             if(err)
                 console.log(err);
@@ -605,67 +513,57 @@ issueBookes.find(query , {} , params , function (err , data)
         })
 })
 
-app.get('/manage_issue_books', function(req,res) {
-     if(req.session.isLogin)
-     {
+app.get('/manage_issue_books',auth, function(req,res) {
         res.render('manage_issue_books', {data: req.session});
-     }
-     else
-     {
-        res.render('index');
-     }
 })
 
-app.post('/updateuserdetails', function(req,res) {
+app.post('/updateuserdetails',auth, function(req,res) {
         issueBookes.updateOne( { "isbh" : req.body.isbn}, {$set : req.body } , function(err,result)
         {
           if(err)
           throw err
           else
-          {
             res.send("DATA UPDATED SUCCESFULLY")
-          }
         })
 })
 
-app.get('/logout_person', function(req,res) {
+app.get('/logout_person',auth, function(req,res) {
     req.session.isLogin = 0;
     req.session.destroy();
     res.render('index');
 })
 
-app.get('/totalNoofUsers' , function(req, res) {
+app.get('/totalNoofUsers' ,auth, function(req, res) {
           users.countDocuments(function(e,count){
                 res.send(JSON.stringify(count));
    });
 })
 
-app.get('/totalNoofBooks' , function(req, res) {
+app.get('/totalNoofBooks' ,auth, function(req, res) {
           books.countDocuments(function(e,count){
                 res.send(JSON.stringify(count));
      });
 })
 
-app.get('/totalNoofCat' , function(req, res) {
+app.get('/totalNoofCat' ,auth, function(req, res) {
           category.countDocuments(function(e,count){
                 res.send(JSON.stringify(count));
    });
 })
 
-app.get('/totalissuedBooks' , function(req, res) {
+app.get('/totalissuedBooks' ,auth, function(req, res) {
           issueBookes.countDocuments(function(e,count){
                 res.send(JSON.stringify(count));
    });
 })
 
-app.get('/totalNoofAuthors' , function(req, res) {
+app.get('/totalNoofAuthors' ,auth, function(req, res) {
           authors.countDocuments(function(e,count){
                 res.send(JSON.stringify(count));
    });
 })
 
-app.get('/totalissuedBooksToUser' , function(req, res) {
-  
+app.get('/totalissuedBooksToUser' ,auth, function(req, res) {
           issueBookes.countDocuments({uniId: req.session.uniId}, function(e,count){
                 res.send(JSON.stringify(count));
    });

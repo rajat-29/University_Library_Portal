@@ -7,6 +7,8 @@ app.use(express.static(path.join(__dirname,'../public')));
 var mongoose = require('mongoose')
 var users = require('../Models/userSchema');
 
+var auth=require('../MiddleWares/auth');
+
 app.post('/checkLogin',function (req, res)  {
 
     req.session.isLogin = 0;
@@ -17,9 +19,8 @@ app.post('/checkLogin',function (req, res)  {
         if(error)
         throw error;
 
-        if(!result) {
+        if(!result) 
             res.send("false");
-        }
         else {
                 req.session.isLogin = 1;
                 req.session.email = req.body.name;
@@ -31,18 +32,11 @@ app.post('/checkLogin',function (req, res)  {
     })     
 })
 
-app.get('/home' , function(req,res) {       
-    if(req.session.isLogin) 
-    {      
-            res.render('dashboard', {data: req.session});              
-    } 
-    else 
-    {
-        res.render('index');
-    }
+app.get('/home' ,auth, function(req,res) {           
+    res.render('dashboard', {data: req.session});              
 })
 
-app.get("/404" ,function(req,res) {
+app.get("/404", function(req,res) {
    res.render("404");
 })
 

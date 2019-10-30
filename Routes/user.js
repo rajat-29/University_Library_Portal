@@ -7,12 +7,11 @@ app.use(express.static(path.join(__dirname,'../public')));
 var mongoose = require('mongoose');
 
 var users = require('../Models/userSchema');
-var category = require('../Models/categorySchema');
-var books = require('../Models/BookSchema');
-var authors = require('../Models/authorSchema');
 var issueBookes = require('../Models/issueBookSchema');
 
-app.post('/showIssuedBookSpecificUser' , function(req, res) {
+var auth = require('../MiddleWares/auth');
+
+app.post('/showIssuedBookSpecificUser' ,auth, function(req, res) {
     var flag;
       issueBookes.countDocuments({uniId: req.session.uniId},function(e,count){
       var start=parseInt(req.body.start);
@@ -35,38 +34,22 @@ app.post('/showIssuedBookSpecificUser' , function(req, res) {
    });
 })
 
-app.post('/updateUserProfileDetails', function(req,res) {  
+app.post('/updateUserProfileDetails',auth, function(req,res) {  
         users.updateOne( { "uniId" : req.session.uniId}, {$set : req.body } , function(err,result)
         {
           if(err)
           throw err
-          else
-          {
+          else         
             res.send("DATA UPDATED SUCCESFULLY")
-          }
         })
 })
 
-app.get('/updateUserProfile', function(req,res) {
-    if(req.session.isLogin)
-    {
+app.get('/updateUserProfile',auth, function(req,res) {
         res.render('updateUserProfile', {data: req.session});
-    }
-    else
-    {
-        res.render('index');
-    }
 })
 
-app.get('/openissuedBookSpecificUser', function(req,res) {
-    if(req.session.isLogin)
-    {
+app.get('/openissuedBookSpecificUser',auth, function(req,res) {
         res.render('issuedBookSpecificUser', {data: req.session});
-    }
-    else
-    {
-        res.render('index');
-    }
 })
 
 module.exports = app;

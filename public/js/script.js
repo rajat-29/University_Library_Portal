@@ -50,5 +50,5 @@ submit.addEventListener("click", function() {
 })
 
 signup.addEventListener("click", function() {
-    window.location = "/home/signup_page";
+    window.location = "/login/signup_page";
 })
