@@ -81,7 +81,7 @@
 
 $(document).on("click", "#editDetails", function() {
     d = $(this).parent().parent()[0].children;
-    console.log(d);
+    console.log(d[3].innerHTML);
     globalNAME = d[3].innerHTML
     $('#username').val(d[0].innerHTML);
     $('#bookName').val(d[2].innerHTML);
@@ -101,7 +101,7 @@ function updateuserdetails()
       request.setRequestHeader("Content-Type","application/json");
       request.send(JSON.stringify(obj1))
       request.addEventListener("load",function()
-          {
+      {
               table.ajax.reload(null, false);
-          });
+      });
 }

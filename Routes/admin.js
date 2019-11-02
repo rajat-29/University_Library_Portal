@@ -15,7 +15,6 @@ var authors = require('../Models/authorSchema');
 var issueBookes = require('../Models/issueBookSchema');
 
 var auth = require('../MiddleWares/auth');
-var mail = require('../MiddleWares/nodemailer');
 
 app.post('/addnewuser',auth, function(req,res) {
   bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
@@ -198,19 +197,43 @@ app.post('/checkid',auth,function (req, res) {
       })
 })
 
-app.post('/sendMail',auth, function(request,response) {
-    var mailOptions={
-    from: req.body.from,
-    to: req.body.to,
-    subject: req.body.subject,
-    html: req.body.text
-  };
+app.post('/checkcat',auth,function (req, res) {
+     category.findOne({name: req.body.name}, function(error,result)
+      {
+        if(error)
+        throw error;
 
-  mail.sendMail(mailOptions,(error, info)=>{
-    if (error)
-      res.send(error);
-    res.send("success");
-  });
+      if(!result)
+        res.send("false");
+      else 
+          res.send("true");
+      })
+})
+
+app.post('/checkauth',auth,function (req, res) {
+     authors.findOne({name: req.body.name}, function(error,result)
+      {
+        if(error)
+        throw error;
+
+      if(!result)
+        res.send("false");
+      else 
+          res.send("true");
+      })
+})
+
+app.post('/checkisbn',auth,function (req, res) {
+     books.findOne({isbn: req.body.isbn}, function(error,result)
+      {
+        if(error)
+        throw error;
+
+      if(!result)
+        res.send("false");
+      else 
+          res.send("true");
+      })
 })
 
 app.get('/book_issue',auth, function(req,res) {
@@ -421,7 +444,7 @@ app.post('/showBooks' ,auth, function(req, res) {
   let params = {};
     
     if(req.body.search.value) {
-        query.name = {"$regex" : req.body.search.value , "$options" : "i"};
+        query.isbn = {"$regex" : req.body.search.value , "$options" : "i"};
     }
 
     let sortingType;
@@ -432,7 +455,7 @@ app.post('/showBooks' ,auth, function(req, res) {
 
     if(req.body.order[0].column === '0')
         params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length), sort : {name : sortingType}};
-   
+
     books.find(query , {} , params , function (err , data)
     {
             if(err)
@@ -539,7 +562,7 @@ app.get('/manage_issue_books',auth, function(req,res) {
 })
 
 app.post('/updateuserdetails',auth, function(req,res) {
-        issueBookes.updateOne( { "isbh" : req.body.isbn}, {$set : req.body } , function(err,result)
+        issueBookes.updateOne( { "isbn" : req.body.isbn}, {$set : req.body } , function(err,result)
         {
           if(err)
           throw err

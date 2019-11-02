@@ -28,6 +28,7 @@ app.post('/checkLogin',function (req, res)  {
                     req.session.uniId = result.uniId;
                     req.session.name = result.name;       
                     req.session.role = result.role;
+                    req.session.phone = result.phone;
                     req.session.password = result.password;
                     res.send(req.session);  
                 }

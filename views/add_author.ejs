@@ -36,6 +36,9 @@
 </div>
 <div class="row">
 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+<div class="alert alert-info" id="email_info" style="display : none">
+    <center id="display_email"></center>
+</div>
 <div class="panel panel-info">
 <div class="panel-heading">
 Author Info
@@ -43,7 +46,7 @@ Author Info
 <div class="panel-body">
 <div class="form-group">
 <label>Author Name</label>
-<input class="form-control" type="text" name="author" autocomplete="off" id="authName" placeholder="Enter Author" required />
+<input class="form-control" type="text" name="author" autocomplete="off" id="authName" placeholder="Enter Author" onchange="auth_check()" required />
 </div>
 
 <button type="submit" name="create" id="submitAuth" class="btn btn-info">Update </button>

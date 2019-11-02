@@ -14,6 +14,7 @@ submitAuth.addEventListener("click", function() {
       request.send(JSON.stringify(obj1))
       request.addEventListener("load",function()
       {
+            alert("Data Updated Successfully");
              location.reload();
       });        
 })

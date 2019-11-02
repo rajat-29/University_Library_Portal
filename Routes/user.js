@@ -40,12 +40,16 @@ app.post('/updateUserProfileDetails',auth, function(req,res) {
           if(err)
           throw err
           else         
+            req.session.name = req.body.name;
+            req.session.email = req.body.email;
+            req.session.phone = req.body.phone;
+
             res.send("DATA UPDATED SUCCESFULLY")
         })
 })
 
 app.get('/updateUserProfile',auth, function(req,res) {
-        res.render('updateUserProfile');
+        res.render('updateUserProfile', {data: req.session});
 })
 
 app.get('/openissuedBookSpecificUser',auth, function(req,res) {

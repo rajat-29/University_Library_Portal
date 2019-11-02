@@ -62,25 +62,6 @@ function getMonths(mno) {
     return month[mno-1];
 }
 
-submitIssue.addEventListener("click", function() {
-
-    var data = new Object()
-            data.to=email2;
-            data.from="codemailler12@gmail.com";
-            data.subject="Book Issued";
-            data.text= "Hi " + "\n" + studentName + " having University Id = " + studentid.value + " has Issued" +
-             " a book name : " + BookName + " having ISBN no : " + bookid.value + " and your return date is " + 
-             today;
-        
-        var request = new XMLHttpRequest();
-            request.open('POST', '/admin/sendMail');
-            request.setRequestHeader("Content-Type","application/json");
-            request.send(JSON.stringify(data))
-            request.addEventListener("load",function()
-            {
-            });
-})
-
 function get_student_name()
 {
     var get_student_name = document.getElementById('get_student_name');

@@ -12,8 +12,7 @@ submitbtn.addEventListener("click", function() {
 	var obj = new Object();
 	obj.name = catname.value;
 
-	//date
-	    var today = new Date();
+    var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth()+1;
     var yyyy = today.getFullYear();
@@ -39,6 +38,11 @@ submitbtn.addEventListener("click", function() {
 	{
 		obj.status = "Inactive";
 	}
+    else
+    {
+        alert("Status is Empty");
+        return;
+    }
 	
 	var request = new XMLHttpRequest();
     request.open('POST',"/admin/addnewCategory");
@@ -54,4 +58,25 @@ submitbtn.addEventListener("click", function() {
 function getMonths(mno) {
     var month = ["Jan","Feb","March","April","May","June","July","Aug","Sep","Oct","Nov","Dec"];
     return month[mno-1];
+}
+
+function cat_check()
+{
+    document.getElementById("email_info").style.display = 'visible';
+    document.getElementById("email_info").style.display = 'block';
+    document.getElementById("email_info").style.marginTop = '10px';
+    document.getElementById("email_info").style.marginBottom = '10px';
+    
+    var request = new XMLHttpRequest();
+    request.open('POST',"/admin/checkcat");
+    request.setRequestHeader("Content-Type","application/json");
+    request.send(JSON.stringify({name: catname.value}));
+    request.addEventListener("load",function() {
+        var data = request.responseText;
+        if(data === 'true') {
+            display_email.innerHTML= "Category " + catname.value + " is already exist";
+        }
+        else
+           document.getElementById("email_info").style.display = 'none'; 
+    });  
 }

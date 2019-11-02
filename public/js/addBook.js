@@ -67,3 +67,24 @@ function addNewBook()
     });  
     window.location = "/admin/add_book";
 }
+
+function isbn_check()
+{
+    document.getElementById("email_info").style.display = 'visible';
+    document.getElementById("email_info").style.display = 'block';
+    document.getElementById("email_info").style.marginTop = '10px';
+    document.getElementById("email_info").style.marginBottom = '10px';
+    
+    var request = new XMLHttpRequest();
+    request.open('POST',"/admin/checkisbn");
+    request.setRequestHeader("Content-Type","application/json");
+    request.send(JSON.stringify({isbn:isbn.value}));
+    request.addEventListener("load",function() {
+        var data = request.responseText;
+        if(data === 'true') {
+            display_email.innerHTML= "Isbn " + isbn.value + " is already exist";
+        }
+        else
+           document.getElementById("email_info").style.display = 'none'; 
+    });  
+}
