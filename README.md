@@ -17,6 +17,7 @@ It will run under the url http://127.0.0.1:8000/
 ## How to Use ?
 <ol type="number">
 <li> Use mongorestore command to add database to your Local Machine.</li>
+<li>Install Node Modules by running npm install</li>
 <li>Run Mongo Server</li>
 <li>Run Server File app.js</li>
 <li>Run local host on port number 8000</li>
@@ -31,6 +32,7 @@ It will run under the url http://127.0.0.1:8000/
   <li>Express-Session</li>
   <li>EJS</li>
   <li>Node Mailer</li>
+  <li>Bcyrpt Module</li>
 <ul>
 
 
