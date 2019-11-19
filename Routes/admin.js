@@ -328,7 +328,18 @@ app.post('/showStudents' ,auth, function(req, res) {
   let params = {};
 
   if(req.body.search.value) {
-    query.name = {"$regex" : req.body.search.value , "$options" : "i"};
+     query["$or"]= [{
+            "name":  { '$regex' : req.body.search.value, '$options' : 'i' }
+        }, {
+            "role":{ '$regex' : req.body.search.value, '$options' : 'i' }
+        },{
+            "uniId": { '$regex' : req.body.search.value, '$options' : 'i' }
+        },{
+            "phone":  { '$regex' : req.body.search.value, '$options' : 'i' }
+        }]
+  }
+  else{
+      delete query["$or"];
   }
 
   let sortingType;
@@ -444,8 +455,21 @@ app.post('/showBooks' ,auth, function(req, res) {
   let params = {};
     
     if(req.body.search.value) {
-        query.isbn = {"$regex" : req.body.search.value , "$options" : "i"};
-    }
+     query["$or"]= [{
+            "name":  { '$regex' : req.body.search.value, '$options' : 'i' }
+        }, {
+            "category":{ '$regex' : req.body.search.value, '$options' : 'i' }
+        },{
+            "author": { '$regex' : req.body.search.value, '$options' : 'i' }
+        },{
+            "isbn":  { '$regex' : req.body.search.value, '$options' : 'i' }
+        },{
+            "price": { '$regex' : req.body.search.value, '$options' : 'i' }
+        }]
+  }
+  else{
+      delete query["$or"];
+  }
 
     let sortingType;
     if(req.body.order[0].dir === 'asc')
@@ -520,9 +544,22 @@ app.post('/showIssuedBooks' ,auth, function(req, res) {
   let query = {};
   let params = {};
 
-    if(req.body.search.value){
-        query.uniId = {"$regex" : req.body.search.value , "$options" : "i"};
-    }
+    if(req.body.search.value) {
+     query["$or"]= [{
+            "studentName":  { '$regex' : req.body.search.value, '$options' : 'i' }
+        }, {
+            "uniId":{ '$regex' : req.body.search.value, '$options' : 'i' }
+        },{
+            "bookName": { '$regex' : req.body.search.value, '$options' : 'i' }
+        },{
+            "isbn":  { '$regex' : req.body.search.value, '$options' : 'i' }
+        },{
+            "ReturnDate": { '$regex' : req.body.search.value, '$options' : 'i' }
+        }]
+  }
+  else{
+      delete query["$or"];
+  }
 
    let sortingType;
     if(req.body.order[0].dir === 'asc')
