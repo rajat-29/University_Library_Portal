@@ -5,8 +5,6 @@ var session = require('express-session');
 var ejs = require('ejs');
 var mongodb = require('mongodb');
 var mongoStore = require('connect-mongo')(session);
-ObjectId = require('mongodb').ObjectID;
-var MongoClient = mongodb.MongoClient;
 var port=8000;
 
 app.set('views', path.join(__dirname, 'views'));  // view engine setup

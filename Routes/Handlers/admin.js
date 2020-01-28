@@ -9,45 +9,45 @@ var auth = require('../../MiddleWares/auth');
 let adminController = require('../../Controllers/admin');
 
 app.get('/add_category',auth, function(req,res) {
-        res.render('add_category');
+        res.render('add_category', {data: req.session});
 })
 
 app.get('/manage_category',auth, function(req,res) {
-        res.render('manage_category');
+        res.render('manage_category', {data: req.session});
 })
 
 app.get('/add_book',auth, function(req,res) {
-        res.render('add_book');
+        res.render('add_book', {data: req.session});
 })
 
 app.get('/manageBook',auth, function(req,res) {
-        res.render('manage_books');
+        res.render('manage_books', {data: req.session});
 })
 
 app.get('/add_author',auth, function(req,res) {
-        res.render('add_author');
+        res.render('add_author', {data: req.session});
 })
 
 app.get('/manage_author',auth, function(req,res) {
-        res.render('manage_author');
+        res.render('manage_author', {data: req.session});
 })
 
 app.get('/add_students',auth, function(req,res) {
-        res.render('add_students');
+        res.render('add_students', {data: req.session});
 })
 app.get('/book_issue',auth, function(req,res) {
-        res.render('book_issue');
+        res.render('book_issue', {data: req.session});
 })
 
 app.get('/changePassword',auth, function(req,res) {
-      res.render('changePassword');
+      res.render('changePassword', {data: req.session});
 })
 app.get('/manage_students',auth,function(req,res) {
-        res.render('manage_students');
+        res.render('manage_students', {data: req.session});
 })
 
 app.get('/manage_issue_books',auth, function(req,res) {
-        res.render('manage_issue_books');
+        res.render('manage_issue_books', {data: req.session});
 })
 
 // controllers //
