@@ -2,7 +2,7 @@ let express = require('express');
 var app = require('express').Router();
 let path = require('path');
 
-app.use(express.static(path.join(__dirname,'../public')));
+app.use(express.static(path.join(__dirname,'../../public')));
 
 var auth = require('../../MiddleWares/auth');
 
