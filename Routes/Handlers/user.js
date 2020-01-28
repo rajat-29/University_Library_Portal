@@ -6,10 +6,10 @@ app.use(express.static(path.join(__dirname,'../public')));
 
 var mongoose = require('mongoose');
 
-var users = require('../Models/userSchema');
-var issueBookes = require('../Models/issueBookSchema');
+var users = require('../../Models/userSchema');
+var issueBookes = require('../../Models/issueBookSchema');
 
-var auth = require('../MiddleWares/auth');
+var auth = require('../../MiddleWares/auth');
 
 app.post('/showIssuedBookSpecificUser' ,auth, function(req, res) {
     var flag;
