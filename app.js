@@ -7,7 +7,7 @@ var http = require('http');
 var server = http.Server(app);
 var bodyParser = require("body-parser");
 var mongoStore = require('connect-mongo')(session);
-var port=8000;
+var port = process.env.PORT || 3000;
 
 require("dotenv").config();
 
