@@ -1,6 +1,6 @@
 var categoryList = document.getElementById('categoryList');
 var authorList = document.getElementById('authorList');
-
+var flag = 1;
 
 var bookname = document.getElementById('bookname');
 var author = document.getElementById('author');
@@ -9,7 +9,6 @@ var price = document.getElementById('price');
 
 function fetchselectoptions()
 {
-
 	// to fetch categories select options
 	var commArr;
 	var request = new XMLHttpRequest();
@@ -45,9 +44,36 @@ function addNewBook()
   if(bookname.value == '' || categoryList.value == '' || authorList.value == '' 
     || isbn.value == '' || price.value == '')
   {
-    alert("Fields can't be Empty");
-    return;
+    $.confirm({
+          title: 'Field ?',
+          content: "Field is Empty !! ",
+          draggable: true,
+          buttons: {
+            OK: {
+                btnClass: 'btn-danger any-other-class',
+                 action: function () {      
+              }
+              },
+              }
+        });
+        return;
   }
+  if(flag == 2)
+    {
+        $.confirm({
+          title: 'Exists ?',
+          content: "Book already Exists !! ",
+          draggable: true,
+          buttons: {
+            OK: {
+                btnClass: 'btn-danger any-other-class',
+                 action: function () {      
+              }
+              },
+              }
+        });
+        return;
+    }
 
 	var obj = new Object();
 	obj.name = bookname.value;
@@ -62,7 +88,6 @@ function addNewBook()
     request.setRequestHeader("Content-Type","application/json");
     request.send(JSON.stringify(obj))
     request.addEventListener("load",function() {
-        console.log("Data Posted Successfully");
         alert("New Book Is Registred");
     });  
     window.location = "/admin/add_book";
@@ -83,8 +108,11 @@ function isbn_check()
         var data = request.responseText;
         if(data === 'true') {
             display_email.innerHTML= "Isbn " + isbn.value + " is already exist";
+            flag = 2;
         }
-        else
-           document.getElementById("email_info").style.display = 'none'; 
+        else {
+          document.getElementById("email_info").style.display = 'none';
+          flag = 1;
+        } 
     });  
 }

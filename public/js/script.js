@@ -16,13 +16,35 @@ var signup = document.getElementById('signup');
 submit.addEventListener("click", function() {
     if(user_name.value == '' || pass.value == '')
     {
-        alert("Field is Empty");
+        $.confirm({
+          title: 'Fields ?',
+          content: "Field is Empty !! ",
+          draggable: true,
+          buttons: {
+            OK: {
+                btnClass: 'btn-danger any-other-class',
+                 action: function () {      
+              }
+              },
+              }
+        });
         return;
     }
 
     if(vercode.value != rajat)
     {
-        alert("Verification code doesn't match");
+        $.confirm({
+          title: 'Verification  ?',
+          content: "Verification Code don't match !! ",
+          draggable: true,
+          buttons: {
+            OK: {
+                btnClass: 'btn-danger any-other-class',
+                 action: function () {      
+              }
+              },
+              }
+        });
         return;
     }
 

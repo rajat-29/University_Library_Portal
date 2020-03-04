@@ -1,11 +1,23 @@
 var catname = document.getElementById('catname');
 var submitbtn = document.getElementById('submitbtn');
+var flag = 1;
 
 submitbtn.addEventListener("click", function() {
 
     if(catname.value == '')
     {
-        alert("Category is Empty");
+         $.confirm({
+          title: 'Category ?',
+          content: "Category is Empty !! ",
+          draggable: true,
+          buttons: {
+            OK: {
+                btnClass: 'btn-danger any-other-class',
+                 action: function () {      
+              }
+              },
+              }
+        });
         return;
     }
 
@@ -40,7 +52,34 @@ submitbtn.addEventListener("click", function() {
 	}
     else
     {
-        alert("Status is Empty");
+        $.confirm({
+          title: 'Status ?',
+          content: "Status is Empty !! ",
+          draggable: true,
+          buttons: {
+            OK: {
+                btnClass: 'btn-danger any-other-class',
+                 action: function () {      
+              }
+              },
+              }
+        });
+        return;
+    }
+    if(flag == 2)
+    {
+        $.confirm({
+          title: 'Exists ?',
+          content: "Category already Exists !! ",
+          draggable: true,
+          buttons: {
+            OK: {
+                btnClass: 'btn-danger any-other-class',
+                 action: function () {      
+              }
+              },
+              }
+        });
         return;
     }
 	
@@ -49,7 +88,6 @@ submitbtn.addEventListener("click", function() {
     request.setRequestHeader("Content-Type","application/json");
     request.send(JSON.stringify(obj))
     request.addEventListener("load",function() {
-        console.log("Data Posted Successfully");
         alert("New Category Is Registred");
     });  
     window.location = "/admin/add_category";
@@ -75,8 +113,11 @@ function cat_check()
         var data = request.responseText;
         if(data === 'true') {
             display_email.innerHTML= "Category " + catname.value + " is already exist";
+            flag = 2;
         }
-        else
+        else {
            document.getElementById("email_info").style.display = 'none'; 
+           flag = 1;
+        }
     });  
 }

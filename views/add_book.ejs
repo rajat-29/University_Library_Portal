@@ -22,7 +22,7 @@
 
 </head>
 <body class="body" onload="fetchselectoptions()">
-         <%- include ('partials/top-bar.ejs') %>
+         <%- include('partials/top-bar.ejs') %>
         <div class="content-wrapper">
          <div class="container">
         <div class="row pad-botm">
@@ -67,7 +67,7 @@ Book Info
 
  <div class="form-group">
  <label>Price <span style="color:red;">*</span></label>
- <input class="form-control" type="text" name="price" autocomplete="off"  id="price" placeholder="Enter Price" required="required" />
+ <input class="form-control" type="number" name="price" autocomplete="off"  id="price" placeholder="Enter Price" required="required" />
  </div>
 <button type="submit" name="add" class="btn btn-info" onclick="addNewBook()">Update </button>
 

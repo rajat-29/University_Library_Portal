@@ -5,13 +5,41 @@ var studentName;
 var BookName;
 var today;
 var email2;
+var flag1 = 1;
+var flag2 = 1;
 
 function issueBook()
 {
-
     if(studentid.value == '' || bookid.value == '')
     {
-        alert("Fields can't be Empty");
+        $.confirm({
+          title: 'Field ?',
+          content: "Field is Empty !! ",
+          draggable: true,
+          buttons: {
+            OK: {
+                btnClass: 'btn-danger any-other-class',
+                 action: function () {      
+              }
+              },
+              }
+        });
+        return;
+    }
+    if(flag1 == 2 || flag2 == 2)
+    {
+        $.confirm({
+          title: 'Data ?',
+          content: "Data not Correct !! ",
+          draggable: true,
+          buttons: {
+            OK: {
+                btnClass: 'btn-danger any-other-class',
+                 action: function () {      
+              }
+              },
+              }
+        });
         return;
     }
 
@@ -74,9 +102,18 @@ function get_student_name()
 
         var obj1;
         obj1 = JSON.parse(request.responseText); 
-        studentName = obj1.name;
-        email2 = obj1.email;
-        get_student_name.innerHTML= obj1.name;
+        if(obj1 == false)
+        {
+            flag1 = 2;
+            get_student_name.innerHTML= "Wrong Student Id";
+        }
+        else
+        {
+            studentName = obj1.name;
+            email2 = obj1.email;
+            get_student_name.innerHTML= obj1.name;
+            flag1 = 1;
+        }
     });  
 }
 
@@ -90,6 +127,15 @@ function get_book_name()
     request.send(JSON.stringify({isbn: bookid.value}));
     request.addEventListener("load",function() {
         BookName = request.responseText;  
-        get_book_name.innerHTML= request.responseText;    
+        if(BookName == 'false')
+        {
+            flag2 = 2;
+            get_book_name.innerHTML= "Wrong ISBN"; 
+        }
+        else
+        {
+            get_book_name.innerHTML= request.responseText; 
+            flag2 = 1;   
+        } 
     });  
 }

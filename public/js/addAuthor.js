@@ -1,12 +1,40 @@
 var authName = document.getElementById('authName');
 var submitAuth = document.getElementById('submitAuth');
+var flag = 1;
 
 submitAuth.addEventListener("click", function(){
 
     if(authName.value == '')
     {
-        alert("Author is Empty");
-        return ;
+        $.confirm({
+          title: 'Author ?',
+          content: "Author is Empty !! ",
+          draggable: true,
+          buttons: {
+            OK: {
+                btnClass: 'btn-danger any-other-class',
+                 action: function () {      
+              }
+              },
+              }
+        });
+        return;
+    }
+    if(flag == 2)
+    {
+        $.confirm({
+          title: 'Exists ?',
+          content: "Author already Exists !! ",
+          draggable: true,
+          buttons: {
+            OK: {
+                btnClass: 'btn-danger any-other-class',
+                 action: function () {      
+              }
+              },
+              }
+        });
+        return;
     }
 
 	var obj = new Object();
@@ -36,8 +64,8 @@ submitAuth.addEventListener("click", function(){
     request.setRequestHeader("Content-Type","application/json");
     request.send(JSON.stringify(obj))
     request.addEventListener("load",function() {
-        console.log("Data Posted Successfully");
         alert("New Author Is Registred");
+
     });  
     window.location = "/admin/add_author";
 })
@@ -62,8 +90,11 @@ function auth_check()
         var data = request.responseText;
         if(data === 'true') {
             display_email.innerHTML= "Author " + authName.value + " is already exist";
+            flag = 2;
         }
-        else
+        else {
            document.getElementById("email_info").style.display = 'none'; 
+           flag = 1;
+        }
     });  
 }
