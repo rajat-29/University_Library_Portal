@@ -3,12 +3,14 @@ Library Management System to manage all issued books using bootstrap,Nodejs,Mong
 
 ## Features
 <ul>
-  <li> Mongoose Database</li>
-  <li>Different View For User And Admin</li> 
-  <li>Send Mail using NodeMailler</li>
+  <li>Dynamic Data by mongoose database</li>
+  <li>Different View For Student And Admin</li> 
   <li>Issue Books</li>
   <li>Manage Books</li>
   <li>Manage Fine</li>
+  <li>Responsive Layout</li>
+  <li>Mobile Friendly</li>
+  <li>Open Source</li>
 </ul>
 
 ## How To Run?
@@ -31,8 +33,20 @@ It will run under the url http://127.0.0.1:8000/
   <li>Express</li>
   <li>Express-Session</li>
   <li>EJS</li>
-  <li>Node Mailer</li>
   <li>Bcrypt Module</li>
 <ul>
 
+## Login
+
+  ### Admin :
+  <ul>
+      <li> ID - admin@cq.com </li>
+      <li> Password - admincq </li>
+  </ul>
+  
+  ### Staff : 
+  <ul>
+    <li>ID - bro@cq.com </li>
+    <li> Password - admincq </li>
+  </ul>
 
