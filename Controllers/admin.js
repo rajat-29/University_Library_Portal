@@ -547,7 +547,7 @@ exports.showIssuedBooks = (req, res) => {
 }
 
 exports.updateuserdetails = (req,res) => {
-        issueBookes.updateOne( { "isbn" : req.body.isbn}, {$set : req.body } , function(err,result)
+        issueBookes.updateOne( { "_id" : req.body._id}, {$set : req.body } , function(err,result)
         {
           if(err)
           throw err
@@ -596,4 +596,14 @@ exports.totalissuedBooksToUser = (req, res) => {
           issueBookes.countDocuments({uniId: req.session.uniId}, function(e,count){
                 res.send(JSON.stringify(count));
    });
+}
+
+exports.getAllData = (req, res) => {
+    issueBookes.find({}, function(error,result)
+    {
+        if(error)
+        throw error;
+        else
+          res.send(JSON.stringify(result));
+    })
 }

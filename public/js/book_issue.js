@@ -47,9 +47,6 @@ function issueBook()
     var dd = today.getDate()+7;
     var mm = today.getMonth()+1;
     var yyyy = today.getFullYear();
-    var hrs = today.getHours();
-    var mins = today.getMinutes();
-    var format = "AM";
 
     if(dd>=30)
     {
@@ -61,14 +58,7 @@ function issueBook()
         yyyy++;
     }
 
-    if(hrs>12)
-    {
-        hrs=hrs-12;
-        format="PM";
-    }
-    today = + dd + '-' + getMonths(mm) + '-' + yyyy;
-    today = today + " ";
-    today = today + "(" + hrs + ':' + mins + '' + format + ")";
+    today = + mm + '/' + dd + '/' + yyyy;
 
 	var obj = new Object();
 	obj.uniId = studentid.value;
@@ -86,7 +76,7 @@ function issueBook()
 }
 
 function getMonths(mno) {
-    var month = ["Jan","Feb","March","April","May","June","July","Aug","Sep","Oct","Nov","Dec"];
+    var month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     return month[mno-1];
 }
 

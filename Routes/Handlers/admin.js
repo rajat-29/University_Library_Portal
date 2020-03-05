@@ -124,4 +124,6 @@ app.use('/totalNoofAuthors',auth,adminController.totalNoofAuthors);
 
 app.use('/totalissuedBooksToUser',auth,adminController.totalissuedBooksToUser);
 
+app.use('/getAllData',auth,adminController.getAllData);
+
 module.exports = app;

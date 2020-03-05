@@ -1,7 +1,7 @@
  var globalNAME;
  var table;
 
- $(document).ready(function() {
+$(document).ready(function() {
      table = $('#issuedBooks').DataTable({
       "processing": true,
       "serverSide": true,
@@ -36,14 +36,12 @@
                 "targets": -1,
 
                 "render": function (data, type, row, meta) {
-                   return '<span class="btn btn-primary btn-sm emailbtn actionbtns" id="editDetails" data-toggle="modal" data-target="#updateModal"><i class="fas fa-edit"></i></span><span class="btn btn-danger btn-sm emailbtn actionbtns" id="delete" onclick=deleteTag("'+row._id+'")><i class="fas fa-trash"></i></span>';    
+                   return '</span><span class="btn btn-danger btn-sm emailbtn actionbtns" id="delete" onclick=deleteTag("'+row._id+'")><i class="fas fa-trash"></i></span>';    
 
           }
             }],
     });
   });
-
- 
 
  function deleteTag(ides)
 {
@@ -79,29 +77,49 @@
 })
 }
 
-$(document).on("click", "#editDetails", function() {
-    d = $(this).parent().parent()[0].children;
-    console.log(d[3].innerHTML);
-    globalNAME = d[3].innerHTML
-    $('#username').val(d[0].innerHTML);
-    $('#bookName').val(d[2].innerHTML);
-    $('#isbn').val(d[3].innerHTML);
-    $('#return').val(d[4].innerHTML);  
-})
-
-function updateuserdetails()
+function updatesFines()
 {
-    var Fines = document.getElementById("Fines");
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1;
+    var yyyy = today.getFullYear();
+    today = + mm + '/' + dd + '/' + yyyy;
 
-    var obj1 = Object()
-      obj1.isbn = globalNAME;
-      obj1.fine = Fines.value;
-      var request = new XMLHttpRequest();
-      request.open('POST', '/admin/updateuserdetails');
+  var request = new XMLHttpRequest();
+      request.open('POST', '/admin/getAllData');
       request.setRequestHeader("Content-Type","application/json");
-      request.send(JSON.stringify(obj1))
+      request.send();
       request.addEventListener("load",function()
       {
-              table.ajax.reload(null, false);
+          var obj = JSON.parse(request.responseText)
+          for(i in obj)
+          {
+            updateFinesOneByOne(obj[i],today);
+          }
       });
+}
+
+function updateFinesOneByOne(obj,today)
+{
+    var date1 = new Date(obj.ReturnDate); 
+    var date2 = new Date(today); 
+
+    var Difference_In_Time = date2.getTime() - date1.getTime(); 
+
+    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24); 
+
+    if(Difference_In_Days > 0)
+    {
+        var obj1 = Object()
+        obj1._id = obj._id;
+        obj1.fine = Difference_In_Days*2;
+        var request = new XMLHttpRequest();
+        request.open('POST', '/admin/updateuserdetails');
+        request.setRequestHeader("Content-Type","application/json");
+        request.send(JSON.stringify(obj1))
+        request.addEventListener("load",function()
+        {
+                table.ajax.reload(null, false);
+        });
+    }
 }

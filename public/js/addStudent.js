@@ -1,19 +1,79 @@
 var submitStudent = document.getElementById('submitStudent');
-
 var uniId = document.getElementById('uniId');
 var stuname = document.getElementById('stuname');
 var email2 = document.getElementById('email2');
 var password2 = document.getElementById('password2');
 var phone = document.getElementById('phone');
+var flag1 = 1;
+var flag2 = 1;
 
 submitStudent.addEventListener("click", function() {
 
 	if(uniId.value == '' || stuname.value == '' || email2.value == '' || 
 		password2.value == '' || phone.value == '')
 	{
-		alert("Field is Empty");
+		$.confirm({
+          title: 'Field ?',
+          content: "Field is Empty !! ",
+          draggable: true,
+          buttons: {
+            OK: {
+                btnClass: 'btn-danger any-other-class',
+                 action: function () {      
+              }
+              },
+              }
+        });
+        return;
+	}
+	else if(phone.value.length<10 || phone.value.length>10)
+	{
+		$.confirm({
+	    	title: 'Phone No ?',
+	    	content: "Phone No should be of length 10 ",
+	    	draggable: true,
+	   		buttons: {
+	        OK: {
+	            btnClass: 'btn-danger any-other-class',
+	             action: function () {      
+	        	}
+	   		},
+	    	}
+		});
 		return;
 	}
+	if(!ValidateEmail(email2.value))
+	{
+		$.confirm({
+	    	title: 'Email format ?',
+	    	content: "Email format is not valid ",
+	    	draggable: true,
+	   		buttons: {
+	        OK: {
+	            btnClass: 'btn-danger any-other-class',
+	             action: function () {      
+	        	}
+	   		},
+	    	}
+		});
+		return;
+	}
+	 if(flag1 == 2 || flag2 == 2)
+    {
+        $.confirm({
+          title: 'Data ?',
+          content: "Data not Correct !! ",
+          draggable: true,
+          buttons: {
+            OK: {
+                btnClass: 'btn-danger any-other-class',
+                 action: function () {      
+              }
+              },
+              }
+        });
+        return;
+    }
 
 	var obj = new Object();
 	obj.uniId = uniId.value;
@@ -28,34 +88,10 @@ submitStudent.addEventListener("click", function() {
     request.setRequestHeader("Content-Type","application/json");
     request.send(JSON.stringify(obj))
     request.addEventListener("load",function() {
-        console.log("Data Posted Successfully");
         alert("New User Is Registred");
     });  
     window.location = "/admin/add_students";
-
-
-  //   var n = ["Reena","Ajay","Anshul","Abhinav","Symayra","Manu"];
-  //   var ui = [119,120,121,122,123,124];
-  //   var em = ["reena@cq.com","ajay@cq.com","anshul@cq.com","abhinav@cq.com","symayra@cq.com","manu@cq.com"]
-
-  //   for(var i=0;i<6;i++)
-  //   {
-  //   	var obj = new Object();
-		// obj.uniId = ui[i];
-		// obj.name = n[i];
-		// obj.email = em[i];
-		// obj.password = "admincq";
-		// obj.phone = 1234567890;
-		// obj.role = "User"
-
-		// var request = new XMLHttpRequest();
-		//     request.open('POST',"/admin/addnewuser");
-		//     request.setRequestHeader("Content-Type","application/json");
-		//     request.send(JSON.stringify(obj))
-		//     request.addEventListener("load",function() {
-		//         console.log("Data Posted Successfully");
-		//     });
-  //   }
+ 
 })
 
 function email_avail()
@@ -76,9 +112,11 @@ function email_avail()
     	var data = request.responseText;
     	if(data === 'true') {
     		display_email.innerHTML= "User " + obj1.email + " is already exist";
+    		flag1 = 2;
     	}
     	else {
             display_email.innerHTML= obj1.email + " is available";
+            flag1 = 1;
     	}
     });  
 }
@@ -98,26 +136,21 @@ function id_avial()
     	var data = request.responseText;
     	if(data === 'true') {
     		display_email.innerHTML= "User " + uniId.value + " is already exist";
+    		flag2 = 2;
     	}
     	else {
             display_email.innerHTML= uniId.value + " is available";
+            flag2 = 1;
     	}
     });  
 }
 
-function sendmail()
+function ValidateEmail(mail) 
 {
-		   var data = new Object()
-			data.to=email2.value;
-			data.from="codemailler12@gmail.com";
-			data.subject="Confirmation Mail";
-			data.text= "Hi " + stuname.value + " Please Confirm your Email-Id! and kindly enter this password to login = " + password2.value;
-		
-			var request = new XMLHttpRequest();
-			request.open('POST', '/admin/sendMail');
-			request.setRequestHeader("Content-Type","application/json");
-			request.send(JSON.stringify(data))
-			request.addEventListener("load",function()
-        	{
-        	});
+	console.log('vv')
+ if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+  {
+    return (true)
+  }
+    return (false)
 }

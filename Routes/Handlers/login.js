@@ -8,8 +8,15 @@ var auth=require('../../MiddleWares/auth');
 
 let loginController = require('../../Controllers/login');
 
-app.get('/home' ,auth, function(req,res) {           
-    res.render('dashboard', {data: req.session});              
+app.get('/home' ,auth, function(req,res) {  
+	if(req.session.role == 'Admin')
+	{
+		res.render('dashboard', {data: req.session}); 
+	}  
+	else
+	{
+		res.render('userdashboard', {data: req.session}); 
+	}                    
 })
 
 app.get("/404", function(req,res) {
