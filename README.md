@@ -22,7 +22,7 @@ It will run under the url http://127.0.0.1:8000/
 <li>Install Node Modules by running npm install</li>
 <li>Run Mongo Server</li>
 <li>Run Server File app.js</li>
-<li>Run local host on port number 8000</li>
+<li>Run local host on port number 3000</li>
 </ol>
 
 ## Extra Dependencies :
