@@ -23,7 +23,6 @@ It will run under the url http://127.0.0.1:8000/
 <li>Run Mongo Server</li>
 <li>Run Server File app.js</li>
 <li>Run local host on port number 8000</li>
-<li>Login using admin id or user id (For id and password see database)</li>
 </ol>
 
 ## Extra Dependencies :
@@ -34,7 +33,7 @@ It will run under the url http://127.0.0.1:8000/
   <li>Express-Session</li>
   <li>EJS</li>
   <li>Bcrypt Module</li>
-<ul>
+</ul>
 
 ## Login
 
