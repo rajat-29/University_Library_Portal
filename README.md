@@ -14,7 +14,7 @@ Library Management System to manage all issued books using bootstrap,Nodejs,Mong
 </ul>
 
 ## How To Run?
-It will run under the url http://127.0.0.1:8000/
+It will run under the url http://127.0.0.1:3000/
 
 ## How to Use ?
 <ol type="number">
