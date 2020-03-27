@@ -3,85 +3,73 @@
     <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
     <title>Update Profile</title>
-    <!-- BOOTSTRAP CORE STYLE  -->
     <link href="css/bootstrap.css" rel="stylesheet" />
-    <!-- FONT AWESOME STYLE  -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" >
-    <!-- CUSTOM STYLE  -->
     <link href="css/style.css" rel="stylesheet" />
-    <!-- GOOGLE FONT -->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-    <!--jquery confirm -->
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-       <script src="js/dashboard.js"></script>
-
-       
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 </head>
+
 <body class="body">
-         <%- include('partials/top-bar.ejs') %>
-        <div class="content-wrapper">
-         <div class="container">
-        <div class="row pad-botm">
+    <%- include('partials/top-bar.ejs') %>
+    <div class="content-wrapper">
+        <div class="container">
             <div class="col-md-12">
                 <h4 class="header-line">Update Profile</h4>
-                
-                            </div>
+            </div>
 
-</div>
-<div class="row">
-<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-<div class="panel panel-info">
-<div class="panel-heading">
-User Info
-</div>
-<div class="panel-body">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            User Info
+                        </div>
+        
+        <div class="panel-body">
 
-<div class="form-group">
-<label>Id : <%=data.uniId %></label>
-</div>
+            <div class="form-group">
+                <label>Id : <%=data.uniId %></label>
+            </div>
 
-<div class="form-group">
-<label>Role : <%=data.role %></label>
-</div>
-
-
-<div class="form-group">
-<label>Name :</label>
-<input class="form-control" type="text" name="author" autocomplete="off" id="authName" value="<%=data.name %>" required />
-</div>
-
-<div class="form-group">
-<label>Email :</label>
-<input class="form-control" type="text" name="author" autocomplete="off" id="authemail" value="<%=data.email %>" required />
-</div>
-
-<div class="form-group">
-<label>Phone :</label>
-<input class="form-control" type="number" name="author" autocomplete="off" id="authphone" value="<%=data.phone %>" required />
-</div>
-
-<button type="submit" name="create" id="submitAuth" class="btn btn-info">Update </button>
+            <div class="form-group">
+                <label>Role : <%=data.role %></label>
+            </div>
 
 
-     </div>
-     </div>
-   </div>
+            <div class="form-group">
+                <label>Name :</label>
+                <input class="form-control" type="text" autocomplete="off" id="authName" value="<%=data.name %>" required />
+            </div>
 
+            <div class="form-group">
+                <label>Email :</label>
+                <input class="form-control" type="text" autocomplete="off" id="authemail" value="<%=data.email %>" required />
+            </div>
+
+            <div class="form-group">
+                <label>Phone :</label>
+                <input class="form-control" type="number" autocomplete="off" id="authphone" value="<%=data.phone %>" required />
+            </div>
+
+            <button type="submit" name="create" id="submitAuth" class="btn btn-info">Update </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-   
-    </div>
-    </div>
+</div>
+
      <div class="footer-section1">
            <p>Library Management © 2019</p>
     </div>
             
-      <script type="text/javascript" src="js/updateUserProfile.js"></script>
-      <script src="js/bootstrap.js"></script> 
+<script type="text/javascript" src="js/updateUserProfile.js"></script>
+<script src="js/bootstrap.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<script src="js/dashboard.js"></script>
+
 </body>
 </html>

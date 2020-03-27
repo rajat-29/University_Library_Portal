@@ -31,22 +31,22 @@ submit.addEventListener("click", function() {
         return;
     }
 
-    if(vercode.value != rajat)
-    {
-        $.confirm({
-          title: 'Verification  ?',
-          content: "Verification Code don't match !! ",
-          draggable: true,
-          buttons: {
-            OK: {
-                btnClass: 'btn-danger any-other-class',
-                 action: function () {      
-              }
-              },
-              }
-        });
-        return;
-    }
+    // if(vercode.value != rajat)
+    // {
+    //     $.confirm({
+    //       title: 'Verification  ?',
+    //       content: "Verification Code don't match !! ",
+    //       draggable: true,
+    //       buttons: {
+    //         OK: {
+    //             btnClass: 'btn-danger any-other-class',
+    //              action: function () {      
+    //           }
+    //           },
+    //           }
+    //     });
+    //     return;
+    // }
 
 	var request = new XMLHttpRequest();
     request.open('POST',"/login/checkLogin");
