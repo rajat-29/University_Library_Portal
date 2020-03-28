@@ -85,7 +85,7 @@ exports.category = (req,res) => {
  }
 
 exports.updateCategoryDetails = (req,res) => {  
-        category.updateOne( { "createDate" : req.body.createDate}, {$set : req.body } , function(err,result)
+        category.updateOne( { "name" : req.body.name}, {$set : req.body } , function(err,result)
         {
           if(err)
           throw err
