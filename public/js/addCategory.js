@@ -1,25 +1,16 @@
-var catname = document.getElementById('catname');
-var submitbtn = document.getElementById('submitbtn');
 var flag = 1;
 
 submitbtn.addEventListener("click", function() {
 
-    if(catname.value == '')
-    {
-         $.confirm({
-          title: 'Category ?',
-          content: "Category is Empty !! ",
-          draggable: true,
-          buttons: {
-            OK: {
-                btnClass: 'btn-danger any-other-class',
-                 action: function () {      
-              }
-              },
-              }
-        });
-        return;
-    }
+  document.getElementById("field_info").style.display = 'visible';
+  document.getElementById("field_info").style.display = 'block';
+  document.getElementById("field_info").style.marginTop = '10px';
+  document.getElementById("field_info").style.marginBottom = '10px';
+
+  if(catname.value == '') {
+      display_category.innerHTML= "Category is Empty !!";
+      return;
+  }
 
 	var obj = new Object();
 	obj.name = catname.value;
@@ -52,34 +43,12 @@ submitbtn.addEventListener("click", function() {
 	}
     else
     {
-        $.confirm({
-          title: 'Status ?',
-          content: "Status is Empty !! ",
-          draggable: true,
-          buttons: {
-            OK: {
-                btnClass: 'btn-danger any-other-class',
-                 action: function () {      
-              }
-              },
-              }
-        });
+        display_category.innerHTML= "Status is Empty !!";
         return;
     }
     if(flag == 2)
     {
-        $.confirm({
-          title: 'Exists ?',
-          content: "Category already Exists !! ",
-          draggable: true,
-          buttons: {
-            OK: {
-                btnClass: 'btn-danger any-other-class',
-                 action: function () {      
-              }
-              },
-              }
-        });
+        display_category.innerHTML= "Category already Exists !!";
         return;
     }
 	
@@ -88,9 +57,9 @@ submitbtn.addEventListener("click", function() {
     request.setRequestHeader("Content-Type","application/json");
     request.send(JSON.stringify(obj))
     request.addEventListener("load",function() {
-        alert("New Category Is Registred");
+        display_category.innerHTML= "New Category Is Registred !!";
+        location.reload();
     });  
-    window.location = "/admin/add_category";
 })
 
 function getMonths(mno) {
@@ -100,10 +69,10 @@ function getMonths(mno) {
 
 function cat_check()
 {
-    document.getElementById("email_info").style.display = 'visible';
-    document.getElementById("email_info").style.display = 'block';
-    document.getElementById("email_info").style.marginTop = '10px';
-    document.getElementById("email_info").style.marginBottom = '10px';
+    document.getElementById("field_info").style.display = 'visible';
+    document.getElementById("field_info").style.display = 'block';
+    document.getElementById("field_info").style.marginTop = '10px';
+    document.getElementById("field_info").style.marginBottom = '10px';
     
     var request = new XMLHttpRequest();
     request.open('POST',"/admin/checkcat");
@@ -112,11 +81,11 @@ function cat_check()
     request.addEventListener("load",function() {
         var data = request.responseText;
         if(data === 'true') {
-            display_email.innerHTML= "Category " + catname.value + " is already exist";
+            display_category.innerHTML= "Category " + catname.value + " is already exist";
             flag = 2;
         }
         else {
-           document.getElementById("email_info").style.display = 'none'; 
+           document.getElementById("field_info").style.display = 'none'; 
            flag = 1;
         }
     });  
