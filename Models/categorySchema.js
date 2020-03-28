@@ -8,9 +8,6 @@ var categorySchema = new mongoose.Schema({
     status: {
     	type: String,
     },
-    createDate: {
-    	type: String,
-    },
 })
 
 module.exports =  mongoose.model('categories', categorySchema);
