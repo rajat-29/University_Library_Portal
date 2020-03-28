@@ -1,4 +1,4 @@
-<div class="navbar navbar-inverse set-radius-zero" >
+
     <div class="container">
         <div class="navbar-header"> 
             <a href="/login/home" class="navbar-brand">
@@ -10,7 +10,7 @@
             <a href="/login/home" class="btn btn-info pull-right">Welcome</a>
         </div>
     </div>      
-</div>
+
 
 <section class="menu-section">
     <div class="container">
@@ -26,10 +26,10 @@
                                 <a href="#" data-toggle="dropdown">Categories<i class="fa fa-angle-down"></i></a>
 
                                 <ul class="dropdown-menu">
-                                    <li style="cursor: pointer;">
+                                    <li>
                                         <a href="/admin/add_category">Add Category</a>
                                     </li>
-                                    <li style="cursor: pointer;">
+                                    <li>
                                         <a href="/admin/manage_category">Manage Categories</a>
                                     </li>
                                 </ul>
@@ -41,10 +41,10 @@
                                 <a href="#" data-toggle="dropdown">Authors<i class="fa fa-angle-down"></i></a>
 
                                 <ul class="dropdown-menu">
-                                    <li style="cursor: pointer;">
+                                    <li>
                                         <a href="/admin/add_author">Add Author</a>
                                     </li>
-                                     <li style="cursor: pointer;">
+                                     <li>
                                         <a href="/admin/manage_author">Manage Authors</a>
                                     </li>
                                 </ul>
@@ -56,10 +56,10 @@
                                 <a href="#" data-toggle="dropdown">Books<i class="fa fa-angle-down"></i></a>
 
                                 <ul class="dropdown-menu">
-                                    <li style="cursor: pointer;">
+                                    <li>
                                         <a href="/admin/add_book">Add Book</a>
                                     </li>
-                                     <li style="cursor: pointer;">
+                                     <li>
                                         <a href="/admin/manageBook">Manage Books</a>
                                     </li>
                                 </ul>
@@ -71,10 +71,10 @@
                                 <a href="#" data-toggle="dropdown">Issue Books<i class="fa fa-angle-down"></i></a>
 
                                 <ul class="dropdown-menu" >
-                                    <li style="cursor: pointer;">
+                                    <li>
                                         <a href="/admin/book_issue">Issue New Book</a>
                                     </li>
-                                     <li style="cursor: pointer;">
+                                     <li>
                                         <a href="/admin/manage_issue_books">Manage Issued Books</a>
                                     </li>
                                 </ul>
@@ -86,10 +86,10 @@
                                 <a href="#" data-toggle="dropdown">Reg Students<i class="fa fa-angle-down"></i></a>
 
                                 <ul class="dropdown-menu">
-                                    <li style="cursor: pointer;">
+                                    <li>
                                         <a href="/admin/add_students">New Student</a>
                                     </li>
-                                     <li style="cursor: pointer;">
+                                     <li>
                                         <a href="/admin/manage_students">Manage Students</a>
                                     </li>
                                 </ul>
@@ -113,17 +113,10 @@
                             </li>
 
                             <li>
-                                <a href="#" onclick="openlogoutpage()">Logout</a>
+                                <a href="/admin/logout_person">Logout</a>
                             </li>
-
                     </ul>
             </div>
         </div>
     </div>
 </section>
-
-<script>
-function openlogoutpage() {
-    window.location = "/admin/logout_person";
-}
-</script>
