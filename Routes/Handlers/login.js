@@ -23,10 +23,6 @@ app.get("/404", function(req,res) {
    res.render("404");
 })
 
-app.get('/signup_page', function(req,res) {
-        res.render('signup_users');
-})
-
 // controllers //
 
 app.use('/checkLogin',loginController.checkLogin);

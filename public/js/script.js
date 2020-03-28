@@ -70,7 +70,3 @@ submit.addEventListener("click", function() {
     	}
     });
 })
-
-signup.addEventListener("click", function() {
-    window.location = "/login/signup_page";
-})
