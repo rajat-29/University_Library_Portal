@@ -11,18 +11,18 @@ exports.checkLogin = (req, res) => {
         throw error;
 
         if(!result) 
-            res.send("false");
+            res.send("notexits");
         else {
             bcrypt.compare(req.body.password,result.password,function(err,resi) {
                 if(resi == true) {
                     req.session.isLogin = 1;
-                    req.session.email = req.body.name;
+                    req.session._id = result._id;
                     req.session.uniId = result.uniId;
                     req.session.name = result.name;       
                     req.session.role = result.role;
-                    req.session.phone = result.phone;
-                    req.session.password = result.password;
-                    res.send(req.session);  
+                    
+                    var re = req.session.redirectUrl || '/login/home';
+                    res.send(re);
                 }
                 else {
                   res.send("false")

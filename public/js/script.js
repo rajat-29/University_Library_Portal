@@ -1,72 +1,47 @@
-var rajat;
-
-function verifCode()
-{
-    var verificationcode = document.getElementById('verificationcode');
-    rajat = Math.floor(Math.random() * 1000000) + 100000;
-    verificationcode.innerHTML = rajat;
-}
-
 var user_name = document.getElementById('user_name');
 var pass = document.getElementById('pass');
 var vercode = document.getElementById('vercode');
 var submit = document.getElementById('submit');
-var signup = document.getElementById('signup');
+var verificationCode;
+
+function verifCode()
+{
+    verificationCode = Math.floor(Math.random() * 1000000) + 100000;
+    document.getElementById('verificationcode').innerHTML = verificationCode;
+}
 
 submit.addEventListener("click", function() {
+
+    document.getElementById("field_info").style.display = 'visible';
+    document.getElementById("field_info").style.display = 'block';
+    document.getElementById("field_info").style.marginTop = '10px';
+    document.getElementById("field_info").style.marginBottom = '10px';
+
     if(user_name.value == '' || pass.value == '')
     {
-        $.confirm({
-          title: 'Fields ?',
-          content: "Field is Empty !! ",
-          draggable: true,
-          buttons: {
-            OK: {
-                btnClass: 'btn-danger any-other-class',
-                 action: function () {      
-              }
-              },
-              }
-        });
+        document.getElementById('display_info').innerHTML = "Field is Empty !!";
         return;
     }
 
-    // if(vercode.value != rajat)
-    // {
-    //     $.confirm({
-    //       title: 'Verification  ?',
-    //       content: "Verification Code don't match !! ",
-    //       draggable: true,
-    //       buttons: {
-    //         OK: {
-    //             btnClass: 'btn-danger any-other-class',
-    //              action: function () {      
-    //           }
-    //           },
-    //           }
-    //     });
-    //     return;
-    // }
+    if(vercode.value != verificationCode) {
+        document.getElementById('display_info').innerHTML = "Verification Code don't match !!";
+        return;
+    }
 
 	var request = new XMLHttpRequest();
     request.open('POST',"/login/checkLogin");
     request.setRequestHeader("Content-Type","application/json");
     request.send(JSON.stringify({name : user_name.value,password: pass.value}));
     request.addEventListener("load",function() {
-    	var data = JSON.parse(request.responseText);
-    	if(data.isLogin === 1) {
-            window.location = "/login/home";
+    	var data = request.responseText;
+        if(data === 'notexits') {
+            document.getElementById('display_info').innerHTML = "Email Doesn't Exists";
         }
-        else if(data.isLogin === 0)
-        {
-            window.location = "/login/404";
+        else if(data === 'false') {
+            document.getElementById('display_info').innerHTML = "Password Is Not Correct";
         }
-    	else {
-            document.getElementById("wrong_id").style.display = "block";
-            document.getElementById("forming").style.height = "340px";
-    		console.log('getout');
-            n.value = "";
-            pass.value = "";
-    	}
+        else {
+            window.location = data;
+        }
     });
 })
