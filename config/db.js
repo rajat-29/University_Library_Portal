@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 var mongoDb = process.env.DB_MONGO;
-mongoose.Promise = global.Promise;
 
 mongoose.set('useFindAndModify', false);
 mongoose.connect(mongoDb, {useNewUrlParser : true,useUnifiedTopology: true});
