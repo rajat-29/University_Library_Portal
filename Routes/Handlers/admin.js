@@ -100,8 +100,6 @@ app.use('/showBooks',auth,adminController.showBooks);
 
 app.use('/book/:pro',auth,adminController.book);
 
-app.use('/updateBookDetails',auth,adminController.updateBookDetails);
-
 app.use('/issuedBook/:pro',auth,adminController.issuedBook);
 
 app.use('/showIssuedBooks',auth,adminController.showIssuedBooks);

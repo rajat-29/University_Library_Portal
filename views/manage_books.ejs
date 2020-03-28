@@ -1,5 +1,5 @@
-
-<html >
+<!DOCTYPE html>
+<html>
     <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -9,10 +9,8 @@
     <link href="css/style.css" rel="stylesheet" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/datatables.css">
-    <link type="text/css" href="css/datatables.min.css">
+    <link rel="stylesheet" type="text/css" href="css/Datatables/datatables.css">
+    <link type="text/css" href="css/Datatables/datatables.min.css">
 </head>
 
 <body class="body">
@@ -44,8 +42,7 @@
                                         <th>Action</th>
                                      </tr>
                                 </thead>
-                                <tbody id="listing">
-                        
+                                <tbody>
                                 </tbody>
                             </table>
                         </div>
@@ -56,88 +53,13 @@
     </div>
 </div>   
 
-    <%- include('partials/footbar.ejs') %>
-
-
-
-<!-- update modal -->
-
-
-<div id="updateModal" class="modal fade" role="dialog" style="z-index:9999;">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                     <h3 id="eheading" style="text-align:left;" class="modal-title">Update <span id="nameses"></span></h3>
-                                                </div>
-
-                                                <div class="modal-body">
-                                                        <div class="form-horizontal">
-                                                        <div class="form-group">
-                                                            <div class="col-lg-5 col-lg-offset-3" style="width:50%;">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label class="control-label col-sm-2">Name :</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="username" placeholder="Username">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label class="control-label col-sm-2">Category :</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="cateoryName" placeholder="Username">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label class="control-label col-sm-2">Author :</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="authorName" placeholder="Username">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label class="control-label col-sm-2">Isbn:</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="isbn" placeholder="City" readonly>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label class="control-label col-sm-2">Price :</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="pricing" placeholder="Username">
-                                                            </div>
-                                                        </div>
-
-                                                          <div class="form-group">
-                                                            <div class="col-sm-offset-2 col-sm-10" style="text-align:left;">
-                                                                <button class = "btn btn-default" id="editsubmit" data-dismiss="modal" onclick="updateuserdetails()">Update</button>
-                                                            </div>
-                                                        </div>
-
-                                                        
-
-
-                                                    </div>
-                                                </div>
-
-                                                <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                </div>
-                                        </div>
-                                    </div>
-                                </div>
+<%- include('partials/footbar.ejs') %>
             
 <script type="text/javascript" src="js/manageBook.js"></script>
 <script src="js/bootstrap.js"></script> 
 <script src="js/dashboard.js"></script>
-<script type="text/javascript" src="js/datatables.js"></script>
-<script type="text/javascript" src="js/datatables.min.js"></script>
+<script type="text/javascript" src="js/Datatables/datatables.js"></script>
+<script type="text/javascript" src="js/Datatables/datatables.min.js"></script>
 
 </body>
 </html>

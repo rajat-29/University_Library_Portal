@@ -461,16 +461,6 @@ exports.book = (req,res) => {
       });
 }
 
-exports.updateBookDetails = (req,res) => {
-  books.updateOne( { "isbn" : req.body.isbn}, {$set : req.body } , function(err,result)
-  {
-    if(err)
-      throw err
-    else 
-      res.send("DATA UPDATED SUCCESFULLY")
-  })
-}
-
 exports.issuedBook = (req,res) => {
       var id = req.params.pro.toString();
       issueBookes.deleteOne({ "_id": id },function(err,result)
