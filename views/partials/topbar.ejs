@@ -1,0 +1,129 @@
+<div class="navbar navbar-inverse set-radius-zero" >
+    <div class="container">
+        <div class="navbar-header"> 
+            <a href="/login/home" class="navbar-brand">
+                 <img src="images/logo.png" />
+            </a>
+        </div>
+
+        <div class="right-div">
+            <a href="/login/home" class="btn btn-info pull-right">Welcome</a>
+        </div>
+    </div>      
+</div>
+
+<section class="menu-section">
+    <div class="container">
+        <div class="row ">
+                <div class="navbar-collapse collpase ">
+
+                        <ul id="menu-top" class="nav navbar-nav navbar-right">
+
+                            <li><a href="/login/home" class="menu-top-active">DASHBOARD</a></li>
+
+                        <% if(data.role == "Admin"){ %>
+                            <li>
+                                <a href="#" data-toggle="dropdown">Categories<i class="fa fa-angle-down"></i></a>
+
+                                <ul class="dropdown-menu">
+                                    <li style="cursor: pointer;">
+                                        <a href="/admin/add_category">Add Category</a>
+                                    </li>
+                                    <li style="cursor: pointer;">
+                                        <a href="/admin/manage_category">Manage Categories</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <% } %>    
+                              
+                        <% if(data.role == "Admin"){ %> 
+                             <li>
+                                <a href="#" data-toggle="dropdown">Authors<i class="fa fa-angle-down"></i></a>
+
+                                <ul class="dropdown-menu">
+                                    <li style="cursor: pointer;">
+                                        <a href="/admin/add_author">Add Author</a>
+                                    </li>
+                                     <li style="cursor: pointer;">
+                                        <a href="/admin/manage_author">Manage Authors</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <% } %>  
+                           
+                        <% if(data.role == "Admin"){ %> 
+                            <li>
+                                <a href="#" data-toggle="dropdown">Books<i class="fa fa-angle-down"></i></a>
+
+                                <ul class="dropdown-menu">
+                                    <li style="cursor: pointer;">
+                                        <a href="/admin/add_book">Add Book</a>
+                                    </li>
+                                     <li style="cursor: pointer;">
+                                        <a href="/admin/manageBook">Manage Books</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <% } %>     
+ 
+                        <% if(data.role == "Admin"){ %> 
+                           <li>
+                                <a href="#" data-toggle="dropdown">Issue Books<i class="fa fa-angle-down"></i></a>
+
+                                <ul class="dropdown-menu" >
+                                    <li style="cursor: pointer;">
+                                        <a href="/admin/book_issue">Issue New Book</a>
+                                    </li>
+                                     <li style="cursor: pointer;">
+                                        <a href="/admin/manage_issue_books">Manage Issued Books</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <% } %>      
+ 
+                        <% if(data.role == "Admin"){ %>
+                            <li>
+                                <a href="#" data-toggle="dropdown">Reg Students<i class="fa fa-angle-down"></i></a>
+
+                                <ul class="dropdown-menu">
+                                    <li style="cursor: pointer;">
+                                        <a href="/admin/add_students">New Student</a>
+                                    </li>
+                                     <li style="cursor: pointer;">
+                                        <a href="/admin/manage_students">Manage Students</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <% } %>  
+
+                        <% if(data.role == "User"){ %>
+                            <li>
+                                <a href="/user/openissuedBookSpecificUser">Issued Books</a>
+                            </li>
+                        <% } %>     
+
+                        <% if(data.role == "User"){ %>    
+                            <li>
+                                <a href="/user/updateUserProfile">Update Profile</a>
+                            </li>
+                        <% } %>     
+             
+                            <li>
+                                <a href="/admin/changePassword">Change Password</a>
+                            </li>
+
+                            <li>
+                                <a onclick="openlogoutpage()">Logout</a>
+                            </li>
+
+                    </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+function openlogoutpage() {
+    window.location = "/admin/logout_person";
+}
+</script>
