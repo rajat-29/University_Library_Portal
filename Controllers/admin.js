@@ -396,16 +396,6 @@ exports.author = (req,res) => {
       });
 }
 
-exports.updateAuthorDetails = (req,res) => {
-        authors.updateOne( { "createDate" : req.body.createDate}, {$set : req.body } , function(err,result)
-        {
-          if(err)
-          throw err
-          else  
-            res.send("DATA UPDATED SUCCESFULLY")
-        })
-}
-
 exports.showBooks = (req, res) => {
   let query = {};
   let params = {};

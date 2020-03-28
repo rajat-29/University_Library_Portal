@@ -96,8 +96,6 @@ app.use('/showauthor',auth,adminController.showauthor);
 
 app.use('/author/:pro',auth,adminController.author);
 
-app.use('/updateAuthorDetails',auth,adminController.updateAuthorDetails);
-
 app.use('/showBooks',auth,adminController.showBooks);
 
 app.use('/book/:pro',auth,adminController.book);
