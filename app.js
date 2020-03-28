@@ -41,6 +41,10 @@ require("./static/db");
 
 app.use('/',require('./Routes/'));
 
+app.get('/', function(req,res) {
+  res.render('login');
+})
+
 server.listen(port, () => {
 	console.log('Running on port ' +port);
 });

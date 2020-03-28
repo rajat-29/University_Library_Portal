@@ -1,7 +1,4 @@
-var user_name = document.getElementById('user_name');
-var pass = document.getElementById('pass');
 var vercode = document.getElementById('vercode');
-var submit = document.getElementById('submit');
 var verificationCode;
 
 function verifCode()
@@ -23,10 +20,10 @@ submit.addEventListener("click", function() {
         return;
     }
 
-    if(vercode.value != verificationCode) {
-        document.getElementById('display_info').innerHTML = "Verification Code don't match !!";
-        return;
-    }
+    // if(vercode.value != verificationCode) {
+    //     document.getElementById('display_info').innerHTML = "Verification Code don't match !!";
+    //     return;
+    // }
 
 	var request = new XMLHttpRequest();
     request.open('POST',"/login/checkLogin");

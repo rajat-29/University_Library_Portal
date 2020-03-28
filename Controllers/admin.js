@@ -559,7 +559,7 @@ exports.updateuserdetails = (req,res) => {
 exports.logout_person = (req,res) => {
     req.session.isLogin = 0;
     req.session.destroy();
-    res.render('index');
+    res.render('login');
 }
 
 exports.totalNoofUsers = (req, res) => {
