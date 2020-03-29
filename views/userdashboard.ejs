@@ -35,8 +35,17 @@
 <%- include('partials/footbar.ejs') %>
 
 <script src="js/bootstrap.js"></script> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-<script src="js/userdashboard.js"></script>
+<script>
+    function fetchNumbers() {
+
+    var request = new XMLHttpRequest();
+    request.open('GET','/admin/totalissuedBooksToUser');
+    request.send();
+    request.onload = function() {
+        document.getElementById('totalissuedBooksToUser').innerHTML = JSON.parse(request.responseText);
+    }
+}
+</script>
 
 </body>
 </html>

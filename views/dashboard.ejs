@@ -9,7 +9,6 @@
     <link href="css/style.css" rel="stylesheet" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 </head>
 
 <body class="body" onload="fetchNumbers()">
@@ -17,15 +16,12 @@
         <div class="content-wrapper">
             <div class="container">
 
-                <% if(data.role == "Admin"){ %>  
-                    <div class="col-md-12">
-                        <h4 class="header-line">ADMIN DASHBOARD</h4>
-                    </div>
-                <%  } %>
+                <div class="col-md-12">
+                    <h4 class="header-line">ADMIN DASHBOARD</h4>
+                </div>
             
                 <div class="row">
-
-                    <% if(data.role == "Admin"){ %>     
+  
                     <div class="col-md-3 col-sm-3">
                          <div class="alert alert-success back-widget-set text-center">
                             <i class="fa fa-book fa-5x"></i>
@@ -33,9 +29,7 @@
                             Books Listed
                          </div>
                     </div> 
-                    <%  } %>
 
-                    <% if(data.role == "Admin"){ %> 
                     <div class="col-md-3 col-sm-3">
                           <div class="alert alert-info back-widget-set text-center">
                             <i class="fa fa-bars fa-5x"></i>
@@ -43,19 +37,15 @@
                             Issues
                          </div>
                     </div> 
-                    <%  } %> 
 
-                    <% if(data.role == "Admin"){ %> 
-                     <div class="col-md-3 col-sm-3">
+                    <div class="col-md-3 col-sm-3">
                           <div class="alert alert-info back-widget-set text-center">
                             <i class="fa fa-recycle fa-5x"></i>
                             <h3>0</h3>
                             Returned
                          </div>
                     </div> 
-                    <%  } %>
 
-                    <% if(data.role == "Admin"){ %> 
                     <div class="col-md-3 col-sm-3">
                         <div class="alert alert-danger back-widget-set text-center">
                             <i class="fa fa-book fa-5x"></i>
@@ -63,9 +53,7 @@
                             Users
                          </div>
                     </div> 
-                    <%  } %>
 
-                    <% if(data.role == "Admin"){ %> 
                     <div class="col-md-3 col-sm-3">
                       <div class="alert alert-success back-widget-set text-center">
                             <i class="fa fa-user fa-5x"></i>
@@ -73,9 +61,7 @@
                             Authors Listed
                          </div>
                     </div> 
-                    <%  } %>
 
-                    <% if(data.role == "Admin"){ %> 
                     <div class="col-md-3 col-sm-3">
                         <div class="alert alert-info back-widget-set text-center">
                             <i class="fa fa-file-archive fa-5x"></i>
@@ -83,17 +69,69 @@
                             Categories Listed
                          </div>
                     </div> 
-                    <%  } %>
 
                 </div>
             </div>
         </div>   
 
-        <%- include('partials/footbar.ejs') %>
+    <%- include('partials/footbar.ejs') %>
 
 <script src="js/bootstrap.js"></script> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-<script src="js/dashboard.js"></script>
+<script>
+
+function fetchNumbers() { 
+
+    //for total number of users
+    var countdata;
+    var request = new XMLHttpRequest();
+    request.open('GET','/admin/totalNoofUsers');
+    request.send();
+    request.onload = function() {
+        countdata = JSON.parse(request.responseText);
+        document.getElementById('totalNoofUser').innerHTML = countdata;
+    }
+
+    //for total number of books
+    var countbook;
+    var request1 = new XMLHttpRequest();
+    request1.open('GET','/admin/totalNoofBooks');
+    request1.send();
+    request1.onload = function()  {
+        countbook = JSON.parse(request1.responseText);
+        document.getElementById('totalNoOfBook').innerHTML = countbook;
+    }
+
+    //for total number of categories
+    var countcat;
+    var request2 = new XMLHttpRequest();
+    request2.open('GET','/admin/totalNoofCat');
+    request2.send();
+    request2.onload = function() {
+        countcat = JSON.parse(request2.responseText);
+        document.getElementById('totalNoofCat').innerHTML = countcat;
+    }
+
+    //for total number of books issued
+    var countIssuedBooks;
+    var request3 = new XMLHttpRequest();
+    request3.open('GET','/admin/totalissuedBooks');
+    request3.send();
+    request3.onload = function() {
+        countIssuedBooks = JSON.parse(request3.responseText);
+        document.getElementById('totalissuedBooks').innerHTML = countIssuedBooks;
+    }
+
+    //for total number of authors
+    var countAuthors;
+    var request4 = new XMLHttpRequest();
+    request4.open('GET','/admin/totalNoofAuthors');
+    request4.send();
+    request4.onload = function() {
+        countAuthors = JSON.parse(request4.responseText);
+        document.getElementById('totalNoofAuthors').innerHTML = countAuthors;
+    }
+}
+</script>
 
 </body>
 </html>
