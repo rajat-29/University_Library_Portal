@@ -8,10 +8,6 @@ var auth = require('../../MiddleWares/auth');
 
 let userController = require('../../Controllers/user');
 
-app.get('/updateUserProfile',auth, function(req,res) {
-        res.render('updateUserProfile', {data: req.session});
-})
-
 app.get('/openissuedBookSpecificUser',auth, function(req,res) {
         res.render('issuedBookSpecificUser', {data: req.session});
 })
@@ -19,6 +15,5 @@ app.get('/openissuedBookSpecificUser',auth, function(req,res) {
 // controllers //
 
 app.use('/showIssuedBookSpecificUser',auth,userController.showIssuedBookSpecificUser);
-app.use('/updateUserProfileDetails',auth,userController.updateUserProfileDetails);
 
 module.exports = app;

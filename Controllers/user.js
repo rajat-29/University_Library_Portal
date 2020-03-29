@@ -23,17 +23,3 @@ exports.showIssuedBookSpecificUser = (req, res) => {
      })
    });
 }
-
-exports.updateUserProfileDetails = (req,res) => {  
-        users.updateOne( { "uniId" : req.session.uniId}, {$set : req.body } , function(err,result)
-        {
-          if(err)
-          throw err
-          else         
-            req.session.name = req.body.name;
-            req.session.email = req.body.email;
-            req.session.phone = req.body.phone;
-
-            res.send("DATA UPDATED SUCCESFULLY")
-        })
-}
