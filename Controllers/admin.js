@@ -235,27 +235,6 @@ exports.checkbookusingIsbn = (req, res) => {
       })
 }
 
-exports.changePasswordDatabase = (req,res) => {
-    if(req.body.oldpass != req.session.password)
-      res.send("Incorrect Old Password");
-    else {
-      bcrypt.hash(req.body.newpass, saltRounds, (err, hash) => {
-              if(!err) {
-                users.updateOne({"email" : req.session.email},{$set: { "password" : hash}} ,
-                  function(error,result)
-                  {
-                    if(error)
-                      throw error;
-                    else
-                      req.session.password = req.body.newpass;
-                  })   
-              }
-              else {}
-          }) 
-          res.send("true")
-    }
-}
-
 exports.showStudents = (req, res) => {
   let query = {};
   let params = {};
@@ -511,12 +490,6 @@ exports.updateIssuedBookDetails = (req,res) => {
           else
             res.send("DATA UPDATED SUCCESFULLY")
         })
-}
-
-exports.logout_person = (req,res) => {
-    req.session.isLogin = 0;
-    req.session.destroy();
-    res.render('login');
 }
 
 exports.totalNoofUsers = (req, res) => {

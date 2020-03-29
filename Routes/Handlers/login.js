@@ -19,12 +19,17 @@ app.get('/home' ,auth, function(req,res) {
 	}                    
 })
 
-app.get("/404", function(req,res) {
-   res.render("404");
+app.get('/changePassword',auth, function(req,res) {
+      res.render('changePassword', {data: req.session});
 })
+
 
 // controllers //
 
 app.use('/checkLogin',loginController.checkLogin);
+
+app.use('/changePasswordDatabase',auth,loginController.changePasswordDatabase);
+
+app.use('/logout_person',auth,loginController.logout_person);
 
 module.exports = app;

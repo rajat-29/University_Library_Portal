@@ -39,9 +39,6 @@ app.get('/book_issue',auth, function(req,res) {
         res.render('book_issue', {data: req.session});
 })
 
-app.get('/changePassword',auth, function(req,res) {
-      res.render('changePassword', {data: req.session});
-})
 app.get('/manage_students',auth,function(req,res) {
         res.render('manage_students', {data: req.session});
 })
@@ -86,8 +83,6 @@ app.use('/checknameusingUniId',auth,adminController.checknameusingUniId);
 
 app.use('/checkbookusingIsbn',auth,adminController.checkbookusingIsbn);
 
-app.use('/changePasswordDatabase',auth,adminController.changePasswordDatabase);
-
 app.use('/showStudents',auth,adminController.showStudents);
 
 app.use('/students/:pro',auth,adminController.students);
@@ -106,7 +101,7 @@ app.use('/showIssuedBooks',auth,adminController.showIssuedBooks);
 
 app.use('/updateIssuedBookDetails',auth,adminController.updateIssuedBookDetails);
 
-app.use('/logout_person',auth,adminController.logout_person);
+
 
 app.use('/totalNoofUsers',auth,adminController.totalNoofUsers);
 
