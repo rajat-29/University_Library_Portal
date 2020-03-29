@@ -104,7 +104,7 @@ app.use('/issuedBook/:pro',auth,adminController.issuedBook);
 
 app.use('/showIssuedBooks',auth,adminController.showIssuedBooks);
 
-app.use('/updateuserdetails',auth,adminController.updateuserdetails);
+app.use('/updateIssuedBookDetails',auth,adminController.updateIssuedBookDetails);
 
 app.use('/logout_person',auth,adminController.logout_person);
 
@@ -120,6 +120,6 @@ app.use('/totalNoofAuthors',auth,adminController.totalNoofAuthors);
 
 app.use('/totalissuedBooksToUser',auth,adminController.totalissuedBooksToUser);
 
-app.use('/getAllData',auth,adminController.getAllData);
+app.use('/getIssuedBookData',auth,adminController.getIssuedBookData);
 
 module.exports = app;

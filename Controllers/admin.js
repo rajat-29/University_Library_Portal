@@ -503,7 +503,7 @@ exports.showIssuedBooks = (req, res) => {
         })
 }
 
-exports.updateuserdetails = (req,res) => {
+exports.updateIssuedBookDetails = (req,res) => {
         issueBookes.updateOne( { "_id" : req.body._id}, {$set : req.body } , function(err,result)
         {
           if(err)
@@ -555,7 +555,7 @@ exports.totalissuedBooksToUser = (req, res) => {
    });
 }
 
-exports.getAllData = (req, res) => {
+exports.getIssuedBookData = (req, res) => {
     issueBookes.find({}, function(error,result)
     {
         if(error)
