@@ -200,37 +200,14 @@ exports.checkisbn = (req, res) => {
 }
 
 exports.issueNewBook = (req,res) => {
-  var details = new Object();
-  details.isbn = req.body.isbn;
-  details.uniId = req.body.uniId;
-  details.ReturnDate = req.body.ReturnDate;
-  details.fine = 0;
-
-  users.find({uniId: req.body.uniId}, function(error,result)
-    {
-        if(error)
-        throw error;
-        else {
-          details.studentName = result[0].name;
-             books.find({isbn: req.body.isbn}, function(error,result)
-             {
-                  if(error)
-                    throw error;
-                  else {
-                     details.bookName = result[0].name; 
-                     issueBookes.create(details,function(error,result)
-                      {
-                        if(error)
-                        throw error;
-                        else{}
-                      })
-                  }
-              })
-        }
-    })
-   res.send("data");
+  issueBookes.create(req.body,function(error,result) {
+    if(error)
+      throw error;
+    else{
+      res.send("data");
+    }
+  })
 }
-
 
 exports.checknameusingUniId = (req, res) => {
      users.findOne({uniId: req.body.uniId}, function(error,result)
