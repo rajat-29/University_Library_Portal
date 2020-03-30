@@ -8,113 +8,113 @@ var auth = require('../../MiddleWares/auth');
 
 let adminController = require('../../Controllers/admin');
 
-app.get('/add_category',auth, function(req,res) {
+app.get('/add_category',auth.checkAdmin, function(req,res) {
         res.render('add_category', {data: req.session});
 })
 
-app.get('/manage_category',auth, function(req,res) {
+app.get('/manage_category',auth.checkAdmin, function(req,res) {
         res.render('manage_category', {data: req.session});
 })
 
-app.get('/add_book',auth, function(req,res) {
+app.get('/add_book',auth.checkAdmin, function(req,res) {
         res.render('add_book', {data: req.session});
 })
 
-app.get('/manageBook',auth, function(req,res) {
+app.get('/manageBook',auth.checkAdmin, function(req,res) {
         res.render('manage_books', {data: req.session});
 })
 
-app.get('/add_author',auth, function(req,res) {
+app.get('/add_author',auth.checkAdmin, function(req,res) {
         res.render('add_author', {data: req.session});
 })
 
-app.get('/manage_author',auth, function(req,res) {
+app.get('/manage_author',auth.checkAdmin, function(req,res) {
         res.render('manage_author', {data: req.session});
 })
 
-app.get('/add_students',auth, function(req,res) {
+app.get('/add_students',auth.checkAdmin, function(req,res) {
         res.render('add_students', {data: req.session});
 })
-app.get('/book_issue',auth, function(req,res) {
+app.get('/book_issue',auth.checkAdmin, function(req,res) {
         res.render('book_issue', {data: req.session});
 })
 
-app.get('/manage_students',auth,function(req,res) {
+app.get('/manage_students',auth.checkAdmin,function(req,res) {
         res.render('manage_students', {data: req.session});
 })
 
-app.get('/manage_issue_books',auth, function(req,res) {
+app.get('/manage_issue_books',auth.checkAdmin, function(req,res) {
         res.render('manage_issue_books', {data: req.session});
 })
 
 // controllers //
 
-app.use('/addnewuser',auth,adminController.addnewuser);
+app.use('/addnewuser',auth.checkAdmin,adminController.addnewuser);
 
-app.use('/addnewCategory',auth,adminController.addnewCategory);
+app.use('/addnewCategory',auth.checkAdmin,adminController.addnewCategory);
 
-app.use('/showcategories',auth,adminController.showcategories);
+app.use('/showcategories',auth.checkAdmin,adminController.showcategories);
 
-app.use('/category/:pro',auth,adminController.category);
+app.use('/category/:pro',auth.checkAdmin,adminController.category);
 
-app.use('/updateCategoryDetails',auth,adminController.updateCategoryDetails);
+app.use('/updateCategoryDetails',auth.checkAdmin,adminController.updateCategoryDetails);
 
-app.use('/addnewbook',auth,adminController.addnewbook);
+app.use('/addnewbook',auth.checkAdmin,adminController.addnewbook);
 
-app.use('/categoryOptions',auth,adminController.categoryOptions);
+app.use('/categoryOptions',auth.checkAdmin,adminController.categoryOptions);
 
-app.use('/authorOptions',auth,adminController.authorOptions);
+app.use('/authorOptions',auth.checkAdmin,adminController.authorOptions);
 
-app.use('/addnewAuthor',auth,adminController.addnewAuthor);
+app.use('/addnewAuthor',auth.checkAdmin,adminController.addnewAuthor);
 
-app.use('/checkemail',auth,adminController.checkemail);
+app.use('/checkemail',auth.checkAdmin,adminController.checkemail);
 
-app.use('/checkid',auth,adminController.checkid);
+app.use('/checkid',auth.checkAdmin,adminController.checkid);
 
-app.use('/checkcat',auth,adminController.checkcat);
+app.use('/checkcat',auth.checkAdmin,adminController.checkcat);
 
-app.use('/checkauth',auth,adminController.checkauth);
+app.use('/checkauth',auth.checkAdmin,adminController.checkauth);
 
-app.use('/checkisbn',auth,adminController.checkisbn);
+app.use('/checkisbn',auth.checkAdmin,adminController.checkisbn);
 
-app.use('/issueNewBook',auth,adminController.issueNewBook);
+app.use('/issueNewBook',auth.checkAdmin,adminController.issueNewBook);
 
-app.use('/checknameusingUniId',auth,adminController.checknameusingUniId);
+app.use('/checknameusingUniId',auth.checkAdmin,adminController.checknameusingUniId);
 
-app.use('/checkbookusingIsbn',auth,adminController.checkbookusingIsbn);
+app.use('/checkbookusingIsbn',auth.checkAdmin,adminController.checkbookusingIsbn);
 
-app.use('/showStudents',auth,adminController.showStudents);
+app.use('/showStudents',auth.checkAdmin,adminController.showStudents);
 
-app.use('/students/:pro',auth,adminController.students);
+app.use('/students/:pro',auth.checkAdmin,adminController.students);
 
-app.use('/showauthor',auth,adminController.showauthor);
+app.use('/showauthor',auth.checkAdmin,adminController.showauthor);
 
-app.use('/author/:pro',auth,adminController.author);
+app.use('/author/:pro',auth.checkAdmin,adminController.author);
 
-app.use('/showBooks',auth,adminController.showBooks);
+app.use('/showBooks',auth.checkAdmin,adminController.showBooks);
 
-app.use('/book/:pro',auth,adminController.book);
+app.use('/book/:pro',auth.checkAdmin,adminController.book);
 
-app.use('/issuedBook/:pro',auth,adminController.issuedBook);
+app.use('/issuedBook/:pro',auth.checkAdmin,adminController.issuedBook);
 
-app.use('/showIssuedBooks',auth,adminController.showIssuedBooks);
+app.use('/showIssuedBooks',auth.checkAdmin,adminController.showIssuedBooks);
 
-app.use('/updateIssuedBookDetails',auth,adminController.updateIssuedBookDetails);
+app.use('/updateIssuedBookDetails',auth.checkAdmin,adminController.updateIssuedBookDetails);
 
 
 
-app.use('/totalNoofUsers',auth,adminController.totalNoofUsers);
+app.use('/totalNoofUsers',auth.checkAdmin,adminController.totalNoofUsers);
 
-app.use('/totalNoofBooks',auth,adminController.totalNoofBooks);
+app.use('/totalNoofBooks',auth.checkAdmin,adminController.totalNoofBooks);
 
-app.use('/totalNoofCat',auth,adminController.totalNoofCat);
+app.use('/totalNoofCat',auth.checkAdmin,adminController.totalNoofCat);
 
-app.use('/totalissuedBooks',auth,adminController.totalissuedBooks);
+app.use('/totalissuedBooks',auth.checkAdmin,adminController.totalissuedBooks);
 
-app.use('/totalNoofAuthors',auth,adminController.totalNoofAuthors);
+app.use('/totalNoofAuthors',auth.checkAdmin,adminController.totalNoofAuthors);
 
-app.use('/totalissuedBooksToUser',auth,adminController.totalissuedBooksToUser);
+app.use('/totalissuedBooksToUser',auth.checkAdmin,adminController.totalissuedBooksToUser);
 
-app.use('/getIssuedBookData',auth,adminController.getIssuedBookData);
+app.use('/getIssuedBookData',auth.checkAdmin,adminController.getIssuedBookData);
 
 module.exports = app;

@@ -8,18 +8,16 @@ var auth=require('../../MiddleWares/auth');
 
 let loginController = require('../../Controllers/login');
 
-app.get('/home' ,auth, function(req,res) {  
-	if(req.session.role == 'Admin')
-	{
+app.get('/home' ,auth.checkSession, function(req,res) {  
+	if(req.session.role == 'Admin') {
 		res.render('dashboard', {data: req.session}); 
 	}  
-	else
-	{
+	else {
 		res.render('userdashboard', {data: req.session}); 
 	}                    
 })
 
-app.get('/changePassword',auth, function(req,res) {
+app.get('/changePassword',auth.checkSession, function(req,res) {
       res.render('changePassword', {data: req.session});
 })
 
@@ -28,8 +26,8 @@ app.get('/changePassword',auth, function(req,res) {
 
 app.use('/checkLogin',loginController.checkLogin);
 
-app.use('/changePasswordDatabase',auth,loginController.changePasswordDatabase);
+app.use('/changePasswordDatabase',auth.checkSession,loginController.changePasswordDatabase);
 
-app.use('/logout_person',auth,loginController.logout_person);
+app.use('/logout_person',auth.checkSession,loginController.logout_person);
 
 module.exports = app;

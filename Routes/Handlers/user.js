@@ -8,12 +8,12 @@ var auth = require('../../MiddleWares/auth');
 
 let userController = require('../../Controllers/user');
 
-app.get('/openissuedBookSpecificUser',auth, function(req,res) {
+app.get('/openissuedBookSpecificUser',auth.checkUser, function(req,res) {
         res.render('issuedBookSpecificUser', {data: req.session});
 })
 
 // controllers //
 
-app.use('/showIssuedBookSpecificUser',auth,userController.showIssuedBookSpecificUser);
+app.use('/showIssuedBookSpecificUser',auth.checkUser,userController.showIssuedBookSpecificUser);
 
 module.exports = app;
