@@ -1,23 +1,21 @@
+<div class="container">
+    <div class="navbar-header"> 
+        <a href="/login/home" class="navbar-brand">
+            <img src="images/logo.png" />
+        </a>
+    </div>
 
-    <div class="container">
-        <div class="navbar-header"> 
-            <a href="/login/home" class="navbar-brand">
-                 <img src="images/logo.png" />
-            </a>
-        </div>
-
-        <div class="right-div">
-            <a href="/login/home" class="btn btn-info pull-right">Welcome <%=data.name%></a>
-        </div>
-    </div>      
-
+    <div class="right-div">
+        <a href="/login/home" class="btn btn-info pull-right">Welcome <%=data.name%></a>
+    </div>
+</div>      
 
 <section class="menu-section">
     <div class="container">
         <div class="row ">
-                <div class="navbar-collapse collpase ">
+            <div class="navbar-collapse collpase ">
 
-                        <ul id="menu-top" class="nav navbar-nav navbar-right">
+                <ul id="menu-top" class="nav navbar-nav navbar-right">
 
                             <li><a href="/login/home" class="menu-top-active">DASHBOARD</a></li>
 
@@ -74,6 +72,9 @@
                                     <li>
                                         <a href="/admin/book_issue">Issue New Book</a>
                                     </li>
+                                    <li>
+                                        <a href="/admin/return_book">Return Book</a>
+                                    </li>
                                      <li>
                                         <a href="/admin/manage_issue_books">Manage Issued Books</a>
                                     </li>
@@ -109,7 +110,7 @@
                             <li>
                                 <a href="/login/logout_person">Logout</a>
                             </li>
-                    </ul>
+                </ul>
             </div>
         </div>
     </div>

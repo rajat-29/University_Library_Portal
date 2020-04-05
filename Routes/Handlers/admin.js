@@ -35,8 +35,13 @@ app.get('/manage_author',auth.checkAdmin, function(req,res) {
 app.get('/add_students',auth.checkAdmin, function(req,res) {
         res.render('add_students', {data: req.session});
 })
+
 app.get('/book_issue',auth.checkAdmin, function(req,res) {
         res.render('book_issue', {data: req.session});
+})
+
+app.get('/return_book',auth.checkAdmin, function(req,res) {
+        res.render('return_books', {data: req.session});
 })
 
 app.get('/manage_students',auth.checkAdmin,function(req,res) {
