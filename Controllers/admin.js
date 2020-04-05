@@ -428,6 +428,23 @@ exports.issuedBook = (req,res) => {
       });
 }
 
+exports.returnBook = (req,res) => {
+      issueBookes.deleteOne({"isbn": req.body.isbn,"uniId": req.body.uniId },function(err,result)
+      {
+          if(err)
+          throw error
+          else {
+            if(result.deletedCount == 0) {
+              res.send("false")
+            }
+            else {
+              res.send("true")
+            }   
+          }
+              
+      });
+}
+
 exports.showIssuedBooks = (req, res) => {
   let query = {};
   let params = {};

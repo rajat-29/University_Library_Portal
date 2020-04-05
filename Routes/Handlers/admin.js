@@ -102,6 +102,8 @@ app.use('/book/:pro',auth.checkAdmin,adminController.book);
 
 app.use('/issuedBook/:pro',auth.checkAdmin,adminController.issuedBook);
 
+app.use('/returnBook',auth.checkAdmin,adminController.returnBook);
+
 app.use('/showIssuedBooks',auth.checkAdmin,adminController.showIssuedBooks);
 
 app.use('/updateIssuedBookDetails',auth.checkAdmin,adminController.updateIssuedBookDetails);
