@@ -20,10 +20,10 @@ submit.addEventListener("click", function() {
         return;
     }
 
-    // if(vercode.value != verificationCode) {
-    //     document.getElementById('display_info').innerHTML = "Verification Code don't match !!";
-    //     return;
-    // }
+    if(vercode.value != verificationCode) {
+        document.getElementById('display_info').innerHTML = "Verification Code don't match !!";
+        return;
+    }
 
 	var request = new XMLHttpRequest();
     request.open('POST',"/login/checkLogin");
