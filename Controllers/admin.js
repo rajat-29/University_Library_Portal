@@ -11,10 +11,9 @@ exports.addnewuser = (req,res) => {
   bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
     if(!err) {
       req.body.password = hash;
-      users.create(req.body,function(error,result)
-      {
+      users.create(req.body,function(error,result) {
         if(error)
-        throw error;
+          throw error;
         else{}
       })         
     }
@@ -24,13 +23,12 @@ exports.addnewuser = (req,res) => {
 }
 
 exports.addnewCategory = (req,res) => {
-     category.create(req.body,function(error,result)
-      {
-        if(error)
+    category.create(req.body,function(error,result) {
+      if(error)
         throw error;
-        else{}
-      })
-     res.send("data saved");
+      else{}
+    })
+  res.send("data saved");
 }
 
 exports.showcategories = (req, res) => {
@@ -49,18 +47,15 @@ exports.showcategories = (req, res) => {
     if(req.body.order[0].column === '0')
         params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length), sort : {name : sortingType}};
 
-    category.find(query , {} , params , function (err , data)
-        {
+    category.find(query , {} , params , function (err , data) {
             if(err)
                 console.log(err);
             else {
-                category.countDocuments(query, function(err , filteredCount)
-                {
+                category.countDocuments(query, function(err , filteredCount) {
                     if(err)
                         console.log(err);
                     else {
-                        category.countDocuments(function (err, totalCount)
-                        {
+                        category.countDocuments(function (err, totalCount) {
                             if(err)
                                 console.log(err);
                             else
@@ -74,157 +69,143 @@ exports.showcategories = (req, res) => {
 }
 
 exports.category = (req,res) => {
-      var id = req.params.pro.toString();
-      category.deleteOne({ "_id": id },function(err,result)
-      {
-          if(err)
-          throw error
-          else 
-            res.send("data deleted SUCCESFULLY")
-      });
+  var id = req.params.pro.toString();
+  category.deleteOne({ "_id": id },function(err,result) {
+    if(err)
+        throw error
+    else 
+      res.send("data deleted SUCCESFULLY")
+  });
  }
 
 exports.updateCategoryDetails = (req,res) => {  
-        category.updateOne( { "name" : req.body.name}, {$set : req.body } , function(err,result)
-        {
-          if(err)
-          throw err
-          else 
-            res.send("DATA UPDATED SUCCESFULLY")
-        })
+  category.updateOne( { "name" : req.body.name}, {$set : req.body } , function(err,result) {
+     if(err)
+      throw err
+    else 
+       res.send("DATA UPDATED SUCCESFULLY")
+  })
 }
 
 exports.addnewbook = (req,res) => {
-     books.create(req.body,function(error,result)
-      {
-        if(error)
+    books.create(req.body,function(error,result) {
+      if(error)
         throw error;
-        else {}
-      })
-     res.send("data saved");
+      else 
+        res.send("data saved");
+    })
 }
 
 exports.categoryOptions = (req, res) => {
-    category.find({status: 'Active'}, function(error,result)
-    {
-        if(error)
+    category.find({status: 'Active'}, function(error,result){
+      if(error)
         throw error;
-        else
+      else
           res.send(JSON.stringify(result));
     })
 }
 
 exports.authorOptions = (req, res) => {
-    authors.find( function(error,result)
-    {
-        if(error)
+    authors.find( function(error,result) {
+      if(error)
         throw error;
-        else
+      else
           res.send(JSON.stringify(result));
     })
 }
 
 exports.addnewAuthor = (req,res) => {
-     authors.create(req.body,function(error,result)
-      {
+     authors.create(req.body,function(error,result) {
         if(error)
         throw error;
-        else{}
-      })
-     res.send("data saved");
+        else
+          res.send("data saved");
+      }) 
 }
 
 exports.checkemail = (req, res) => {
-     users.findOne({email: req.body.email}, function(error,result)
-      {
-        if(error)
+  users.findOne({email: req.body.email}, function(error,result){
+      if(error)
         throw error;
 
       if(!result)
         res.send("false");
       else 
           res.send("true");
-      })
+  })
 }
 
 exports.checkid = (req, res) => {
-     users.findOne({uniId: req.body.uniId}, function(error,result)
-      {
-        if(error)
+    users.findOne({uniId: req.body.uniId}, function(error,result) {
+      if(error)
         throw error;
 
       if(!result)
         res.send("false");
       else 
           res.send("true");
-      })
+    })
 }
 
 exports.checkcat = (req, res) => {
-     category.findOne({name: req.body.name}, function(error,result)
-      {
-        if(error)
+  category.findOne({name: req.body.name}, function(error,result) {
+      if(error)
         throw error;
 
       if(!result)
         res.send("false");
       else 
           res.send("true");
-      })
+  })
 }
 
 exports.checkauth = (req, res) => {
-     authors.findOne({name: req.body.name}, function(error,result)
-      {
-        if(error)
+    authors.findOne({name: req.body.name}, function(error,result) {
+      if(error)
         throw error;
 
       if(!result)
         res.send("false");
       else 
           res.send("true");
-      })
+    })
 }
 
 exports.checkisbn = (req, res) => {
-     books.findOne({isbn: req.body.isbn}, function(error,result)
-      {
-        if(error)
+    books.findOne({isbn: req.body.isbn}, function(error,result) {
+       if(error)
         throw error;
 
       if(!result)
         res.send("false");
       else 
           res.send("true");
-      })
+    })
 }
 
 exports.issueNewBook = (req,res) => {
   issueBookes.create(req.body,function(error,result) {
     if(error)
       throw error;
-    else{
+    else
       res.send("data");
-    }
   })
 }
 
 exports.checknameusingUniId = (req, res) => {
-     users.findOne({uniId: req.body.uniId}, function(error,result)
-      {
-        if(error)
+     users.findOne({uniId: req.body.uniId}, function(error,result)  {
+      if(error)
         throw error;
 
       if(!result) 
         res.send("false");
       else
         res.send(JSON.stringify(result));
-      })
+    })
 }
 
 exports.checkbookusingIsbn = (req, res) => {
-     books.findOne({isbn: req.body.isbn}, function(error,result)
-      {
+     books.findOne({isbn: req.body.isbn}, function(error,result){
         if(error)
         throw error;
 
@@ -250,9 +231,9 @@ exports.showStudents = (req, res) => {
             "phone":  { '$regex' : req.body.search.value, '$options' : 'i' }
         }]
   }
-  else{
+  else
       delete query["$or"];
-  }
+  
 
   let sortingType;
   if(req.body.order[0].dir === 'asc')
@@ -265,18 +246,15 @@ exports.showStudents = (req, res) => {
     else if(req.body.order[0].column === '1')
         params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length), sort : {name : sortingType}};
 
-        users.find(query , {} , params , function (err , data)
-        {
+        users.find(query , {} , params , function (err , data) {
             if(err)
                 console.log(err);
             else {
-                users.countDocuments(query, function(err , filteredCount)
-                {
+                users.countDocuments(query, function(err , filteredCount) {
                     if(err)
                         console.log(err);
                     else {
-                        users.countDocuments(function (err, totalCount)
-                        {
+                        users.countDocuments(function (err, totalCount) {
                             if(err)
                                 console.log(err);
                             else
@@ -291,9 +269,8 @@ exports.showStudents = (req, res) => {
 
 exports.students = (req,res) => {
       var id = req.params.pro.toString();
-      users.deleteOne({ "_id": id },function(err,result)
-      {
-          if(err)
+      users.deleteOne({ "_id": id },function(err,result) {
+        if(err)
           throw error
           else
               res.send("data deleted SUCCESFULLY")
@@ -317,18 +294,15 @@ exports.showauthor = (req, res) => {
     if(req.body.order[0].column === '0')
         params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length), sort : {name : sortingType}};
    
-    authors.find(query , {} , params , function (err , data)
-        {
+    authors.find(query , {} , params , function (err , data) {
             if(err)
                 console.log(err);
             else {
-                authors.countDocuments(query, function(err , filteredCount)
-                {
+                authors.countDocuments(query, function(err , filteredCount) {
                     if(err)
                         console.log(err);
                     else {
-                        authors.countDocuments(function (err, totalCount)
-                        {
+                        authors.countDocuments(function (err, totalCount) {
                             if(err)
                                 console.log(err);
                             else
@@ -343,8 +317,7 @@ exports.showauthor = (req, res) => {
 
 exports.author = (req,res) => {
       var id = req.params.pro.toString();
-      authors.deleteOne({ "_id": id },function(err,result)
-      {
+      authors.deleteOne({ "_id": id },function(err,result) {
           if(err)
           throw error
           else 
@@ -369,9 +342,9 @@ exports.showBooks = (req, res) => {
             "price": { '$regex' : req.body.search.value, '$options' : 'i' }
         }]
   }
-  else{
+  else
       delete query["$or"];
-  }
+  
 
     let sortingType;
     if(req.body.order[0].dir === 'asc')
@@ -382,18 +355,15 @@ exports.showBooks = (req, res) => {
     if(req.body.order[0].column === '0')
         params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length), sort : {name : sortingType}};
 
-    books.find(query , {} , params , function (err , data)
-    {
+    books.find(query , {} , params , function (err , data) {
             if(err)
                 console.log(err);
             else {
-                books.countDocuments(query, function(err , filteredCount)
-                {
+                books.countDocuments(query, function(err , filteredCount)  {
                     if(err)
                         console.log(err);
                     else {
-                        books.countDocuments(function (err, totalCount)
-                        {
+                        books.countDocuments(function (err, totalCount){
                             if(err)
                                 console.log(err);
                             else
@@ -408,9 +378,8 @@ exports.showBooks = (req, res) => {
 
 exports.book = (req,res) => {
       var id = req.params.pro.toString();
-      books.deleteOne({ "_id": id },function(err,result)
-      {
-          if(err)
+      books.deleteOne({ "_id": id },function(err,result) {
+        if(err)
           throw error
           else 
               res.send("data deleted SUCCESFULLY")
@@ -419,8 +388,7 @@ exports.book = (req,res) => {
 
 exports.issuedBook = (req,res) => {
       var id = req.params.pro.toString();
-      issueBookes.deleteOne({ "_id": id },function(err,result)
-      {
+      issueBookes.deleteOne({ "_id": id },function(err,result)  {
           if(err)
           throw error
           else
@@ -429,19 +397,17 @@ exports.issuedBook = (req,res) => {
 }
 
 exports.returnBook = (req,res) => {
-      issueBookes.deleteOne({"isbn": req.body.isbn,"uniId": req.body.uniId },function(err,result)
-      {
-          if(err)
+      issueBookes.deleteOne({"isbn": req.body.isbn,"uniId": req.body.uniId },function(err,result) {
+        if(err)
           throw error
-          else {
+        else {
             if(result.deletedCount == 0) {
               res.send("false")
             }
             else {
               res.send("true")
             }   
-          }
-              
+          }     
       });
 }
 
@@ -462,9 +428,9 @@ exports.showIssuedBooks = (req, res) => {
             "ReturnDate": { '$regex' : req.body.search.value, '$options' : 'i' }
         }]
   }
-  else{
+  else
       delete query["$or"];
-  }
+
 
    let sortingType;
     if(req.body.order[0].dir === 'asc')
@@ -475,18 +441,15 @@ exports.showIssuedBooks = (req, res) => {
         if(req.body.order[0].column === '0')
         params = {skip : parseInt(req.body.start) , limit : parseInt(req.body.length), sort : {uniId : sortingType}};
    
-        issueBookes.find(query , {} , params , function (err , data)
-        {
+        issueBookes.find(query , {} , params , function (err , data) {
             if(err)
                 console.log(err);
             else {
-                issueBookes.countDocuments(query, function(err , filteredCount)
-                {
+                issueBookes.countDocuments(query, function(err , filteredCount)  {
                     if(err)
                         console.log(err);
                     else {
-                        issueBookes.countDocuments(function (err, totalCount)
-                        {
+                        issueBookes.countDocuments(function (err, totalCount)  {
                             if(err)
                                 console.log(err);
                             else
@@ -500,57 +463,19 @@ exports.showIssuedBooks = (req, res) => {
 }
 
 exports.updateIssuedBookDetails = (req,res) => {
-        issueBookes.updateOne( { "_id" : req.body._id}, {$set : req.body } , function(err,result)
-        {
-          if(err)
+        issueBookes.updateOne( { "_id" : req.body._id}, {$set : req.body } , function(err,result) {
+        if(err)
           throw err
-          else
+        else
             res.send("DATA UPDATED SUCCESFULLY")
         })
 }
 
-exports.totalNoofUsers = (req, res) => {
-          users.countDocuments(function(e,count){
-                res.send(JSON.stringify(count));
-   });
-}
-
-exports.totalNoofBooks = (req, res) => {
-          books.countDocuments(function(e,count){
-                res.send(JSON.stringify(count));
-     });
-}
-
-exports.totalNoofCat = (req, res) => {
-          category.countDocuments(function(e,count){
-                res.send(JSON.stringify(count));
-   });
-}
-
-exports.totalissuedBooks = (req, res) => {
-          issueBookes.countDocuments(function(e,count){
-                res.send(JSON.stringify(count));
-   });
-}
-
-exports.totalNoofAuthors = (req, res) => {
-          authors.countDocuments(function(e,count){
-                res.send(JSON.stringify(count));
-   });
-}
-
-exports.totalissuedBooksToUser = (req, res) => {
-          issueBookes.countDocuments({uniId: req.session.uniId}, function(e,count){
-                res.send(JSON.stringify(count));
-   });
-}
-
 exports.getIssuedBookData = (req, res) => {
-    issueBookes.find({}, function(error,result)
-    {
-        if(error)
+    issueBookes.find({}, function(error,result){
+      if(error)
         throw error;
-        else
+      else
           res.send(JSON.stringify(result));
     })
 }

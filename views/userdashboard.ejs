@@ -39,7 +39,7 @@
     function fetchNumbers() {
 
     var request = new XMLHttpRequest();
-    request.open('GET','/admin/totalissuedBooksToUser');
+    request.open('GET','/user/totalissuedBooksToUser');
     request.send();
     request.onload = function() {
         document.getElementById('totalissuedBooksToUser').innerHTML = JSON.parse(request.responseText);

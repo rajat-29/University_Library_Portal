@@ -1,6 +1,6 @@
 function checkSession(req, res, next) {
 
-  if(req.session.role == "Admin" || req.session.role == "Staff") {
+  if(req.session.role == "Admin" || req.session.role == "User") {
     next();
   }
   else {

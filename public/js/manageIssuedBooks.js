@@ -27,35 +27,9 @@ $(document).ready(function() {
       {
         "data" : "fine", "orderable": false
       },
-      {
-        "data" : null, "orderable": false
-      },
       ],
-      "columnDefs": [{
-                "targets": -1,
-
-                "render": function (data, type, row, meta) {
-                   return '</span><span class="btn btn-danger btn-sm emailbtn actionbtns" id="delete" onclick=deleteTag("'+row._id+'")><i class="fas fa-trash"></i></span>';    
-
-          }
-        }],
     });
-  });
-
-function deleteTag(ides) {
-
-  $(document).on("click", "#delete", function() {
-    
-    var filename = '/admin/issuedBook/' + ides;
-            
-    var request = new XMLHttpRequest();
-    request.open('DELETE',filename);
-    request.send()
-    request.addEventListener("load",function(event) {
-      table.ajax.reload(null, false);
-    });  
-  })
-}
+});
 
 function updatesFines() {
 
